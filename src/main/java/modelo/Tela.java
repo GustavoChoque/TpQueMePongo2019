@@ -1,5 +1,5 @@
 package modelo;
 
 public enum Tela {
-	ALGODON,SEDA,LINO
+	ALGODON,SEDA,LINO,CUERO
 }
