@@ -9,7 +9,7 @@ public class Prenda {
 	public Color colorSecundario;
 	
 	
-	public Prenda(Categoria cat,Tela tel, Tipo tip, Color primario) {
+	public Prenda(Categoria cat,Tipo tip, Tela tel, Color primario) {
 		this.categoria = cat;
 		this.tela = tel;
 		this.tipo = tip;
