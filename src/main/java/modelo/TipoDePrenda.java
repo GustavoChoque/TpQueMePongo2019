@@ -3,18 +3,30 @@ package modelo;
 public class TipoDePrenda{
 	
 	Categoria categoria;
+	String nombre;
 	
-	public TipoDePrenda(Categoria cat) {
+	public TipoDePrenda(Categoria cat,String nombre) {
 		this.categoria = cat;
+		this.nombre=nombre;
 	}
 	
 	
 	// Prendas conocidas:
 	
-	static TipoDePrenda Zapato = new TipoDePrenda(Categoria.CALZADO);
-	static TipoDePrenda Ojotas = new TipoDePrenda(Categoria.CALZADO);
-	static TipoDePrenda Camisa = new TipoDePrenda(Categoria.PARTE_SUPERIOR);
-	static TipoDePrenda Remera = new TipoDePrenda(Categoria.PARTE_SUPERIOR);
-	static TipoDePrenda Pantalon = new TipoDePrenda(Categoria.PARTE_INFERIOR);
+	public static TipoDePrenda Zapato = new TipoDePrenda(Categoria.CALZADO,"zapato");
+	public static TipoDePrenda Ojotas = new TipoDePrenda(Categoria.CALZADO,"ojota");
+	public static TipoDePrenda Camisa = new TipoDePrenda(Categoria.PARTE_SUPERIOR,"camisa");
+	public static TipoDePrenda Remera = new TipoDePrenda(Categoria.PARTE_SUPERIOR,"remera");
+	public static TipoDePrenda Pantalon = new TipoDePrenda(Categoria.PARTE_INFERIOR,"pantalon");
+	public static TipoDePrenda Short = new TipoDePrenda(Categoria.PARTE_INFERIOR,"short");
+	public static TipoDePrenda AnteojosDeSol = new TipoDePrenda(Categoria.ACCESORIO,"AnteojosDeSol");
+
+	public Categoria getCategoria() {
+		return categoria;
+	}
+
+	public String getNombre() {
+		return nombre;
+	}
 	
 }
