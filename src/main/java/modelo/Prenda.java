@@ -1,19 +1,19 @@
 package modelo;
 
+import java.util.Objects;
+
 public class Prenda {
 
-	public Categoria categoria;
 	public Tela tela;
 	public TipoDePrenda tipo;
 	public Color colorPrimario;
 	public Color colorSecundario;
 	
 	
-	public Prenda(Categoria cat,TipoDePrenda tip, Tela tel, Color primario) {
-		this.categoria = cat;
-		this.tela = tel;
-		this.tipo = tip;
-		this.colorPrimario = primario;
+	public Prenda(Categoria cat, Tela tel, Color primario) {
+		this.tipo = new TipoDePrenda(cat);
+		this.tela = Objects.requireNonNull(tel, "Debe especificar la tela");
+		this.colorPrimario = Objects.requireNonNull(primario, "El color es obligatorio");
 	}
 	
 	public void setColorSecundario(Color colour) {
