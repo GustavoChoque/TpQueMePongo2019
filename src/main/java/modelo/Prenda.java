@@ -4,12 +4,12 @@ public class Prenda {
 
 	public Categoria categoria;
 	public Tela tela;
-	public Tipo tipo;
+	public TipoDePrenda tipo;
 	public Color colorPrimario;
 	public Color colorSecundario;
 	
 	
-	public Prenda(Categoria cat,Tipo tip, Tela tel, Color primario) {
+	public Prenda(Categoria cat,TipoDePrenda tip, Tela tel, Color primario) {
 		this.categoria = cat;
 		this.tela = tel;
 		this.tipo = tip;
