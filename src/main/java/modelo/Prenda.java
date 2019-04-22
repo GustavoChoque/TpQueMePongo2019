@@ -9,7 +9,6 @@ public class Prenda {
 	public Color colorPrimario;
 	public Color colorSecundario;
 	
-	
 	public Prenda(Categoria cat, Tela tel, Color primario) {
 		this.tipo = new TipoDePrenda(cat);
 		this.tela = Objects.requireNonNull(tel, "Debe especificar la tela");
