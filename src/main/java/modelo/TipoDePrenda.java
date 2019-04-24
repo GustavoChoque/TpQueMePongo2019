@@ -20,7 +20,8 @@ public class TipoDePrenda{
 	public static TipoDePrenda Pantalon = new TipoDePrenda(Categoria.PARTE_INFERIOR,"pantalon");
 	public static TipoDePrenda Short = new TipoDePrenda(Categoria.PARTE_INFERIOR,"short");
 	public static TipoDePrenda AnteojosDeSol = new TipoDePrenda(Categoria.ACCESORIO,"AnteojosDeSol");
-		
+	public static TipoDePrenda SinAccesorios = new TipoDePrenda(Categoria.ACCESORIO, "Sin accesorios");
+	
 	public Categoria getCategoria() {
 		return categoria;
 	}

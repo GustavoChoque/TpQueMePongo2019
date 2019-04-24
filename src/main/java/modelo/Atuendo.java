@@ -7,14 +7,15 @@ public class Atuendo {
 	Prenda calzado;
 	Prenda accesorio;
 	
-	public Atuendo(Prenda sup, Prenda inf, Prenda cal) {
+	public Atuendo(Prenda sup, Prenda inf, Prenda cal, Prenda acc) {
 		this.prendaSuperior = sup;
 		this.prendaInferior = inf;
 		this.calzado = cal;
+		this.accesorio = acc;
 	}
 	
-	public void setAccesorio(Prenda acc) {
-		this.accesorio = acc;
+	public Prenda getAccesorio() {
+		return this.accesorio;
 	}
 	
 	public Prenda getSuperior() {

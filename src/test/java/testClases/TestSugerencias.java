@@ -44,6 +44,7 @@ public class TestSugerencias {
 		Prenda sup = primerSugerencia.getSuperior();
 		Prenda inf = primerSugerencia.getInferior();
 		Prenda calz = primerSugerencia.getCalzado();
+		Prenda acc = primerSugerencia.getAccesorio();
 		
 		
 		assertEquals("La parte superior es de tipo superior", Categoria.PARTE_SUPERIOR, sup.getCategortia());
@@ -52,6 +53,7 @@ public class TestSugerencias {
 		
 		assertEquals("La parte calzado es de tipo calzado", Categoria.CALZADO, calz.getCategortia());
 		
+		assertEquals("La parte accesorio es de tipo accesorio", Categoria.ACCESORIO, acc.getCategortia());
 	}
 	
 	
