@@ -31,10 +31,10 @@ public class TestUsuario {
 		g2=new Guardaropa();
 		g3=new Guardaropa();
 		
-		g1.getPrendas().add(p1);
-		g1.getPrendas().add(p4);
-		g2.getPrendas().add(p2);
-		g3.getPrendas().add(p3);
+		g1.agregarPrendaSuperior(p1);
+		g1.agregarCalzado(p4);
+		g2.agregarPrendaSuperior(p2);
+		g3.agregarPrendaInferior(p3);
 		
 			
 	}
