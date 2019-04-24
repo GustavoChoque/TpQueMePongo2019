@@ -33,10 +33,18 @@ public class Guardaropa {
 		this.calzados.add(p);
 	}
 	
+	public void agregarAccesorio(Prenda acc) {
+		this.accesorios.add(acc);
+	}
+	
 	public  List<Atuendo>  generarSugerencia() {
-		if(prendasSuperiores.isEmpty() || prendasInferiores.isEmpty() || calzados.isEmpty()) {
+		if(!this.puedeGenerarSugerencia()) {
 			throw new NullPointerException("Debe tener al menos una prenda inferior, superior y calzado para generar sugerencia");
 		}
 		return Lists.cartesianProduct(prendasSuperiores,prendasInferiores,calzados,accesorios).stream().map((atuendo) -> new Atuendo(atuendo.get(0),atuendo.get(1),atuendo.get(2),atuendo.get(3))).collect(Collectors.toList());
+	}
+	
+	public boolean puedeGenerarSugerencia() {
+		return !(prendasSuperiores.isEmpty() || prendasInferiores.isEmpty() || calzados.isEmpty());
 	}
 }	
