@@ -23,6 +23,13 @@ public class Usuario {
 		guardaropas.stream().filter(guardaropa->guardaropa.puedeGenerarSugerencia()).collect(Collectors.toList()).forEach(guardaropa->todosLosAtuendos.addAll(guardaropa.generarSugerencia ()));
 		return todosLosAtuendos;
 		
-		
+	}
+	
+	public int cuantosAtuendosTengo() {
+		return this.getTodosLosAtuendos().size();
+	}
+	
+	public int cuantosGuardarropasTengo() {
+		return guardaropas.size();
 	}
 }
