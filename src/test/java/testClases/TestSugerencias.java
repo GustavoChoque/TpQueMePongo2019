@@ -7,6 +7,7 @@ import java.util.List;
 import org.junit.Before;
 import org.junit.Test;
 
+import exceptions.GuardarropaIncompletoException;
 import modelo.Atuendo;
 import modelo.Categoria;
 import modelo.Color;
@@ -58,7 +59,7 @@ public class TestSugerencias {
 	}
 	
 	
-	@Test(expected=NullPointerException.class)
+	@Test(expected=GuardarropaIncompletoException.class)
 	public void testGuardaropasIncompleto() {
 		Guardaropa g2 = new Guardaropa();
 		g2.agregarPrendaSuperior(cam_az);

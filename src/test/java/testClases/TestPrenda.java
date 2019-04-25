@@ -9,6 +9,7 @@ import java.util.List;
 import org.junit.Before;
 import org.junit.Test;
 
+import exceptions.TelaInvalidaException;
 import modelo.Categoria;
 import modelo.Color;
 import modelo.Prenda;
@@ -56,7 +57,7 @@ public class TestPrenda {
 		guardaropa.add(p1);
 		assertTrue("Categoria",p1.getCategoria().equals(Categoria.PARTE_INFERIOR));
 	}
-	@Test(expected=RuntimeException.class)
+	@Test(expected=TelaInvalidaException.class)
 	public void testTelaInconsistente() {
 		p1=new Prenda(TiposDePrendas.Camisa,Tela.CUERO,Color.AZUL);
 		

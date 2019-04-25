@@ -16,11 +16,11 @@ public class Prenda {
 	
 	public Prenda(TipoDePrenda tipo, Tela tel, Color primario) {
 		this.tipo = Objects.requireNonNull(tipo,"Debe especificar el tipo de prenda");
-		Objects.requireNonNull(tel, "Debe especificar la tela");
 		this.colorPrimario = Objects.requireNonNull(primario, "El color primario es obligatorio");
-		if(!tipo.verificarTela(tel)) ;
-		this.tela= tel;
+		tipo.validarTela(tel,this);
 	}
+	
+	
 	public void setColorSecundario(Color colour) {
 		if(!this.colorPrimario.equals(colour)){
 		this.colorSecundario = colour;
@@ -36,6 +36,10 @@ public class Prenda {
 	public String getTipoDePrenda(){
 		
 		return this.tipo.getNombre();
+	}
+	
+	public void setTela(Tela telita) {
+		this.tela = telita;
 	}
 
 		
