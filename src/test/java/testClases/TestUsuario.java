@@ -12,6 +12,7 @@ import modelo.Prenda;
 import modelo.Tela;
 import modelo.TipoDePrenda;
 import modelo.Usuario;
+import repositorios.TiposDePrendas;
 
 public class TestUsuario {
 	Usuario u1,u2;
@@ -21,13 +22,13 @@ public class TestUsuario {
 	@Before
 	public void setUp(){
 		
-		p1=new Prenda(TipoDePrenda.Remera,Tela.ALGODON, Color.ROJO);
-		p2=new Prenda(TipoDePrenda.Camisa,Tela.ALGODON, Color.AZUL);
+		p1=new Prenda(TiposDePrendas.Remera,Tela.ALGODON, Color.ROJO);
+		p2=new Prenda(TiposDePrendas.Camisa,Tela.ALGODON, Color.AZUL);
 		p2.setColorSecundario(Color.ROJO);
-		p3=new Prenda(TipoDePrenda.Short,Tela.ALGODON, Color.AMARILLO);
+		p3=new Prenda(TiposDePrendas.Short,Tela.ALGODON, Color.AMARILLO);
 		p3.setColorSecundario(Color.VERDE);
-		p4=new Prenda(TipoDePrenda.Zapato,Tela.CUERO, Color.NEGRO);
-		p5=new Prenda(TipoDePrenda.AnteojosDeSol,Tela.NINGUNO,Color.NEGRO);
+		p4=new Prenda(TiposDePrendas.Zapato,Tela.CUERO, Color.NEGRO);
+		p5=new Prenda(TiposDePrendas.AnteojosDeSol,Tela.NINGUNO,Color.NEGRO);
 		g1=new Guardaropa();
 		g2=new Guardaropa();
 		g3=new Guardaropa();

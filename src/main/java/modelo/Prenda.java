@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+import exceptions.TelaInvalidaException;
+
 public class Prenda {
 
 	public Tela tela;
@@ -15,9 +17,9 @@ public class Prenda {
 	public Prenda(TipoDePrenda tipo, Tela tel, Color primario) {
 		this.tipo = Objects.requireNonNull(tipo,"Debe especificar el tipo de prenda");
 		Objects.requireNonNull(tel, "Debe especificar la tela");
-		if(!tipo.verificarTela(tel)) throw new RuntimeException("El tipo de tela no existe para esta prenda");
-		this.tela= tel;
 		this.colorPrimario = Objects.requireNonNull(primario, "El color primario es obligatorio");
+		if(!tipo.verificarTela(tel)) ;
+		this.tela= tel;
 	}
 	public void setColorSecundario(Color colour) {
 		if(!this.colorPrimario.equals(colour)){

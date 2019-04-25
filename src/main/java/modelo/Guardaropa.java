@@ -6,6 +6,8 @@ import java.util.stream.Collectors;
 
 import com.google.common.collect.Lists;
 
+import repositorios.TiposDePrendas;
+
 public class Guardaropa {
 	List<Prenda> prendasSuperiores;
 	List<Prenda> prendasInferiores;
@@ -18,7 +20,7 @@ public class Guardaropa {
 		prendasInferiores = new ArrayList<Prenda>();
 		calzados = new ArrayList<Prenda>();
 		accesorios = new ArrayList<Prenda>();
-		accesorios.add(new Prenda(TipoDePrenda.SinAccesorios, Tela.NINGUNO, Color.NINGUNO));
+		accesorios.add(new Prenda(TiposDePrendas.SinAccesorios, Tela.NINGUNO, Color.NINGUNO));
 	}
 	
 	public void agregarPrendaSuperior(Prenda p) {

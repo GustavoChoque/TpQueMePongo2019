@@ -14,6 +14,7 @@ import modelo.Guardaropa;
 import modelo.Prenda;
 import modelo.Tela;
 import modelo.TipoDePrenda;
+import repositorios.TiposDePrendas;
 
 public class TestSugerencias {
 	
@@ -23,10 +24,10 @@ public class TestSugerencias {
 	@Before
 	public void setUp(){
 		
-	rem_roj=new Prenda(TipoDePrenda.Remera,Tela.ALGODON, Color.ROJO);
-	cam_az=new Prenda(TipoDePrenda.Camisa,Tela.ALGODON, Color.AZUL);
-	sho_ama=new Prenda(TipoDePrenda.Short,Tela.ALGODON, Color.AMARILLO);
-	zap_neg=new Prenda(TipoDePrenda.Zapato,Tela.CUERO, Color.NEGRO);
+	rem_roj=new Prenda(TiposDePrendas.Remera,Tela.ALGODON, Color.ROJO);
+	cam_az=new Prenda(TiposDePrendas.Camisa,Tela.ALGODON, Color.AZUL);
+	sho_ama=new Prenda(TiposDePrendas.Short,Tela.ALGODON, Color.AMARILLO);
+	zap_neg=new Prenda(TiposDePrendas.Zapato,Tela.CUERO, Color.NEGRO);
 	g1=new Guardaropa();
 	g1.agregarPrendaSuperior(rem_roj);
 	g1.agregarCalzado(zap_neg);
@@ -69,7 +70,7 @@ public class TestSugerencias {
 	
 	@Test
 	public void generaTodasLasCombinaciones() {
-		Prenda pant_azul = new Prenda(TipoDePrenda.Pantalon,Tela.ALGODON,Color.AZUL);
+		Prenda pant_azul = new Prenda(TiposDePrendas.Pantalon,Tela.ALGODON,Color.AZUL);
 		g1.agregarPrendaInferior(pant_azul);
 		
 		assertEquals("2 superiores, 2 inferiores y 1 calzado deberian generar 4 atuendos",4,g1.generarSugerencia().size());

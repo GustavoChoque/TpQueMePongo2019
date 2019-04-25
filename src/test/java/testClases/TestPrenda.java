@@ -14,6 +14,7 @@ import modelo.Color;
 import modelo.Prenda;
 import modelo.Tela;
 import modelo.TipoDePrenda;
+import repositorios.TiposDePrendas;
 
 
 public class TestPrenda {
@@ -30,34 +31,34 @@ public class TestPrenda {
 	
 	@Test
 	public void testCreacionPrendaValida() {
-		p1=new Prenda(TipoDePrenda.Camisa,Tela.ALGODON,Color.AZUL);
+		p1=new Prenda(TiposDePrendas.Camisa,Tela.ALGODON,Color.AZUL);
 		guardaropa.add(p1);
 		assertEquals("CargarRopa",1,guardaropa.size(),0);
 	}
 	
 	@Test(expected=RuntimeException.class)
 	public void testMismoColor() {
-		p2=new Prenda(TipoDePrenda.Remera,Tela.ALGODON,Color.AZUL);
+		p2=new Prenda(TiposDePrendas.Remera,Tela.ALGODON,Color.AZUL);
 		p2.setColorSecundario(Color.AZUL);
 		
 	}
 	
 	@Test
 	public void testTipoPrenda() {
-		p1=new Prenda(TipoDePrenda.Remera,Tela.SEDA,Color.AZUL);
+		p1=new Prenda(TiposDePrendas.Remera,Tela.SEDA,Color.AZUL);
 		guardaropa.add(p1);
 		assertTrue("Tipo de Prenda",p1.getTipoDePrenda()=="remera");
 	}
 	
 	@Test
 	public void testCategoria() {
-		p1=new Prenda(TipoDePrenda.Pantalon,Tela.SEDA,Color.AZUL);
+		p1=new Prenda(TiposDePrendas.Pantalon,Tela.SEDA,Color.AZUL);
 		guardaropa.add(p1);
 		assertTrue("Categoria",p1.getCategoria().equals(Categoria.PARTE_INFERIOR));
 	}
 	@Test(expected=RuntimeException.class)
 	public void testTelaInconsistente() {
-		p1=new Prenda(TipoDePrenda.Camisa,Tela.CUERO,Color.AZUL);
+		p1=new Prenda(TiposDePrendas.Camisa,Tela.CUERO,Color.AZUL);
 		
 	}
 	
