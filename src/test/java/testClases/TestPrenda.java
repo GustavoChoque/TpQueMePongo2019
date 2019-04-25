@@ -53,7 +53,7 @@ public class TestPrenda {
 	public void testCategoria() {
 		p1=new Prenda(TipoDePrenda.Pantalon,Tela.SEDA,Color.AZUL);
 		guardaropa.add(p1);
-		assertTrue("Categoria",p1.getCategortia().equals(Categoria.PARTE_INFERIOR));
+		assertTrue("Categoria",p1.getCategoria().equals(Categoria.PARTE_INFERIOR));
 	}
 	
 }

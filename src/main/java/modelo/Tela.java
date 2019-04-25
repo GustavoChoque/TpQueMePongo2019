@@ -1,8 +1,6 @@
 package modelo;
 
-import java.util.List;
-
 public enum Tela {
-	ALGODON,SEDA,CUERO,NINGUNO;
+	ALGODON,SEDA,CUERO,NINGUNO, LINO;
 }
 

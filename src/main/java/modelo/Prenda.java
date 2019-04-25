@@ -13,11 +13,11 @@ public class Prenda {
 	
 	
 	public Prenda(TipoDePrenda tipo, Tela tel, Color primario) {
-		this.tipo = Objects.requireNonNull(tipo,"Debe especificar la tipo");
+		this.tipo = Objects.requireNonNull(tipo,"Debe especificar el tipo de prenda");
 		Objects.requireNonNull(tel, "Debe especificar la tela");
-		if(!tipo.verificarTela(tel)) throw new RuntimeException("El tipo de tela no exite para esta prenda");
+		if(!tipo.verificarTela(tel)) throw new RuntimeException("El tipo de tela no existe para esta prenda");
 		this.tela= tel;
-		this.colorPrimario = Objects.requireNonNull(primario, "El color es obligatorio");
+		this.colorPrimario = Objects.requireNonNull(primario, "El color primario es obligatorio");
 	}
 	public void setColorSecundario(Color colour) {
 		if(!this.colorPrimario.equals(colour)){
@@ -27,7 +27,7 @@ public class Prenda {
 		}
 	}
 	
-	public Categoria getCategortia(){
+	public Categoria getCategoria(){
 		
 		return this.tipo.getCategoria();
 	}
