@@ -55,5 +55,10 @@ public class TestPrenda {
 		guardaropa.add(p1);
 		assertTrue("Categoria",p1.getCategoria().equals(Categoria.PARTE_INFERIOR));
 	}
+	@Test(expected=RuntimeException.class)
+	public void testTelaInconsistente() {
+		p1=new Prenda(TipoDePrenda.Camisa,Tela.CUERO,Color.AZUL);
+		
+	}
 	
 }
