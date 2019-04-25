@@ -6,6 +6,7 @@ import java.util.stream.Collectors;
 
 import com.google.common.collect.Lists;
 
+import exceptions.GuardarropaIncompletoException;
 import repositorios.TiposDePrendas;
 
 public class Guardaropa {
@@ -41,7 +42,7 @@ public class Guardaropa {
 	
 	public  List<Atuendo>  generarSugerencia() {
 		if(!this.puedeGenerarSugerencia()) {
-			throw new NullPointerException("Debe tener al menos una prenda inferior, superior y calzado para generar sugerencia");
+			throw new GuardarropaIncompletoException("Debe tener al menos una prenda inferior, superior y calzado para generar sugerencia");
 		}
 		return Lists.cartesianProduct(prendasSuperiores,prendasInferiores,calzados,accesorios).stream().map((atuendo) -> new Atuendo(atuendo.get(0),atuendo.get(1),atuendo.get(2),atuendo.get(3))).collect(Collectors.toList());
 	}
