@@ -24,7 +24,7 @@ public class TestSugerencias {
 	public void setUp(){
 		
 	rem_roj=new Prenda(TipoDePrenda.Remera,Tela.ALGODON, Color.ROJO);
-	cam_az=new Prenda(TipoDePrenda.Camisa,Tela.LINO, Color.AZUL);
+	cam_az=new Prenda(TipoDePrenda.Camisa,Tela.ALGODON, Color.AZUL);
 	sho_ama=new Prenda(TipoDePrenda.Short,Tela.ALGODON, Color.AMARILLO);
 	zap_neg=new Prenda(TipoDePrenda.Zapato,Tela.CUERO, Color.NEGRO);
 	g1=new Guardaropa();
