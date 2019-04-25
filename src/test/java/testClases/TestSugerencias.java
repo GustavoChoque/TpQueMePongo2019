@@ -24,7 +24,7 @@ public class TestSugerencias {
 	public void setUp(){
 		
 	rem_roj=new Prenda(TipoDePrenda.Remera,Tela.ALGODON, Color.ROJO);
-	cam_az=new Prenda(TipoDePrenda.Camisa,Tela.LINO, Color.AZUL);
+	cam_az=new Prenda(TipoDePrenda.Camisa,Tela.ALGODON, Color.AZUL);
 	sho_ama=new Prenda(TipoDePrenda.Short,Tela.ALGODON, Color.AMARILLO);
 	zap_neg=new Prenda(TipoDePrenda.Zapato,Tela.CUERO, Color.NEGRO);
 	g1=new Guardaropa();
@@ -47,13 +47,13 @@ public class TestSugerencias {
 		Prenda acc = primerSugerencia.getAccesorio();
 		
 		
-		assertEquals("La parte superior es de tipo superior", Categoria.PARTE_SUPERIOR, sup.getCategortia());
+		assertEquals("La parte superior es de tipo superior", Categoria.PARTE_SUPERIOR, sup.getCategoria());
 		
-		assertEquals("La parte inferior es de tipo inferior", Categoria.PARTE_INFERIOR, inf.getCategortia());
+		assertEquals("La parte inferior es de tipo inferior", Categoria.PARTE_INFERIOR, inf.getCategoria());
 		
-		assertEquals("La parte calzado es de tipo calzado", Categoria.CALZADO, calz.getCategortia());
+		assertEquals("La parte calzado es de tipo calzado", Categoria.CALZADO, calz.getCategoria());
 		
-		assertEquals("La parte accesorio es de tipo accesorio", Categoria.ACCESORIO, acc.getCategortia());
+		assertEquals("La parte accesorio es de tipo accesorio", Categoria.ACCESORIO, acc.getCategoria());
 	}
 	
 	
