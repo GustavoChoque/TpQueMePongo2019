@@ -1,4 +1,4 @@
-package sevicios;
+package servicios;
 
 public class DatosPronosticoDeUnaFecha {
 	int dt;

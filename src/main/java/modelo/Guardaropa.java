@@ -10,7 +10,37 @@ import exceptions.GuardarropaIncompletoException;
 import repositorios.TiposDePrendas;
 
 public class Guardaropa {
+	
+	List<Prenda> prendas;
+	
 	List<Prenda> prendasSuperiores;
+	List<Prenda> prendasInferiores;
+	List<Prenda> calzados;
+	List<Prenda> accesorios;
+	
+	public Guardaropa() {
+		prendas=new ArrayList<Prenda>();
+	}
+	public List<Prenda> getPrendas() {
+		return prendas;
+	}
+	
+	private void separarPrendas(List<Prenda> prendas){
+		prendasSuperiores=prendas.stream().filter(p->p.getCategoria().equals(Categoria.PARTE_SUPERIOR)).collect(Collectors.toList());
+		prendasInferiores=prendas.stream().filter(p->p.getCategoria().equals(Categoria.PARTE_INFERIOR)).collect(Collectors.toList());
+		calzados=prendas.stream().filter(p->p.getCategoria().equals(Categoria.CALZADO)).collect(Collectors.toList());
+		accesorios=prendas.stream().filter(p->p.getCategoria().equals(Categoria.ACCESORIO)).collect(Collectors.toList());
+		accesorios.add(new Prenda(new TipoDePrenda(Categoria.ACCESORIO, "SinAccesorio"),Color.NINGUNO,Tela.NINGUNO));
+
+	}
+	
+	public boolean puedeGenerarSugerencia() {
+		separarPrendas(this.prendas);
+		return !(prendasSuperiores.isEmpty() || prendasInferiores.isEmpty() || calzados.isEmpty());
+	}
+	
+	
+	/*List<Prenda> prendasSuperiores;
 	List<Prenda> prendasInferiores;
 	List<Prenda> calzados;
 	List<Prenda> accesorios;
@@ -49,5 +79,5 @@ public class Guardaropa {
 	
 	public boolean puedeGenerarSugerencia() {
 		return !(prendasSuperiores.isEmpty() || prendasInferiores.isEmpty() || calzados.isEmpty());
-	}
+	}*/
 }	

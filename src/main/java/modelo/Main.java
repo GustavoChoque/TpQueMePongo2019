@@ -2,11 +2,13 @@ package modelo;
 
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
+import java.util.ArrayList;
+import java.util.List;
 
 import repositorios.RepositorioTipoDePrendaTela;
 import repositorios.RepositorioTiposDePrenda;
-import sevicios.ProveedorClima;
-import sevicios.ProveedorOpenWeather;
+import servicios.ProveedorClima;
+import servicios.ProveedorOpenWeather;
 
 public class Main {
 
@@ -22,6 +24,9 @@ public class Main {
 		
 		TipoDePrenda t1,t2,t3,t4,t5,t6,t7,t8;
 		Prenda p1,p2,p3,p4,p5,p6;
+		List<Prenda> prendas=new ArrayList<Prenda>();
+		List<Atuendo> atuendos=new ArrayList<Atuendo>();
+		
 		
 		t1=new TipoDePrenda(Categoria.PARTE_SUPERIOR, "remera");
 		t2=new TipoDePrenda(Categoria.PARTE_SUPERIOR, "campera");
@@ -41,6 +46,19 @@ public class Main {
 		
 		//las prendas se crearon, sin ningun problema, para ver 
 		//la excepcion cambiar el nombre en tipoDeprenda
+		
+		prendas.add(p1);
+		prendas.add(p2);
+		prendas.add(p3);
+		prendas.add(p4);
+		prendas.add(p5);
+		prendas.add(p6);
+		
+		Sugeridor su=new Sugeridor(new ProveedorOpenWeather());
+		atuendos=su.sugerir(prendas);
+		atuendos.forEach(a->System.out.println(a.getSuperior().getTipoDePrenda()+" "+a.getInferior().getTipoDePrenda()+"--"+a.getCalzado().getTipoDePrenda()+"--"+a.getAccesorio().getTipoDePrenda()));
+		
+		
 		
 	}
 	

@@ -40,14 +40,23 @@ public class TestUsuario {
 		g2=new Guardaropa();
 		g3=new Guardaropa();
 		
-		g1.agregarPrendaSuperior(p1);
+		/*g1.agregarPrendaSuperior(p1);
 		g1.agregarCalzado(p4);
 		g1.agregarPrendaInferior(p3);
 		g1.agregarAccesorio(p5);
 		g2.agregarPrendaSuperior(p2);
 		g2.agregarPrendaInferior(p3);
 		g2.agregarCalzado(p4);
-		g3.agregarPrendaInferior(p3);
+		g3.agregarPrendaInferior(p3);*/
+		
+		
+		g1.getPrendas().add(p1);
+		g1.getPrendas().add(p4);
+		g1.getPrendas().add(p3);
+		g2.getPrendas().add(p2);
+		g2.getPrendas().add(p3);
+		g2.getPrendas().add(p4);
+		g3.getPrendas().add(p3);
 		
 			
 	}
@@ -69,7 +78,7 @@ public class TestUsuario {
 		u1.agregarGuardaropa(g2);
 		u1.agregarGuardaropa(g3);
 		//el usuario va a terner 2 atuendos de g1, 1 de g2 y 0 de g3. Si tiene un guardaropas que no puede generar atuendos no debería cortar.
-		assertEquals("Usuario con atuendos generados por diferentes guardarropas",3,u1.cuantosAtuendosTengo());
+		assertEquals("Usuario con atuendos generados por diferentes guardarropas",2,u1.cuantosAtuendosTengo());
 	}
 	
 	

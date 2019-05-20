@@ -2,30 +2,35 @@ package testClases;
 
 import static org.junit.Assert.assertEquals;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.junit.Before;
 import org.junit.Test;
 
+import exceptions.FaltanteDePrendasException;
 import exceptions.GuardarropaIncompletoException;
 import modelo.Atuendo;
 import modelo.Categoria;
 import modelo.Color;
 import modelo.Guardaropa;
 import modelo.Prenda;
+import modelo.Sugeridor;
 import modelo.Tela;
 import modelo.TipoDePrenda;
 import repositorios.TiposDePrendas;
+import servicios.ProveedorOpenWeather;
 
 public class TestSugerencias {
 	TipoDePrenda t1,t2,t3,t4,t5;
 	Guardaropa g1;
 	Prenda rem_roj, cam_az, sho_ama, zap_neg;
-
+	List<Prenda> prendas,prendas2;
 	@Before
 	public void setUp(){
 	
-		
+		prendas=new ArrayList<Prenda>();
+		prendas2=new ArrayList<Prenda>();
 		t1=new TipoDePrenda(Categoria.PARTE_SUPERIOR, "remera");
 		t2=new TipoDePrenda(Categoria.PARTE_SUPERIOR, "camisa");
 		t3=new TipoDePrenda(Categoria.PARTE_INFERIOR, "short");
@@ -35,15 +40,26 @@ public class TestSugerencias {
 	cam_az=new Prenda(t2, Color.AZUL,Tela.ALGODON);
 	sho_ama=new Prenda(t3, Color.AMARILLO,Tela.ALGODON);
 	zap_neg=new Prenda(t4, Color.NEGRO,Tela.CUERO);
+	prendas.add(rem_roj);
+	prendas.add(cam_az);
+	prendas.add(sho_ama);
+	prendas.add(zap_neg);
+	
+	prendas2.add(rem_roj);
+	prendas2.add(cam_az);
+	prendas2.add(sho_ama);
+	
+	
+	/*
 	g1=new Guardaropa();
 	g1.agregarPrendaSuperior(rem_roj);
 	g1.agregarCalzado(zap_neg);
 	g1.agregarPrendaSuperior(cam_az);
 	g1.agregarPrendaInferior(sho_ama);
-		
+		*/
 			
 	}
-	
+	/*
 	@Test
 	public void testSugerenciaValida(){
 		
@@ -64,7 +80,6 @@ public class TestSugerencias {
 		assertEquals("La parte accesorio es de tipo accesorio", Categoria.ACCESORIO, acc.getCategoria());
 	}
 	
-	
 	@Test(expected=GuardarropaIncompletoException.class)
 	public void testGuardaropasIncompleto() {
 		Guardaropa g2 = new Guardaropa();
@@ -75,6 +90,8 @@ public class TestSugerencias {
 	}
 	
 	
+	
+	
 	@Test
 	public void generaTodasLasCombinaciones() {
 		t5=new TipoDePrenda(Categoria.PARTE_INFERIOR, "pantalon");
@@ -83,6 +100,22 @@ public class TestSugerencias {
 		
 		assertEquals("2 superiores, 2 inferiores y 1 calzado deberian generar 4 atuendos",4,g1.generarSugerencia().size());
 	}
+	*/
 	
 	
+	//Nota: luego cambiar a Mocks
+	@Test(expected=FaltanteDePrendasException.class)
+	public void testPrendasFaltantes() {
+		Sugeridor su=new Sugeridor(new ProveedorOpenWeather());
+		
+		List<Atuendo> sug = su.sugerir(prendas2);
+	}
+	@Test
+	public void generaTodasLasCombinaciones() {
+		t5=new TipoDePrenda(Categoria.PARTE_INFERIOR, "pantalon");
+		Prenda pant_azul = new Prenda(t5,Color.AZUL,Tela.ALGODON);
+		prendas.add(pant_azul);
+		Sugeridor su2=new Sugeridor(new ProveedorOpenWeather());
+		assertEquals("2 superiores, 2 inferiores y 1 calzado deberian generar 4 atuendos",4,su2.sugerir(prendas).size());
+	}
 }

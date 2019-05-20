@@ -1,4 +1,4 @@
-package sevicios;
+package servicios;
 
 import retrofit2.Call;
 import retrofit2.http.GET;
