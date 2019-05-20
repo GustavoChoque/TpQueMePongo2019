@@ -21,7 +21,7 @@ public class Guardaropa {
 		prendasInferiores = new ArrayList<Prenda>();
 		calzados = new ArrayList<Prenda>();
 		accesorios = new ArrayList<Prenda>();
-		accesorios.add(new Prenda(TiposDePrendas.SinAccesorios, Tela.NINGUNO, Color.NINGUNO));
+		accesorios.add(new Prenda(new TipoDePrenda(Categoria.ACCESORIO, "SinAccesorio"), Color.NINGUNO, Tela.NINGUNO));
 	}
 	
 	public void agregarPrendaSuperior(Prenda p) {

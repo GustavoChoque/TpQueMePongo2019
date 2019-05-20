@@ -5,7 +5,7 @@ import static org.junit.Assert.assertEquals;
 import org.junit.Before;
 import org.junit.Test;
 
-
+import modelo.Categoria;
 import modelo.Color;
 import modelo.Guardaropa;
 import modelo.Prenda;
@@ -18,17 +18,24 @@ public class TestUsuario {
 	Usuario u1,u2;
 	Guardaropa g1,g2,g3;
 	Prenda p1,p2,p3,p4,p5;
+	TipoDePrenda t1,t2,t3,t4,t5;
 	
 	@Before
 	public void setUp(){
 		
-		p1=new Prenda(TiposDePrendas.Remera,Tela.ALGODON, Color.ROJO);
-		p2=new Prenda(TiposDePrendas.Camisa,Tela.ALGODON, Color.AZUL);
+		t1=new TipoDePrenda(Categoria.PARTE_SUPERIOR, "remera");
+		t2=new TipoDePrenda(Categoria.PARTE_SUPERIOR, "camisa");
+		t3=new TipoDePrenda(Categoria.PARTE_INFERIOR, "short");
+		t4=new TipoDePrenda(Categoria.CALZADO, "zapato");
+		t5=new TipoDePrenda(Categoria.ACCESORIO, "anteojos");
+		
+		p1=new Prenda(t1, Color.ROJO,Tela.ALGODON);
+		p2=new Prenda(t2, Color.AZUL,Tela.ALGODON);
 		p2.setColorSecundario(Color.ROJO);
-		p3=new Prenda(TiposDePrendas.Short,Tela.ALGODON, Color.AMARILLO);
+		p3=new Prenda(t3, Color.AMARILLO,Tela.ALGODON);
 		p3.setColorSecundario(Color.VERDE);
-		p4=new Prenda(TiposDePrendas.Zapato,Tela.CUERO, Color.NEGRO);
-		p5=new Prenda(TiposDePrendas.AnteojosDeSol,Tela.NINGUNO,Color.NEGRO);
+		p4=new Prenda(t4, Color.NEGRO,Tela.CUERO);
+		p5=new Prenda(t5,Color.NEGRO,Tela.NINGUNO);
 		g1=new Guardaropa();
 		g2=new Guardaropa();
 		g3=new Guardaropa();
