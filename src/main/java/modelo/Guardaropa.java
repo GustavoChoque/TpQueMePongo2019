@@ -12,7 +12,7 @@ import repositorios.TiposDePrendas;
 public class Guardaropa {
 	
 	List<Prenda> prendas;
-	
+	//listas auxiliares para el metodo puedegenerarSugerencias()  
 	List<Prenda> prendasSuperiores;
 	List<Prenda> prendasInferiores;
 	List<Prenda> calzados;
