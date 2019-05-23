@@ -1,19 +1,25 @@
 package modelo;
 
+import java.awt.Graphics2D;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+
+import javax.imageio.ImageIO;
 
 import exceptions.TelaInvalidaException;
 import repositorios.RepositorioTipoDePrendaTela;
 
 public class Prenda {
 
-	public Tela tela;
-	public TipoDePrenda tipo;
-	public Color colorPrimario;
-	public Color colorSecundario;
-	
+	private Tela tela;
+	private TipoDePrenda tipo;
+	private Color colorPrimario;
+	private Color colorSecundario;
+	private String imagen; 
 	
 	public Prenda(TipoDePrenda tipo, Color primario, Tela tel) {
 		
@@ -66,6 +72,39 @@ public class Prenda {
 		
 		return this.tipo.getNombre();
 	}
+	
+	public void cargarImagen(String path){
+		//talvez tambien deberia agregar el nombre del usuario al nombre de la imagen
+		String destinoPath="imagenes/"+this.getTipoDePrenda()+this.getCategoria()+".jpg";
+		escalarYCopiar(path, destinoPath, 128, 128);
+		this.imagen=destinoPath;
+	}
+	
+	public void escalarYCopiar(String origenPath,String destinoPath,int escalaAncho,int escalaAlto){
+		
+		File pathOrigen=new File(origenPath);
+		File pathDestino=new File(destinoPath);
+		
+		try {
+			BufferedImage inputImage=ImageIO.read(pathOrigen);
+			BufferedImage outputImage=new BufferedImage(escalaAncho, escalaAncho,inputImage.getType());
+			
+			Graphics2D g2d=outputImage.createGraphics();
+			g2d.drawImage(inputImage, 0, 0,escalaAncho ,escalaAlto,null);
+			g2d.dispose();
+			
+			ImageIO.write(outputImage,"jpg", pathDestino);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
+	}
+
+	
+	
+	
 	
 	/*public void setTela(Tela telita) {
 		this.tela = telita;
