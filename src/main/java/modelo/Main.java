@@ -5,6 +5,7 @@ import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.List;
 
+import quartz.QuartzSchedulerJobs;
 import repositorios.RepositorioTipoDePrendaTela;
 import repositorios.RepositorioTiposDePrenda;
 import servicios.ProveedorClima;
@@ -58,7 +59,8 @@ public class Main {
 		atuendos=su.sugerir(prendas);
 		atuendos.forEach(a->System.out.println(a.getSuperior().getTipoDePrenda()+" "+a.getInferior().getTipoDePrenda()+"--"+a.getCalzado().getTipoDePrenda()+"--"+a.getAccesorio().getTipoDePrenda()));
 		
-		
+		//se ejecuta la tarea Programada
+		//QuartzSchedulerJobs sche=new QuartzSchedulerJobs();
 		
 	}
 	
