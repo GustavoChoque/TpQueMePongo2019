@@ -31,10 +31,10 @@ public class TestSugerencias {
 	
 		prendas=new ArrayList<Prenda>();
 		prendas2=new ArrayList<Prenda>();
-		t1=new TipoDePrenda(Categoria.PARTE_SUPERIOR, "remera");
-		t2=new TipoDePrenda(Categoria.PARTE_SUPERIOR, "camisa");
-		t3=new TipoDePrenda(Categoria.PARTE_INFERIOR, "short");
-		t4=new TipoDePrenda(Categoria.CALZADO, "zapato");	
+		t1=new TipoDePrenda(Categoria.PARTE_SUPERIOR, "remera",1);
+		t2=new TipoDePrenda(Categoria.PARTE_SUPERIOR, "camisa",2);
+		t3=new TipoDePrenda(Categoria.PARTE_INFERIOR, "short",1);
+		t4=new TipoDePrenda(Categoria.CALZADO, "zapato",1);	
 		
 	rem_roj=new Prenda(t1, Color.ROJO,Tela.ALGODON);
 	cam_az=new Prenda(t2, Color.AZUL,Tela.ALGODON);
@@ -112,10 +112,10 @@ public class TestSugerencias {
 	}
 	@Test
 	public void generaTodasLasCombinaciones() {
-		t5=new TipoDePrenda(Categoria.PARTE_INFERIOR, "pantalon");
+		t5=new TipoDePrenda(Categoria.PARTE_INFERIOR, "pantalon",1);
 		Prenda pant_azul = new Prenda(t5,Color.AZUL,Tela.ALGODON);
 		prendas.add(pant_azul);
 		Sugeridor su2=new Sugeridor(new ProveedorOpenWeather());
-		assertEquals("2 superiores, 2 inferiores y 1 calzado deberian generar 4 atuendos",4,su2.sugerir(prendas).size());
+		assertEquals("2 superiores(uno capa1 y otro capa2), 2 inferiores y 1 calzado deberian generar 6 atuendos",6,su2.sugerir(prendas).size());
 	}
 }

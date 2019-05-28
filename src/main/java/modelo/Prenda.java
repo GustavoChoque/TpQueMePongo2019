@@ -73,6 +73,10 @@ public class Prenda {
 		return this.tipo.getNombre();
 	}
 	
+	public int getCapa() {
+		return this.tipo.getCapa();
+	}
+	
 	public void cargarImagen(String path){
 		//talvez tambien deberia agregar el nombre del usuario al nombre de la imagen
 		String destinoPath="imagenes/"+this.getTipoDePrenda()+this.getCategoria()+".jpg";

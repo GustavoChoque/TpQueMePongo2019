@@ -13,13 +13,16 @@ public class TipoDePrenda{
 	Categoria categoria;
 	String nombre;
 	//List<Tela> telasPermitidas;
+	int capa;
+
 	
 	public TipoDePrenda(){}
 	
-	public TipoDePrenda(Categoria cat,String nom){
-		if(RepositorioTiposDePrenda.instance().tipoDePrendaValido(cat, nom)){		
+	public TipoDePrenda(Categoria cat,String nom,int capa){
+		if(RepositorioTiposDePrenda.instance().tipoDePrendaValido(cat, nom,capa)){		
 		this.categoria=cat;
-		this.nombre=nom; 
+		this.nombre=nom;
+		this.capa=capa;
 		}else{
 			throw new TipoDePrendaInvalidoException("No es valida la categoria con el tipo");
 			
@@ -58,6 +61,10 @@ public class TipoDePrenda{
 		return nombre;
 	}
 	
+	public int getCapa() {
+		return capa;
+	}
+
 	public void setCategoria(String categoria) {
 		
 		this.categoria = Categoria.valueOf(categoria);
@@ -69,6 +76,10 @@ public class TipoDePrenda{
 
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
+	}
+	
+	public void setCapa(int capa) {
+		this.capa = capa;
 	}
 	
 	//los sobre escribi para poder usar el equals, para compara objetos de este tipo

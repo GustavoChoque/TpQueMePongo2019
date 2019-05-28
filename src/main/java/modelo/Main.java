@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import quartz.QuartzSchedulerJobs;
 import repositorios.RepositorioTipoDePrendaTela;
@@ -30,14 +31,14 @@ public class Main {
 		
 		
 		
-		t1=new TipoDePrenda(Categoria.PARTE_SUPERIOR, "remera");
-		t2=new TipoDePrenda(Categoria.PARTE_SUPERIOR, "campera");
-		t3=new TipoDePrenda(Categoria.PARTE_INFERIOR, "short");
-		t4=new TipoDePrenda(Categoria.PARTE_INFERIOR, "pantalon");
-		t5=new TipoDePrenda(Categoria.CALZADO, "zapato");
-		t6=new TipoDePrenda(Categoria.ACCESORIO, "anteojos");
-		t7=new TipoDePrenda(Categoria.PARTE_SUPERIOR, "remera");
-		t8=new TipoDePrenda(Categoria.PARTE_SUPERIOR, "camisa");
+		t1=new TipoDePrenda(Categoria.PARTE_SUPERIOR, "remera",1);
+		t2=new TipoDePrenda(Categoria.PARTE_SUPERIOR, "campera",4);
+		t3=new TipoDePrenda(Categoria.PARTE_INFERIOR, "short",1);
+		t4=new TipoDePrenda(Categoria.PARTE_INFERIOR, "pantalon",1);
+		t5=new TipoDePrenda(Categoria.CALZADO, "zapato",1);
+		t6=new TipoDePrenda(Categoria.ACCESORIO, "anteojos",1);
+		t7=new TipoDePrenda(Categoria.PARTE_SUPERIOR, "remera",1);
+		t8=new TipoDePrenda(Categoria.PARTE_SUPERIOR, "camisa",2);
 		
 		p1=new Prenda(t1, Color.ROJO, Tela.ALGODON);
 		p2=new Prenda(t2, Color.AZUL,Color.ROJO, Tela.ALGODON);	
@@ -61,7 +62,7 @@ public class Main {
 		
 		Sugeridor su=new Sugeridor(new ProveedorOpenWeather());
 		atuendos=su.sugerir(prendas);
-		atuendos.forEach(a->System.out.println(a.getSuperior().getTipoDePrenda()+" "+a.getInferior().getTipoDePrenda()+"--"+a.getCalzado().getTipoDePrenda()+"--"+a.getAccesorio().getTipoDePrenda()));
+		atuendos.forEach(a->System.out.println(a.getSuperiores().stream().map(prenda->prenda.getTipoDePrenda()).collect(Collectors.toList())+" "+a.getInferior().getTipoDePrenda()+"--"+a.getCalzado().getTipoDePrenda()+"--"+a.getAccesorio().getTipoDePrenda()));
 		
 		//se ejecuta la tarea Programada
 		//QuartzSchedulerJobs sche=new QuartzSchedulerJobs();

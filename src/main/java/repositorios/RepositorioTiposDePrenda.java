@@ -62,10 +62,11 @@ public class RepositorioTiposDePrenda {
 	public Set<TipoDePrenda> getTiposPrenda() {
 		return tiposPrenda;
 	}
-	public boolean tipoDePrendaValido(Categoria cat, String nom){
+	public boolean tipoDePrendaValido(Categoria cat, String nom, int capa){
 		TipoDePrenda tipoaux=new TipoDePrenda();
 		tipoaux.setCategoria(cat);
 		tipoaux.setNombre(nom);
+		tipoaux.setCapa(capa);
 		
 		return this.tiposPrenda.contains(tipoaux);
 	}
