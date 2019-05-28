@@ -7,9 +7,12 @@ import static org.junit.Assert.assertFalse;
 import org.junit.Before;
 import org.junit.Test;
 
+import exceptions.LimiteListaException;
 import modelo.Categoria;
 import modelo.Color;
+import modelo.Gratuito;
 import modelo.Guardaropa;
+import modelo.Premium;
 import modelo.Prenda;
 import modelo.Tela;
 import modelo.TipoDePrenda;
@@ -67,7 +70,7 @@ public class TestUsuario {
 	
 	@Test
 	public void testUsuarioMultiplesGuardaropas(){
-		u1=new Usuario();
+		u1=new Usuario(new Premium());
 		u1.agregarGuardaropa(g1);
 		u1.agregarGuardaropa(g2);
 		assertEquals("Usuario con mas de un guardaropa", 2, u1.cuantosGuardarropasTengo());
@@ -77,7 +80,7 @@ public class TestUsuario {
 	
 	@Test
 	public void testUsuarioMultiplesAtuendos() {
-		u1=new Usuario();
+		u1=new Usuario(new Gratuito());
 		u1.agregarGuardaropa(g1);
 		u1.agregarGuardaropa(g2);
 		u1.agregarGuardaropa(g3);
@@ -85,11 +88,33 @@ public class TestUsuario {
 		assertEquals("Usuario con atuendos generados por diferentes guardarropas",2,u1.cuantosAtuendosTengo());
 	}
 	
-	@Test
+	@Test(expected=LimiteListaException.class)
+	public void testGuardaropaDeUsuarioGratuito(){
+		//los guardaropas de usuarios gratuitos tiene un limite de 10 prendas
+		u1=new Usuario(new Gratuito());
+		Guardaropa g1=new Guardaropa();
+		u1.agregarGuardaropa(g1);
+		u1.getGuardaropas().get(0).agregarPrenda(p1);
+		u1.getGuardaropas().get(0).agregarPrenda(p1);
+		u1.getGuardaropas().get(0).agregarPrenda(p1);
+		u1.getGuardaropas().get(0).agregarPrenda(p1);
+		u1.getGuardaropas().get(0).agregarPrenda(p1);
+		u1.getGuardaropas().get(0).agregarPrenda(p1);
+		u1.getGuardaropas().get(0).agregarPrenda(p1);
+		u1.getGuardaropas().get(0).agregarPrenda(p1);
+		u1.getGuardaropas().get(0).agregarPrenda(p1);
+		u1.getGuardaropas().get(0).agregarPrenda(p1);
+		u1.getGuardaropas().get(0).agregarPrenda(p1);
+		
+	}
+	
+	
+	
+	/*@Test
 	public void testUsuarioGratuitoGuardaropasLleno() {
 		u3 = new UsuarioGratuito(2);
 		u3.agregarGuardaropa(g1);
 		u3.agregarGuardaropa(g2);
 		assertFalse(u3.puedeAgregarGuardaropa());
-	}
+	}*/
 }

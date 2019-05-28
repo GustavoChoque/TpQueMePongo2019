@@ -1,7 +1,7 @@
 package modelo;
 
-public class UsuarioGratuito extends Usuario  {
-	int guardaropasMax;
+public class UsuarioGratuito /*extends Usuario*/  {
+	/*int guardaropasMax;
 	
 	public UsuarioGratuito(int guardaropasMax) {
 		super();
@@ -20,4 +20,5 @@ public class UsuarioGratuito extends Usuario  {
 	public boolean puedeAgregarGuardaropa() {
 		return this.guardaropas.size()>guardaropasMax;
 	}
+	*/
 }

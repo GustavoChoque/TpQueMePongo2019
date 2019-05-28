@@ -8,11 +8,13 @@ import repositorios.RepositorioEventos;
 import servicios.ProveedorOpenWeather;
 
 public class Usuario {
-	List<Guardaropa> guardaropas;
-	List<Atuendo> sugerencias;
-	public Usuario(){
+	private List<Guardaropa> guardaropas;
+	private List<Atuendo> sugerencias;
+	private TipoDeUsuario tipoDeUsuario;
+	public Usuario(TipoDeUsuario tipo){
 		this.guardaropas=new ArrayList<Guardaropa>();
 		this.sugerencias=new ArrayList<Atuendo>();
+		this.tipoDeUsuario=tipo;
 	}
 	
 	public List<Guardaropa> getGuardaropas() {
@@ -30,8 +32,14 @@ public class Usuario {
 	
 	
 	public void agregarGuardaropa(Guardaropa guardaropa) {
+		guardaropa.setUsuario(this);
 		guardaropas.add(guardaropa);
 	}
+	
+	public TipoDeUsuario getTipoDeUsuario() {
+		return tipoDeUsuario;
+	}
+	
 	//------------------------
 	public List<Atuendo> getTodosLosAtuendos(){
 		List<Atuendo> todosLosAtuendos = new ArrayList<Atuendo>();

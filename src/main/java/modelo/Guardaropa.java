@@ -11,7 +11,8 @@ import repositorios.TiposDePrendas;
 
 public class Guardaropa {
 	
-	List<Prenda> prendas;
+	private List<Prenda> prendas;
+	private Usuario usuario;
 	//listas auxiliares para el metodo puedegenerarSugerencias()  
 	List<Prenda> prendasSuperiores;
 	List<Prenda> prendasInferiores;
@@ -20,10 +21,30 @@ public class Guardaropa {
 	
 	public Guardaropa() {
 		prendas=new ArrayList<Prenda>();
+		
 	}
 	public List<Prenda> getPrendas() {
 		return prendas;
 	}
+	
+	public void agregarPrenda(Prenda prenda){
+		//pido por teclado? si quiere agregar imagen a prenda
+		/*
+		 
+		String path;
+		prenda.cargarImagen(path);*/
+		
+		//this.prendas.add(prenda);
+		List<Prenda> aux=this.usuario.getTipoDeUsuario().agregarPrenda(this.prendas, prenda);
+		this.prendas=aux;
+			
+		
+	}
+	public void setUsuario(Usuario usuario) {
+		this.usuario = usuario;
+	}
+	
+	
 	
 	private void separarPrendas(List<Prenda> prendas){
 		prendasSuperiores=prendas.stream().filter(p->p.getCategoria().equals(Categoria.PARTE_SUPERIOR)).collect(Collectors.toList());

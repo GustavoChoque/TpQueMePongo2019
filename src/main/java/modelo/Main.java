@@ -29,6 +29,7 @@ public class Main {
 		List<Atuendo> atuendos=new ArrayList<Atuendo>();
 		
 		
+		
 		t1=new TipoDePrenda(Categoria.PARTE_SUPERIOR, "remera");
 		t2=new TipoDePrenda(Categoria.PARTE_SUPERIOR, "campera");
 		t3=new TipoDePrenda(Categoria.PARTE_INFERIOR, "short");
@@ -54,6 +55,9 @@ public class Main {
 		prendas.add(p4);
 		prendas.add(p5);
 		prendas.add(p6);
+		
+	
+		
 		
 		Sugeridor su=new Sugeridor(new ProveedorOpenWeather());
 		atuendos=su.sugerir(prendas);
