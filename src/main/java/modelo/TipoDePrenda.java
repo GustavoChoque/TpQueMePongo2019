@@ -70,6 +70,7 @@ public class TipoDePrenda{
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
 	}
+	
 	//los sobre escribi para poder usar el equals, para compara objetos de este tipo
 		@Override
 		public int hashCode() {

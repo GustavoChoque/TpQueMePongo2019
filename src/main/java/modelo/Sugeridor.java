@@ -38,6 +38,7 @@ public class Sugeridor {
 
 	}
 	
+	
 	//Esto es para sugerir en el dia 
 	public List<Atuendo> sugerir(List<Prenda> prendas){
 		//filtrarPrendas(temperatura);
@@ -52,6 +53,8 @@ public class Sugeridor {
 			throw new FaltanteDePrendasException("Debe tener al menos una prenda inferior, superior y calzado para generar sugerencia");
 		}
 	}
+	
+	
 	// esto es para sugerir en una fecha
 	public List<Atuendo> sugerir(LocalDate fecha,List<Prenda> prendas){
 		
