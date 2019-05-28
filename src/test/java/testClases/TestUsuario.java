@@ -1,6 +1,8 @@
 package testClases;
 
+
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -12,10 +14,12 @@ import modelo.Prenda;
 import modelo.Tela;
 import modelo.TipoDePrenda;
 import modelo.Usuario;
+import modelo.UsuarioGratuito;
 import repositorios.TiposDePrendas;
 
 public class TestUsuario {
 	Usuario u1,u2;
+	UsuarioGratuito u3;
 	Guardaropa g1,g2,g3;
 	Prenda p1,p2,p3,p4,p5;
 	TipoDePrenda t1,t2,t3,t4,t5;
@@ -81,5 +85,11 @@ public class TestUsuario {
 		assertEquals("Usuario con atuendos generados por diferentes guardarropas",2,u1.cuantosAtuendosTengo());
 	}
 	
-	
+	@Test
+	public void testUsuarioGratuitoGuardaropasLleno() {
+		u3 = new UsuarioGratuito(2);
+		u3.agregarGuardaropa(g1);
+		u3.agregarGuardaropa(g2);
+		assertFalse(u3.puedeAgregarGuardaropa());
+	}
 }
