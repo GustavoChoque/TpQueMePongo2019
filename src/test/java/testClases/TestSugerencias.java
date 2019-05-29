@@ -109,6 +109,7 @@ public class TestSugerencias {
 		
 		List<Atuendo> sug = su.sugerir(prendas2);
 	}
+	
 	@Test
 	public void generaTodasLasCombinaciones() {
 		t5=new TipoDePrenda(Categoria.PARTE_INFERIOR, "pantalon",1,10);
