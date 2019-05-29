@@ -2,6 +2,7 @@ package modelo;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 import java.util.stream.Collectors;
 
 import repositorios.RepositorioEventos;
@@ -50,13 +51,23 @@ public class Usuario {
 		// AL tomarla, la elimino de sugerencias actuales 
 		this.sugerencias.remove(0);
 		// Si acepta, lo agrego con un 1, caso contrario con un dos
-		if() {
+		if(this.aceptaSugerencia(sugerenciaActual)) {
 			AtuendoSugerido aceptado = new AtuendoSugerido(sugerenciaActual,1);
 			historialSugerencias.add(aceptado);
 		} else {
 			AtuendoSugerido rechazado = new AtuendoSugerido(sugerenciaActual,2);
 			historialSugerencias.add(rechazado);
 		}
+	}
+	
+	
+	// Mostrar el atuendo y darle la opcion al usuario de que lo acepte
+	public boolean aceptaSugerencia(Atuendo sugerencia) {
+		Scanner sc = new Scanner(System.in);
+		System.out.println("Su atuendo esta compuesto por: " + sugerencia.calzado + ", " + sugerencia.prendaInferior + ", " + sugerencia.accesorio );
+		System.out.println("Si lo desea aceptar, ingrese 1, caso contrario, ingrese cualquier numero");
+		int eleccion = sc.nextInt();
+		return eleccion == 1;
 	}
 	
 

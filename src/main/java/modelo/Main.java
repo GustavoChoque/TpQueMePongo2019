@@ -60,6 +60,7 @@ public class Main {
 		prendas.add(p7);
 		prendas.add(p8);
 		
+		
 	
 		
 		
