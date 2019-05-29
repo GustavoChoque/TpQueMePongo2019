@@ -18,7 +18,7 @@ import modelo.Prenda;
 import modelo.Sugeridor;
 import modelo.Tela;
 import modelo.TipoDePrenda;
-
+import servicios.MockClima;
 import servicios.ProveedorOpenWeather;
 
 public class TestSugerencias {
@@ -106,7 +106,7 @@ public class TestSugerencias {
 	//Nota: luego cambiar a Mocks
 	@Test(expected=FaltanteDePrendasException.class)
 	public void testPrendasFaltantes() {
-		Sugeridor su=new Sugeridor(new ProveedorOpenWeather());
+		Sugeridor su=new Sugeridor(new MockClima(00.00, 20.00, 00.00));
 		
 		List<Atuendo> sug = su.sugerir(prendas2);
 	}
@@ -115,7 +115,16 @@ public class TestSugerencias {
 		t5=new TipoDePrenda(Categoria.PARTE_INFERIOR, "pantalon",1,10);
 		Prenda pant_azul = new Prenda(t5,Color.AZUL,Tela.ALGODON);
 		prendas.add(pant_azul);
-		Sugeridor su2=new Sugeridor(new ProveedorOpenWeather());
-		assertEquals("2 superiores(uno capa1 y otro capa2), 2 inferiores y 1 calzado deberian generar 6 atuendos",6,su2.sugerir(prendas).size());
+		Sugeridor su2=new Sugeridor(new MockClima(00.00, 30.00, 00.00));		
+		assertEquals("2 superiores(uno capa1 y otro capa2), 2 inferiores y 1 calzado deberian generar 6 atuendos, todas cumplen el criterio",6,su2.sugerir(prendas).size());
+	}
+	
+	@Test
+	public void generaTodasLasCombinacionesParaClimaFrio() {
+		t5=new TipoDePrenda(Categoria.PARTE_INFERIOR, "pantalon",1,10);
+		Prenda pant_azul = new Prenda(t5,Color.AZUL,Tela.ALGODON);
+		prendas.add(pant_azul);
+		Sugeridor su2=new Sugeridor(new MockClima(00.00, 10.00, 00.00));		
+		assertEquals("Igual que el anterior pero solo una cumple el criterio de la temperatura",1,su2.sugerir(prendas).size());
 	}
 }
