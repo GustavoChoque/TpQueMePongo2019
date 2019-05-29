@@ -2,6 +2,7 @@ package modelo;
 
 import java.time.LocalDate;
 import java.time.Period;
+import java.time.temporal.ChronoUnit;
 import java.util.List;
 
 import servicios.ProveedorOpenWeather;
@@ -22,7 +23,9 @@ public class Evento {
 		this.guardaropa=guardaropa;
 	}
 	
-	
+	public String getNombre() {
+		return this.nombre;
+	}
 	
 	public void sugerir(Sugeridor sugeridor){
 		this.sugerencias=sugeridor.sugerir(this.guardaropa.getPrendas());
@@ -33,7 +36,7 @@ public class Evento {
 	public boolean esProximo(LocalDate fecha){
 		//La api de pronostico solo da pronostico de 5 dias
 		int proximidad=5;
-		return (this.fecha.compareTo(fecha)>=0 && Period.between(fecha, this.fecha).getDays()<=proximidad);
+		return (this.fecha.compareTo(fecha)>=0 && ChronoUnit.DAYS.between(fecha, this.fecha)<=proximidad);
 				
 	}
 }
