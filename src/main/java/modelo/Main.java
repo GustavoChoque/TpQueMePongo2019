@@ -25,7 +25,7 @@ public class Main {
 		*/
 		
 		TipoDePrenda t1,t2,t3,t4,t5,t6,t7,t8;
-		Prenda p1,p2,p3,p4,p5,p6;
+		Prenda p1,p2,p3,p4,p5,p6,p7,p8;
 		List<Prenda> prendas=new ArrayList<Prenda>();
 		List<Atuendo> atuendos=new ArrayList<Atuendo>();
 		
@@ -46,7 +46,8 @@ public class Main {
 		p4=new Prenda(t4, Color.VERDE, Tela.ALGODON);
 		p5=new Prenda(t5, Color.VERDE, Tela.CUERO);
 		p6=new Prenda(t6, Color.ROJO, Tela.NINGUNO);
-		
+		p7=new Prenda(t7, Color.AMARILLO, Tela.ALGODON);
+		p8=new Prenda(t8, Color.AZUL, Tela.ALGODON);
 		//las prendas se crearon, sin ningun problema, para ver 
 		//la excepcion cambiar el nombre en tipoDeprenda
 		
@@ -56,6 +57,8 @@ public class Main {
 		prendas.add(p4);
 		prendas.add(p5);
 		prendas.add(p6);
+		prendas.add(p7);
+		prendas.add(p8);
 		
 	
 		

@@ -41,7 +41,7 @@ public class Usuario {
 	}
 	
 	//------------------------
-	public List<Atuendo> getTodosLosAtuendos(){
+	/*public List<Atuendo> getTodosLosAtuendos(){
 		List<Atuendo> todosLosAtuendos = new ArrayList<Atuendo>();
 		Sugeridor su=new Sugeridor(new ProveedorOpenWeather());
 		guardaropas.stream().filter(guardaropa->guardaropa.puedeGenerarSugerencia()).collect(Collectors.toList()).forEach(guardaropa->todosLosAtuendos.addAll(su.sugerir(guardaropa.getPrendas() )));
@@ -53,7 +53,7 @@ public class Usuario {
 	
 	public int cuantosAtuendosTengo() {
 		return this.getTodosLosAtuendos().size();
-	}
+	}*/
 	
 	public int cuantosGuardarropasTengo() {
 		return guardaropas.size();

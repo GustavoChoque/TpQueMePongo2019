@@ -14,10 +14,10 @@ public class Guardaropa {
 	private List<Prenda> prendas;
 	private Usuario usuario;
 	//listas auxiliares para el metodo puedegenerarSugerencias()  
-	List<Prenda> prendasSuperiores;
+	/*List<Prenda> prendasSuperiores;
 	List<Prenda> prendasInferiores;
 	List<Prenda> calzados;
-	List<Prenda> accesorios;
+	List<Prenda> accesorios;*/
 	
 	public Guardaropa() {
 		prendas=new ArrayList<Prenda>();
@@ -45,7 +45,7 @@ public class Guardaropa {
 	}
 	
 	
-	
+	/*
 	private void separarPrendas(List<Prenda> prendas){
 		prendasSuperiores=prendas.stream().filter(p->p.getCategoria().equals(Categoria.PARTE_SUPERIOR)).collect(Collectors.toList());
 		prendasInferiores=prendas.stream().filter(p->p.getCategoria().equals(Categoria.PARTE_INFERIOR)).collect(Collectors.toList());
@@ -53,12 +53,12 @@ public class Guardaropa {
 		accesorios=prendas.stream().filter(p->p.getCategoria().equals(Categoria.ACCESORIO)).collect(Collectors.toList());
 		accesorios.add(new Prenda(new TipoDePrenda(Categoria.ACCESORIO, "SinAccesorio",0),Color.NINGUNO,Tela.NINGUNO));
 
-	}
+	}*/
 	
-	public boolean puedeGenerarSugerencia() {
+	/*public boolean puedeGenerarSugerencia() {
 		separarPrendas(this.prendas);
 		return !(prendasSuperiores.isEmpty() || prendasInferiores.isEmpty() || calzados.isEmpty());
-	}
+	}*/
 	
 	
 	/*List<Prenda> prendasSuperiores;

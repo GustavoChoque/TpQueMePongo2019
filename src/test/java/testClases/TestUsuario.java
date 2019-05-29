@@ -78,7 +78,7 @@ public class TestUsuario {
 		
 	}
 	
-	@Test
+	/*@Test
 	public void testUsuarioMultiplesAtuendos() {
 		u1=new Usuario(new Gratuito());
 		u1.agregarGuardaropa(g1);
@@ -86,7 +86,7 @@ public class TestUsuario {
 		u1.agregarGuardaropa(g3);
 		//el usuario va a terner 2 atuendos de g1, 1 de g2 y 0 de g3. Si tiene un guardaropas que no puede generar atuendos no debería cortar.
 		assertEquals("Usuario con atuendos generados por diferentes guardarropas",2,u1.cuantosAtuendosTengo());
-	}
+	}*/
 	
 	@Test(expected=LimiteListaException.class)
 	public void testGuardaropaDeUsuarioGratuito(){

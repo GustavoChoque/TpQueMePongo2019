@@ -51,13 +51,16 @@ public class Sugeridor {
 	
 	//Esto es para sugerir en el dia 
 	public List<Atuendo> sugerir(List<Prenda> prendas){
-		//filtrarPrendas(temperatura);
+		
+		List<Atuendo> aux;
 		separarPrendas(prendas);
 		if(puedeGenerarSugerencia()) {
-			return this.generarSugerencias(prendas);	
+			aux= this.generarSugerencias(prendas);	
 		}else{
 			throw new FaltanteDePrendasException("Debe tener al menos una prenda inferior, superior y calzado para generar sugerencia");
 		}
+		//filtrarPorUnaTemperatura(aux,temperatura);
+		return aux;
 	}
 	
 	
@@ -65,13 +68,16 @@ public class Sugeridor {
 	public List<Atuendo> sugerir(LocalDate fecha,List<Prenda> prendas){
 		
 		Double temperatura=this.proveedorClima.getTemperaturaDeUnaFecha(fecha);
-		//filtrarPrendas(temperatura);
+		
+		List<Atuendo> aux;
 		separarPrendas(prendas);
 		if(puedeGenerarSugerencia()) {
-		 return this.generarSugerencias(prendas);	
+			aux=this.generarSugerencias(prendas);	
 		}else{
 			throw new FaltanteDePrendasException("Debe tener al menos una prenda inferior, superior y calzado para generar sugerencia");
 		}
+		//filtrarPorUnaTemperatura(aux,temperatura);
+		return aux;
 	}
 	
 	public boolean puedeGenerarSugerencia() {
