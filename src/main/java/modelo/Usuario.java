@@ -8,9 +8,12 @@ import repositorios.RepositorioEventos;
 import servicios.ProveedorOpenWeather;
 
 public class Usuario {
+	
 	private List<Guardaropa> guardaropas;
 	private List<Atuendo> sugerencias;
 	private TipoDeUsuario tipoDeUsuario;
+	private List<AtuendoSugerido> historialSugerencias;
+	
 	
 	public Usuario(TipoDeUsuario tipo){
 		this.guardaropas=new ArrayList<Guardaropa>();
@@ -37,26 +40,35 @@ public class Usuario {
 		guardaropas.add(guardaropa);
 	}
 	
-	public TipoDeUsuario getTipoDeUsuario() {
-		return tipoDeUsuario;
+	public void deshacerUltimaSugerencia() {
+		this.historialSugerencias.remove(0);
 	}
+	
+	public void tomarSugerencia() {
+		// Por defecto tomo la primera
+		Atuendo sugerenciaActual = this.sugerencias.get(0);
+		// AL tomarla, la elimino de sugerencias actuales 
+		this.sugerencias.remove(0);
+		// Si acepta, lo agrego con un 1, caso contrario con un dos
+		if() {
+			AtuendoSugerido aceptado = new AtuendoSugerido(sugerenciaActual,1);
+			historialSugerencias.add(aceptado);
+		} else {
+			AtuendoSugerido rechazado = new AtuendoSugerido(sugerenciaActual,2);
+			historialSugerencias.add(rechazado);
+		}
+	}
+	
+
 	
 	//------------------------
-	/*public List<Atuendo> getTodosLosAtuendos(){
-		List<Atuendo> todosLosAtuendos = new ArrayList<Atuendo>();
-		Sugeridor su=new Sugeridor(new ProveedorOpenWeather());
-		guardaropas.stream().filter(guardaropa->guardaropa.puedeGenerarSugerencia()).collect(Collectors.toList()).forEach(guardaropa->todosLosAtuendos.addAll(su.sugerir(guardaropa.getPrendas() )));
-		
-		
-		return todosLosAtuendos;
-		
-	}
-	
-	public int cuantosAtuendosTengo() {
-		return this.getTodosLosAtuendos().size();
-	}*/
+
 	
 	public int cuantosGuardarropasTengo() {
 		return guardaropas.size();
+	}
+	
+	public TipoDeUsuario getTipoDeUsuario() {
+		return tipoDeUsuario;
 	}
 }
