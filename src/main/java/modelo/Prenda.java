@@ -77,6 +77,12 @@ public class Prenda {
 		return this.tipo.getCapa();
 	}
 	
+	//Luego podria combinar con el tipode tela para el nivel final
+		public int getNivelDeAbrigo(){
+			return this.tipo.getNivelDeAbrigo();
+		}
+	
+	
 	public void cargarImagen(String path){
 		//talvez tambien deberia agregar el nombre del usuario al nombre de la imagen
 		String destinoPath="imagenes/"+this.getTipoDePrenda()+this.getCategoria()+".jpg";

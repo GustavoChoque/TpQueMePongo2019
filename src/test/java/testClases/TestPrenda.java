@@ -34,7 +34,7 @@ public class TestPrenda {
 	
 	@Test
 	public void testCreacionPrendaValida() {
-		t1=new TipoDePrenda(Categoria.PARTE_SUPERIOR, "camisa",2);
+		t1=new TipoDePrenda(Categoria.PARTE_SUPERIOR, "camisa",2,10);
 		p1=new Prenda(t1,Color.AZUL,Tela.ALGODON);
 		guardaropa.add(p1);
 		assertEquals("CargarRopa",1,guardaropa.size(),0);
@@ -42,7 +42,7 @@ public class TestPrenda {
 	
 	@Test(expected=RuntimeException.class)
 	public void testMismoColor() {
-		t2=new TipoDePrenda(Categoria.PARTE_SUPERIOR, "remera",1);
+		t2=new TipoDePrenda(Categoria.PARTE_SUPERIOR, "remera",1,5);
 		p2=new Prenda(t2,Color.AZUL,Tela.ALGODON);
 		p2.setColorSecundario(Color.AZUL);
 		
@@ -50,7 +50,7 @@ public class TestPrenda {
 	
 	@Test
 	public void testTipoPrenda() {
-		t2=new TipoDePrenda(Categoria.PARTE_SUPERIOR, "remera",1);
+		t2=new TipoDePrenda(Categoria.PARTE_SUPERIOR, "remera",1,5);
 		p1=new Prenda(t2,Color.AZUL,Tela.ALGODON);
 		
 		assertTrue("Tipo de Prenda",p1.getTipoDePrenda()=="remera");
@@ -58,14 +58,14 @@ public class TestPrenda {
 	
 	@Test
 	public void testCategoria() {
-		t3=new TipoDePrenda(Categoria.PARTE_INFERIOR, "pantalon",1);
+		t3=new TipoDePrenda(Categoria.PARTE_INFERIOR, "pantalon",1,10);
 		p1=new Prenda(t3,Color.AZUL,Tela.ALGODON);
 		guardaropa.add(p1);
 		assertTrue("Categoria",p1.getCategoria().equals(Categoria.PARTE_INFERIOR));
 	}
 	@Test(expected=TelaInvalidaException.class)
 	public void testTelaInconsistente() {
-		t1=new TipoDePrenda(Categoria.PARTE_SUPERIOR, "camisa",2);
+		t1=new TipoDePrenda(Categoria.PARTE_SUPERIOR, "camisa",2,10);
 		p1=new Prenda(t1,Color.AZUL,Tela.CUERO);
 		
 	}

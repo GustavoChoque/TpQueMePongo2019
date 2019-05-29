@@ -30,11 +30,11 @@ public class TestUsuario {
 	@Before
 	public void setUp(){
 		
-		t1=new TipoDePrenda(Categoria.PARTE_SUPERIOR, "remera",1);
-		t2=new TipoDePrenda(Categoria.PARTE_SUPERIOR, "camisa",2);
-		t3=new TipoDePrenda(Categoria.PARTE_INFERIOR, "short",1);
-		t4=new TipoDePrenda(Categoria.CALZADO, "zapato",1);
-		t5=new TipoDePrenda(Categoria.ACCESORIO, "anteojos",1);
+		t1=new TipoDePrenda(Categoria.PARTE_SUPERIOR, "remera",1,5);
+		t2=new TipoDePrenda(Categoria.PARTE_SUPERIOR, "camisa",2,10);
+		t3=new TipoDePrenda(Categoria.PARTE_INFERIOR, "short",1,5);
+		t4=new TipoDePrenda(Categoria.CALZADO, "zapato",1,5);
+		t5=new TipoDePrenda(Categoria.ACCESORIO, "anteojos",1,0);
 		
 		p1=new Prenda(t1, Color.ROJO,Tela.ALGODON);
 		p2=new Prenda(t2, Color.AZUL,Tela.ALGODON);

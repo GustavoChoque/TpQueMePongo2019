@@ -38,4 +38,12 @@ public class Atuendo {
 	public Prenda getCalzado() {
 		return calzado;
 	}
+	public int getNivelDeAbrigo(){
+		
+		return this.prendasSuperiores.stream()
+				.mapToInt(Prenda::getNivelDeAbrigo).sum()
+				+this.prendaInferior.getNivelDeAbrigo()
+				+this.calzado.getNivelDeAbrigo()
+				+this.accesorio.getNivelDeAbrigo();
+	}
 }
