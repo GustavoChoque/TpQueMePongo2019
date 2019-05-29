@@ -5,7 +5,9 @@ import java.util.List;
 import exceptions.LimiteListaException;
 
 public class Gratuito implements TipoDeUsuario {
+	
 	private int limite=10;
+	
 	@Override
 	public List<Prenda> agregarPrenda(List<Prenda> listaPrendas, Prenda prenda) {
 		if(listaPrendas.size()<limite){

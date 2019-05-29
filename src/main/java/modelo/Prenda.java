@@ -48,6 +48,7 @@ public class Prenda {
 		}
 	
 	}
+	
 	/*
 	public Prenda(TipoDePrenda tipo, Tela tel, Color primario) {
 		this.tipo = Objects.requireNonNull(tipo,"Debe especificar el tipo de prenda");

@@ -24,7 +24,7 @@ public class Guardaropa {
 		
 	}
 	public List<Prenda> getPrendas() {
-		return prendas;
+		return this.prendas;
 	}
 	
 	public void agregarPrenda(Prenda prenda){

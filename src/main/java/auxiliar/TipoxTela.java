@@ -9,6 +9,7 @@ import repositorios.RepositorioTiposDePrenda;
 public class TipoxTela {
 	TipoDePrenda tipoPrenda;
 	Tela tela;
+	
 	public void setTipoPrenda(TipoDePrenda tipoPrenda) {
 		this.tipoPrenda = tipoPrenda;
 	}
@@ -36,11 +37,13 @@ public class TipoxTela {
 	public Tela getTela() {
 		return tela;
 	}
+	
 	//los sobre escribi para poder usar el equals, para compara objetos de este tipo
 	@Override
 	public int hashCode() {
 	return tela.hashCode();
 	}
+	
 	@Override
 	public boolean equals(Object obj) {
 	TipoxTela txt= (TipoxTela)obj;

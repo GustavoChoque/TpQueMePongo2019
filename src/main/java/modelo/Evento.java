@@ -7,6 +7,7 @@ import java.util.List;
 import servicios.ProveedorOpenWeather;
 
 public class Evento {
+	
 	private LocalDate fecha;
 	private String nombre;
 	private Usuario usuario;
@@ -19,19 +20,16 @@ public class Evento {
 		this.usuario=usu;
 		this.guardaropa=guardaropa;
 	}
-	
-	
+		
 	public void sugerir(){
 		Sugeridor sugeridor=new Sugeridor(new ProveedorOpenWeather());
 		this.sugerencias=sugeridor.sugerir(this.guardaropa.getPrendas());
 		usuario.haySugerenciasNuevas(this.sugerencias);
 		
 	}
-
-
-
+	
 	public boolean esProximo(LocalDate fecha){
-		//porque la api del clima solo da hasta 5 dias de clima
+		//La api de pronostico solo da pronostico de 5 dias
 		int proximidad=5;
 		return (this.fecha.compareTo(fecha)>=0 && Period.between(fecha, this.fecha).getDays()<=proximidad);
 				

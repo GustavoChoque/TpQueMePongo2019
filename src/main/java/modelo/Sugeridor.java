@@ -14,10 +14,10 @@ import exceptions.FaltanteDePrendasException;
 import servicios.ProveedorClima;
 
 public class Sugeridor {
-	List<Prenda> prendasSuperioresCapa1;//remeras
-	List<Prenda> prendasSuperioresCapa2;//camisas
-	List<Prenda> prendasSuperioresCapa3;//buzo, sweater
-	List<Prenda> prendasSuperioresCapa4;//campera de invierno
+	List<Prenda> prendasSuperioresCapa1; //remeras
+	List<Prenda> prendasSuperioresCapa2; //camisas
+	List<Prenda> prendasSuperioresCapa3; //buzo, sweater
+	List<Prenda> prendasSuperioresCapa4; //campera de invierno
 	List<Prenda> prendasInferiores;
 	List<Prenda> calzados;
 	List<Prenda> accesorios;
@@ -55,7 +55,7 @@ public class Sugeridor {
 		List<Atuendo> aux;
 		separarPrendas(prendas);
 		if(puedeGenerarSugerencia()) {
-			aux= this.generarSugerencias(prendas);	
+			aux = this.generarSugerencias(prendas);	
 		}else{
 			throw new FaltanteDePrendasException("Debe tener al menos una prenda inferior, superior y calzado para generar sugerencia");
 		}

@@ -11,6 +11,7 @@ public class Usuario {
 	private List<Guardaropa> guardaropas;
 	private List<Atuendo> sugerencias;
 	private TipoDeUsuario tipoDeUsuario;
+	
 	public Usuario(TipoDeUsuario tipo){
 		this.guardaropas=new ArrayList<Guardaropa>();
 		this.sugerencias=new ArrayList<Atuendo>();

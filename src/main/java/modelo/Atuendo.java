@@ -26,7 +26,6 @@ public class Atuendo {
 		return prendasSuperiores;
 	}
 
-
 	public Prenda getSuperiorCapaX(int capa) {
 		return prendasSuperiores.stream().filter(p->p.getCapa()==capa).collect(Collectors.toList()).get(0);
 	}
@@ -46,4 +45,6 @@ public class Atuendo {
 				+this.calzado.getNivelDeAbrigo()
 				+this.accesorio.getNivelDeAbrigo();
 	}
+	
+	
 }
