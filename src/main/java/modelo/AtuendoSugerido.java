@@ -14,4 +14,12 @@ public class AtuendoSugerido {
 	public boolean estaAceptado() {
 		return this.eleccion == 1;
 	}
+	
+	public Atuendo getAtuendo() {
+		return this.atuendo;
+	}
+	
+	public int getEleccion() {
+		return this.eleccion;
+	}
 }

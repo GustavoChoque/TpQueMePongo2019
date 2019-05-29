@@ -60,6 +60,10 @@ public class Usuario {
 		}
 	}
 	
+	public List<AtuendoSugerido> mostrarHistorialSegunEleccion(int eleccion){
+		return this.historialSugerencias.stream().filter(atuendo -> atuendo.getEleccion() == eleccion).collect(Collectors.toList());
+	}
+	
 	
 	// Mostrar el atuendo y darle la opcion al usuario de que lo acepte
 	public boolean aceptaSugerencia(Atuendo sugerencia) {
