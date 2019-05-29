@@ -59,15 +59,15 @@ public class Sugeridor {
 		}else{
 			throw new FaltanteDePrendasException("Debe tener al menos una prenda inferior, superior y calzado para generar sugerencia");
 		}
-		//filtrarPorUnaTemperatura(aux,temperatura);
-		return aux;
+		
+		return filtrarPorUnaTemperatura(aux,proveedorClima.getTemperatura());
 	}
 	
 	
 	// esto es para sugerir en una fecha
 	public List<Atuendo> sugerir(LocalDate fecha,List<Prenda> prendas){
 		
-		Double temperatura=this.proveedorClima.getTemperaturaDeUnaFecha(fecha);
+		double temperatura=this.proveedorClima.getTemperaturaDeUnaFecha(fecha);
 		
 		List<Atuendo> aux;
 		separarPrendas(prendas);
@@ -76,13 +76,28 @@ public class Sugeridor {
 		}else{
 			throw new FaltanteDePrendasException("Debe tener al menos una prenda inferior, superior y calzado para generar sugerencia");
 		}
-		//filtrarPorUnaTemperatura(aux,temperatura);
-		return aux;
+		
+		return filtrarPorUnaTemperatura(aux,temperatura);
 	}
 	
 	public boolean puedeGenerarSugerencia() {
 		return !((prendasSuperioresCapa1.isEmpty()&& prendasSuperioresCapa2.isEmpty()) || prendasInferiores.isEmpty() || calzados.isEmpty());
 	}
+	public List<Atuendo> filtrarPorUnaTemperatura(List<Atuendo> atuendos,double temp){
+		return atuendos.stream()
+				.filter(a->criterio(a,temp))
+				.collect(Collectors.toList());
+	}
+	//mi rango de temperaturas -10 a 50
+	//(50-nivelabrigoAtuendo)+-10, la temperatura esta en ese rango => ok
+	//por ahora 50 es el nivel maximo de abrigo con los valores que le di
+	//a los tipoDeprenda en el Main
+	public boolean criterio(Atuendo atuendo,double temp){
+		return ((50-atuendo.getNivelDeAbrigo())-10)<=temp && ((50-atuendo.getNivelDeAbrigo())+10)>=temp;
+	}	
+	
+	
+	
 	
 	public List<Atuendo> generarSugerencias(List<Prenda> prendas){
 		List<Atuendo> atuendosCapa1 = generarAtuendosConCapasSup(prendasSuperioresCapa1);
