@@ -7,15 +7,28 @@ import org.quartz.Job;
 import org.quartz.JobExecutionContext;
 import org.quartz.JobExecutionException;
 
+import modelo.Sugeridor;
 import repositorios.RepositorioEventos;
+import servicios.ProveedorOpenWeather;
 
 public class JobEventos implements Job{
 	
+	private Sugeridor sugeridor;
+
+	
+	public JobEventos() {
+		this.sugeridor = new Sugeridor(new ProveedorOpenWeather());
+	}
+	
+	public void setProveedor(Sugeridor sug) {
+		this.sugeridor = sug;
+	}
 	
 	public void ejecutar(){
 		RepositorioEventos.instance()
 		.proximos(LocalDate.now())
-		.forEach(evento->evento.sugerir());
+		.forEach(evento->evento.sugerir(this.sugeridor));
+		
 		
 	}
 	

@@ -13,7 +13,7 @@ public class Evento {
 	private Usuario usuario;
 	private Guardaropa guardaropa;
 	private List<Atuendo> sugerencias;
-	private Sugeridor sugeridor;
+
 	
 	public Evento(LocalDate fecha,String nom,Usuario usu,Guardaropa guardaropa){
 		this.fecha=fecha;
@@ -21,12 +21,10 @@ public class Evento {
 		this.usuario=usu;
 		this.guardaropa=guardaropa;
 	}
-		
-	public void setSugeridor(Sugeridor sug) {
-		this.sugeridor = sug;
-	}
 	
-	public void sugerir(){
+	
+	
+	public void sugerir(Sugeridor sugeridor){
 		this.sugerencias=sugeridor.sugerir(this.guardaropa.getPrendas());
 		usuario.haySugerenciasNuevas(this.sugerencias);
 		

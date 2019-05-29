@@ -103,7 +103,6 @@ public class TestSugerencias {
 	*/
 	
 	
-	//Nota: luego cambiar a Mocks
 	@Test(expected=FaltanteDePrendasException.class)
 	public void testPrendasFaltantes() {
 		Sugeridor su=new Sugeridor(new MockClima(00.00, 20.00, 00.00));
