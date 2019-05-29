@@ -22,7 +22,7 @@ public class JobEventos implements Job{
 	@Override
 	public void execute(JobExecutionContext arg0) throws JobExecutionException {
 		
-		//ejecutar();
-		System.out.println("SE ejecuto el job a las: "+LocalDateTime.now());
+		ejecutar();
+		//System.out.println("SE ejecuto el job a las: "+LocalDateTime.now());
 	}
 }

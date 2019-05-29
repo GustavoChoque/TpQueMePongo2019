@@ -18,7 +18,7 @@ import modelo.Prenda;
 import modelo.Sugeridor;
 import modelo.Tela;
 import modelo.TipoDePrenda;
-import repositorios.TiposDePrendas;
+
 import servicios.ProveedorOpenWeather;
 
 public class TestSugerencias {

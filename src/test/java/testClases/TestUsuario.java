@@ -17,12 +17,11 @@ import modelo.Prenda;
 import modelo.Tela;
 import modelo.TipoDePrenda;
 import modelo.Usuario;
-import modelo.UsuarioGratuito;
-import repositorios.TiposDePrendas;
+
 
 public class TestUsuario {
 	Usuario u1,u2;
-	UsuarioGratuito u3;
+	
 	Guardaropa g1,g2,g3;
 	Prenda p1,p2,p3,p4,p5;
 	TipoDePrenda t1,t2,t3,t4,t5;

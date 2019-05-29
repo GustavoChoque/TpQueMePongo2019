@@ -12,7 +12,7 @@ public class TipoDePrenda{
 	
 	Categoria categoria;
 	String nombre;
-	//List<Tela> telasPermitidas;
+	
 	int capa;
 	int nivelDeAbrigo;
 	
@@ -30,29 +30,7 @@ public class TipoDePrenda{
 		}
 	}
 	
-	/*
-	public TipoDePrenda(Categoria cat,String name, List<Tela> telasPermitida) {
-		this.categoria = cat;
-		this.nombre=name;
-		this.telasPermitidas=telasPermitida;
-	}
 	
-	public void validarTela(Tela telita,Prenda prenda) {
-		Objects.requireNonNull(telita,"Debe especificar el tipo de tela");
-		if(this.verificarTela(telita)) {
-			prenda.setTela(telita);
-		}else {
-			throw new TelaInvalidaException("La tela no es valida para esta prenda");
-		}
-	}
-	
-	public Boolean verificarTela(Tela telita) {
-		return this.telasPermitidas.contains(telita);
-		
-	}
-	*/
-	
-	// Prendas conocidas:
 	
 	public Categoria getCategoria() {
 		return categoria;

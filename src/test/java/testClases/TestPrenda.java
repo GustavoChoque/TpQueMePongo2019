@@ -15,7 +15,6 @@ import modelo.Color;
 import modelo.Prenda;
 import modelo.Tela;
 import modelo.TipoDePrenda;
-import repositorios.TiposDePrendas;
 
 
 public class TestPrenda {
