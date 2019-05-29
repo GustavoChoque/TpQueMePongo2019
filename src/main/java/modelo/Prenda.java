@@ -117,10 +117,6 @@ public class Prenda {
 	
 	
 	
-	/*public void setTela(Tela telita) {
-		this.tela = telita;
-	}*/
-
 		
 	
 }
