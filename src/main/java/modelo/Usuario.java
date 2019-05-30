@@ -19,6 +19,7 @@ public class Usuario {
 	public Usuario(TipoDeUsuario tipo){
 		this.guardaropas=new ArrayList<Guardaropa>();
 		this.sugerencias=new ArrayList<Atuendo>();
+		this.historialSugerencias=new ArrayList<AtuendoSugerido>();
 		this.tipoDeUsuario=tipo;
 	}
 	
@@ -41,22 +42,22 @@ public class Usuario {
 		guardaropas.add(guardaropa);
 	}
 	
-	public void deshacerUltimaSugerencia() {
-		this.historialSugerencias.remove(0);
+	public void deshacerUltimaOperacion() {
+		Atuendo aux = historialSugerencias.get(0).getAtuendo();
+		sugerencias.add(aux);		
+		historialSugerencias.remove(0);
 	}
 	
 	public void tomarSugerencia() {
 		// Por defecto tomo la primera
 		Atuendo sugerenciaActual = this.sugerencias.get(0);
 		// AL tomarla, la elimino de sugerencias actuales 
-		this.sugerencias.remove(0);
+		
 		// Si acepta, lo agrego con un 1, caso contrario con un dos
 		if(this.aceptaSugerencia(sugerenciaActual)) {
-			AtuendoSugerido aceptado = new AtuendoSugerido(sugerenciaActual,1);
-			historialSugerencias.add(aceptado);
+			this.sugerenciaAceptada(sugerenciaActual);
 		} else {
-			AtuendoSugerido rechazado = new AtuendoSugerido(sugerenciaActual,2);
-			historialSugerencias.add(rechazado);
+			this.sugerenciaRechazada(sugerenciaActual);
 		}
 	}
 	
@@ -74,8 +75,17 @@ public class Usuario {
 		return eleccion == 1;
 	}
 	
+	public void sugerenciaAceptada(Atuendo sugerencia) {
+		this.sugerencias.remove(0);
+		AtuendoSugerido aceptado = new AtuendoSugerido(sugerencia,1);
+		historialSugerencias.add(aceptado);
+	}
 
-	
+	public void sugerenciaRechazada(Atuendo sugerencia) {
+		this.sugerencias.remove(0);
+		AtuendoSugerido rechazado = new AtuendoSugerido(sugerencia,2);
+		historialSugerencias.add(rechazado);
+	}
 	//------------------------
 
 	
@@ -85,5 +95,12 @@ public class Usuario {
 	
 	public TipoDeUsuario getTipoDeUsuario() {
 		return tipoDeUsuario;
+	}
+	
+	public List<Atuendo> getSugerencias(){
+		return sugerencias;
+	}
+	public List<AtuendoSugerido> getHistorialSugerencias(){
+		return historialSugerencias;
 	}
 }

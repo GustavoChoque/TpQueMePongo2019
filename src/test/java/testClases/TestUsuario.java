@@ -4,10 +4,16 @@ package testClases;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 import org.junit.Before;
 import org.junit.Test;
 
 import exceptions.LimiteListaException;
+import modelo.Atuendo;
+import modelo.AtuendoSugerido;
 import modelo.Categoria;
 import modelo.Color;
 import modelo.Gratuito;
@@ -25,6 +31,7 @@ public class TestUsuario {
 	Guardaropa g1,g2,g3;
 	Prenda p1,p2,p3,p4,p5;
 	TipoDePrenda t1,t2,t3,t4,t5;
+	Atuendo a1,a2; 
 	
 	@Before
 	public void setUp(){
@@ -45,6 +52,10 @@ public class TestUsuario {
 		g1=new Guardaropa();
 		g2=new Guardaropa();
 		g3=new Guardaropa();
+		
+		u2 = new Usuario(new Premium());
+		a1 = new Atuendo (Arrays.asList(p1),p3,p4,p5);
+		a2 = new Atuendo (Arrays.asList(p2),p3,p4,p5);
 		
 		/*g1.agregarPrendaSuperior(p1);
 		g1.agregarCalzado(p4);
@@ -107,7 +118,32 @@ public class TestUsuario {
 		
 	}
 	
+	@Test
+	public void testLlegaSugerencia() {
+		
+		u2.haySugerenciasNuevas(Arrays.asList(a1));
+		assertEquals("se agrega a las sugerencias del usuario el atuendo a1",a1,u2.getSugerencias().get(0));
+	}
 	
+	@Test
+	public void testAceptarSugerencia() {
+		List<Atuendo> auxiliar = new ArrayList<Atuendo>();
+		auxiliar.add(a2);
+		u2.haySugerenciasNuevas(auxiliar);
+		u2.sugerenciaAceptada(a2);
+		assertEquals("La sugerencia pasa al historial de sugerencias",1,u2.getHistorialSugerencias().size());
+	}
+	
+	@Test
+	public void testDeshacerOperacionAnterior() {
+		List<Atuendo> auxiliar = new ArrayList<Atuendo>();
+		auxiliar.add(a2);
+		u2.haySugerenciasNuevas(auxiliar);
+		u2.sugerenciaAceptada(a2);
+		u2.deshacerUltimaOperacion();
+		assertEquals("El atuendo debe haber vuelto a la lista de sugerencias",1,u2.getSugerencias().size());
+		assertEquals("El historial de sugerencias debe estar vacio de vuelta",0,u2.getHistorialSugerencias().size());
+	}
 	
 	/*@Test
 	public void testUsuarioGratuitoGuardaropasLleno() {
