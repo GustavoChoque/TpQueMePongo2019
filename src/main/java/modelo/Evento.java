@@ -30,7 +30,7 @@ public class Evento {
 	public void sugerir(Sugeridor sugeridor){
 		this.sugerencias=sugeridor.sugerir(this.guardaropa.getPrendas());
 		usuario.haySugerenciasNuevas(this.sugerencias);
-		
+		usuario.notificarNuevasSugerencias(this);
 	}
 	
 	public boolean esProximo(LocalDate fecha){

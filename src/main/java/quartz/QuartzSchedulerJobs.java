@@ -16,6 +16,7 @@ public class QuartzSchedulerJobs {
 				/*Class<? extends Job> a=JobEventos.class;
 				JobDetail mijob=JobBuilder.newJob(a).build();*/
 				
+				//es un trigger cada 2 segundos
 				Trigger tri=TriggerBuilder.newTrigger().withIdentity("triggerEventos")
 						.withSchedule(SimpleScheduleBuilder.simpleSchedule().withIntervalInSeconds(02)
 								.repeatForever()).build();

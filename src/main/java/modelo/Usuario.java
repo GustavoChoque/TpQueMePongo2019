@@ -13,12 +13,14 @@ public class Usuario {
 	private List<Guardaropa> guardaropas;
 	private List<Atuendo> sugerencias;
 	private TipoDeUsuario tipoDeUsuario;
+	private List<SugerenciasObserver> interesados;
 	private List<AtuendoSugerido> historialSugerencias;
 	
 	
 	public Usuario(TipoDeUsuario tipo){
 		this.guardaropas=new ArrayList<Guardaropa>();
 		this.sugerencias=new ArrayList<Atuendo>();
+		this.interesados=new ArrayList<SugerenciasObserver>();
 		this.historialSugerencias=new ArrayList<AtuendoSugerido>();
 		this.tipoDeUsuario=tipo;
 	}
@@ -31,6 +33,11 @@ public class Usuario {
 		this.sugerencias=nuevasSugerencias;
 	}
 	
+	public void notificarNuevasSugerencias(Evento unEvento){
+		interesados.forEach(in->in.notificarSugerenciasNuevas(this, unEvento));
+		
+	}
+	
 	public void crearEvento(LocalDate fecha,String nombre,Guardaropa guardaropa){
 		Evento nuevoEvento=new Evento(fecha, nombre, this, guardaropa);
 		RepositorioEventos.instance().agendar(nuevoEvento);
@@ -41,6 +48,16 @@ public class Usuario {
 		guardaropa.setUsuario(this);
 		guardaropas.add(guardaropa);
 	}
+	
+	public TipoDeUsuario getTipoDeUsuario() {
+		return tipoDeUsuario;
+	}
+	
+	public void agregarInterezado(SugerenciasObserver o){
+		this.interesados.add(o);
+	}
+	
+	
 	
 	public void deshacerUltimaOperacion() {
 		Atuendo aux = historialSugerencias.get(0).getAtuendo();
@@ -91,10 +108,6 @@ public class Usuario {
 	
 	public int cuantosGuardarropasTengo() {
 		return guardaropas.size();
-	}
-	
-	public TipoDeUsuario getTipoDeUsuario() {
-		return tipoDeUsuario;
 	}
 	
 	public List<Atuendo> getSugerencias(){

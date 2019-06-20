@@ -68,8 +68,32 @@ public class Main {
 		atuendos=su.sugerir(prendas);
 		atuendos.forEach(a->System.out.println(a.getNivelDeAbrigo()+"::"+a.getSuperiores().stream().map(prenda->prenda.getTipoDePrenda()).collect(Collectors.toList())+" "+a.getInferior().getTipoDePrenda()+"--"+a.getCalzado().getTipoDePrenda()+"--"+a.getAccesorio().getTipoDePrenda()));
 		
+		
+		
+		//-------probando evento y alerta de sugerencia
+				Usuario u2= new Usuario(new Gratuito());
+				SugerenciasObserver o1= new AlertaNuevasSugerenciasObserver();
+				u2.agregarInterezado(o1);
+				
+				Guardaropa g2=new Guardaropa();
+				u2.agregarGuardaropa(g2);
+				u2.getGuardaropas().get(0).agregarPrenda(p1);
+				u2.getGuardaropas().get(0).agregarPrenda(p2);
+				u2.getGuardaropas().get(0).agregarPrenda(p2);
+				u2.getGuardaropas().get(0).agregarPrenda(p3);
+				u2.getGuardaropas().get(0).agregarPrenda(p4);
+				u2.getGuardaropas().get(0).agregarPrenda(p5);
+				u2.getGuardaropas().get(0).agregarPrenda(p6);
+			
+				
+				LocalDate f=LocalDate.now().plus(3, ChronoUnit.DAYS);
+				//LocalDate f=LocalDate.of(2020,03,22);
+				u2.crearEvento(f, "paseo", u2.getGuardaropas().get(0));
+		
+		
+		
 		//se ejecuta la tarea Programada
-		//QuartzSchedulerJobs sche=new QuartzSchedulerJobs();
+		QuartzSchedulerJobs sche=new QuartzSchedulerJobs();
 		
 	}
 	
