@@ -5,6 +5,7 @@ import java.time.Period;
 import java.time.temporal.ChronoUnit;
 import java.util.List;
 
+import auxiliar.Frecuencia;
 import servicios.ProveedorOpenWeather;
 
 public class Evento {
@@ -14,13 +15,14 @@ public class Evento {
 	private Usuario usuario;
 	private Guardaropa guardaropa;
 	private List<Atuendo> sugerencias;
-
+	private Frecuencia frecuencia;
 	
-	public Evento(LocalDate fecha,String nom,Usuario usu,Guardaropa guardaropa){
+	public Evento(LocalDate fecha,String nom,Usuario usu,Guardaropa guardaropa,Frecuencia frec){
 		this.fecha=fecha;
 		this.nombre=nom;
 		this.usuario=usu;
 		this.guardaropa=guardaropa;
+		this.frecuencia=frec;
 	}
 	
 	public String getNombre() {
@@ -31,6 +33,8 @@ public class Evento {
 		this.sugerencias=sugeridor.sugerir(this.guardaropa.getPrendas());
 		usuario.haySugerenciasNuevas(this.sugerencias);
 		usuario.notificarNuevasSugerencias(this);
+		//actualiza la fecha, para un evento repetitivo
+		this.fecha=this.fecha.plusDays(frecuencia.valor());
 	}
 	
 	public boolean esProximo(LocalDate fecha){
@@ -38,5 +42,17 @@ public class Evento {
 		int proximidad=5;
 		return (this.fecha.compareTo(fecha)>=0 && ChronoUnit.DAYS.between(fecha, this.fecha)<=proximidad);
 				
+	}
+
+	public Frecuencia getFrecuencia() {
+		return frecuencia;
+	}
+
+	public void setFrecuencia(Frecuencia frecuencia) {
+		this.frecuencia = frecuencia;
+	}
+
+	public LocalDate getFecha() {
+		return fecha;
 	}
 }

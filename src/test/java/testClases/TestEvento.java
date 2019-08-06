@@ -10,6 +10,7 @@ import java.util.stream.Collectors;
 import org.junit.Before;
 import org.junit.Test;
 
+import auxiliar.Frecuencia;
 import modelo.Evento;
 import modelo.Guardaropa;
 import modelo.Premium;
@@ -30,7 +31,7 @@ public class TestEvento {
 		
 		usuario1 = new Usuario(new Premium());
 		usuario2 = new Usuario(new Premium());
-		evento1 = new Evento(LocalDate.of(2019, 05, 31),"evento 1", usuario1, null);
+		evento1 = new Evento(LocalDate.of(2019, 05, 31),"evento 1", usuario1,null ,Frecuencia.MENSUAL);
 		guardaropas1 = new Guardaropa();
 		guardaropas2 = new Guardaropa();
 		
@@ -51,10 +52,10 @@ public class TestEvento {
 	
 	@Test
 	public void eventosRepositorio() {
-		usuario1.crearEvento(LocalDate.of(2019, 06, 01), "evento proximo", guardaropas1);
-		usuario2.crearEvento(LocalDate.of(2019, 06, 01), "evento proximo usuario2", guardaropas1);
-		usuario1.crearEvento(LocalDate.of(2019, 06, 29), "evento lejano", guardaropas1);
-		usuario1.crearEvento(LocalDate.of(2019, 06, 01), "evento proximo", guardaropas1);
+		usuario1.crearEvento(LocalDate.of(2019, 06, 01), "evento proximo", guardaropas1,Frecuencia.MENSUAL);
+		usuario2.crearEvento(LocalDate.of(2019, 06, 01), "evento proximo usuario2", guardaropas1,Frecuencia.MENSUAL);
+		usuario1.crearEvento(LocalDate.of(2019, 06, 29), "evento lejano", guardaropas1,Frecuencia.MENSUAL);
+		usuario1.crearEvento(LocalDate.of(2019, 06, 01), "evento proximo", guardaropas1,Frecuencia.MENSUAL);
 		assertEquals("hay 4 eventos", 4, RepositorioEventos.instance().listaDeEventos.size());
 		assertEquals("hay 3 eventos proximos", 3, RepositorioEventos.instance().proximos(LocalDate.of(2019, 05, 29)).size());
 		assertEquals("hay 2 eventos proximos del usuario 1", 2, RepositorioEventos.instance().proximos(LocalDate.of(2019, 05, 29)).stream().filter(evento->evento.getNombre() == "evento proximo").collect(Collectors.toList()).size());

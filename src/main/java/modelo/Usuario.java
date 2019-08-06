@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Scanner;
 import java.util.stream.Collectors;
 
+import auxiliar.Frecuencia;
 import modelo.observadores.SugerenciasObserver;
 import repositorios.RepositorioEventos;
 import servicios.ProveedorOpenWeather;
@@ -39,8 +40,8 @@ public class Usuario {
 		
 	}
 	
-	public void crearEvento(LocalDate fecha,String nombre,Guardaropa guardaropa){
-		Evento nuevoEvento=new Evento(fecha, nombre, this, guardaropa);
+	public void crearEvento(LocalDate fecha,String nombre,Guardaropa guardaropa, Frecuencia frecuencia){
+		Evento nuevoEvento=new Evento(fecha, nombre, this, guardaropa,frecuencia);
 		RepositorioEventos.instance().agendar(nuevoEvento);
 	}
 	

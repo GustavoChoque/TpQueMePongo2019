@@ -6,9 +6,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import auxiliar.Frecuencia;
 import modelo.observadores.AlertaNuevasSugerenciasObserver;
 import modelo.observadores.SugerenciasObserver;
 import quartz.QuartzSchedulerJobs;
+import repositorios.RepositorioEventos;
 import repositorios.RepositorioTipoDePrendaTela;
 import repositorios.RepositorioTiposDePrenda;
 import servicios.ProveedorClima;
@@ -89,12 +91,13 @@ public class Main {
 				
 				LocalDate f=LocalDate.now().plus(3, ChronoUnit.DAYS);
 				//LocalDate f=LocalDate.of(2020,03,22);
-				u2.crearEvento(f, "paseo", u2.getGuardaropas().get(0));
-		
+				u2.crearEvento(f, "paseo", u2.getGuardaropas().get(0),Frecuencia.DIARIA);
+				
 		
 		
 		//se ejecuta la tarea Programada
 		QuartzSchedulerJobs sche=new QuartzSchedulerJobs();
+		
 		
 	}
 	
