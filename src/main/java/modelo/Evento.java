@@ -6,11 +6,13 @@ import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.uqbar.commons.model.annotations.Observable;
+
 import auxiliar.Frecuencia;
 import modelo.operaciones.Operacion;
 import repositorios.RepositorioSugerenciasPasadas;
 import servicios.ProveedorOpenWeather;
-
+@Observable
 public class Evento {
 	
 	private LocalDate fecha;

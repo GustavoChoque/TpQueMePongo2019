@@ -7,11 +7,13 @@ import java.util.Scanner;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+import org.uqbar.commons.model.annotations.Observable;
+
 import auxiliar.Frecuencia;
 import modelo.observadores.SugerenciasObserver;
 import repositorios.RepositorioEventos;
 import servicios.ProveedorOpenWeather;
-
+@Observable
 public class Usuario {
 	
 	private List<Guardaropa> guardaropas;
