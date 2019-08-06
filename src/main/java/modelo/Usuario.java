@@ -1,8 +1,10 @@
 package modelo;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Scanner;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 import auxiliar.Frecuencia;
@@ -13,17 +15,19 @@ import servicios.ProveedorOpenWeather;
 public class Usuario {
 	
 	private List<Guardaropa> guardaropas;
-	private List<Atuendo> sugerencias;
+	//private List<Atuendo> sugerencias;
 	private TipoDeUsuario tipoDeUsuario;
+	private Set<Evento> notificaciones;
 	private List<SugerenciasObserver> interesados;
-	private List<AtuendoSugerido> historialSugerencias;
-	
+	//private List<AtuendoSugerido> historialSugerencias;
+	//public List<Atuendo> listaSugerenciasViejas;
 	
 	public Usuario(TipoDeUsuario tipo){
 		this.guardaropas=new ArrayList<Guardaropa>();
-		this.sugerencias=new ArrayList<Atuendo>();
+		//this.sugerencias=new ArrayList<Atuendo>();
+		this.notificaciones=new HashSet<Evento>();
 		this.interesados=new ArrayList<SugerenciasObserver>();
-		this.historialSugerencias=new ArrayList<AtuendoSugerido>();
+		//this.historialSugerencias=new ArrayList<AtuendoSugerido>();
 		this.tipoDeUsuario=tipo;
 	}
 	
@@ -31,12 +35,15 @@ public class Usuario {
 		return guardaropas;
 	}
 	
-	public void haySugerenciasNuevas(List<Atuendo> nuevasSugerencias){
+	//ver si es necesario que Evento lo llame, por ahora no 
+	/*public void haySugerenciasNuevas(List<Atuendo> nuevasSugerencias){
 		this.sugerencias=nuevasSugerencias;
-	}
+	}*/
 	
 	public void notificarNuevasSugerencias(Evento unEvento){
-		interesados.forEach(in->in.notificarSugerenciasNuevas(this, unEvento));
+		//ver para q se pueda actualizar la lista al recibir una nueva
+				this.notificaciones.add(unEvento);
+				interesados.forEach(in->in.notificarSugerenciasNuevas(this, unEvento));
 		
 	}
 	
@@ -45,12 +52,11 @@ public class Usuario {
 		RepositorioEventos.instance().agendar(nuevoEvento);
 	}
 	
-	
-	public void agregarGuardaropa(Guardaropa guardaropa) {
+	public void agregarGuardaropa(Guardaropa guardaropa){
 		guardaropa.setUsuario(this);
-		guardaropas.add(guardaropa);
+		this.guardaropas.add(guardaropa);
 	}
-	
+
 	public TipoDeUsuario getTipoDeUsuario() {
 		return tipoDeUsuario;
 	}
@@ -58,9 +64,26 @@ public class Usuario {
 	public void agregarInterezado(SugerenciasObserver o){
 		this.interesados.add(o);
 	}
+	/*
+	public void agregarConjuntoSugerenciasViejas(List<Atuendo> atuendos){
+		this.listaSugerenciasViejas.addAll(atuendos);
+	}
+	*/
+
+	public Set<Evento> getNotificaciones() {
+		return notificaciones;
+	}
+
+	public void setNotificaciones(Set<Evento> notificaciones) {
+		this.notificaciones = notificaciones;
+	}
+
+	public void setGuardaropas(List<Guardaropa> guardaropas) {
+		this.guardaropas = guardaropas;
+	}
 	
 	
-	
+	/*
 	public void deshacerUltimaOperacion() {
 		Atuendo aux = historialSugerencias.get(0).getAtuendo();
 		sugerencias.add(aux);		
@@ -117,5 +140,5 @@ public class Usuario {
 	}
 	public List<AtuendoSugerido> getHistorialSugerencias(){
 		return historialSugerencias;
-	}
+	}*/
 }

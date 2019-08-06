@@ -83,7 +83,7 @@ public class TestUsuario {
 		u1=new Usuario(new Premium());
 		u1.agregarGuardaropa(g1);
 		u1.agregarGuardaropa(g2);
-		assertEquals("Usuario con mas de un guardaropa", 2, u1.cuantosGuardarropasTengo());
+		assertEquals("Usuario con mas de un guardaropa", 2, u1.getGuardaropas().size());
 		
 		
 	}
@@ -117,7 +117,7 @@ public class TestUsuario {
 		u1.getGuardaropas().get(0).agregarPrenda(p1);
 		
 	}
-	
+	/*
 	@Test
 	public void testLlegaSugerencia() {
 		
@@ -143,7 +143,7 @@ public class TestUsuario {
 		u2.deshacerUltimaOperacion();
 		assertEquals("El atuendo debe haber vuelto a la lista de sugerencias",1,u2.getSugerencias().size());
 		assertEquals("El historial de sugerencias debe estar vacio de vuelta",0,u2.getHistorialSugerencias().size());
-	}
+	}*/
 	
 	/*@Test
 	public void testUsuarioGratuitoGuardaropasLleno() {
