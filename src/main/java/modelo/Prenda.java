@@ -15,51 +15,46 @@ import repositorios.RepositorioTipoDePrendaTela;
 
 public class Prenda {
 
-	private Tela tela;
 	private TipoDePrenda tipo;
-	private Color colorPrimario;
-	private Color colorSecundario;
+	private Color colorP;
+	private Color colorS;
+	private Tela tela;
 	private String imagen; 
+	private boolean habilitado;
 	
-	public Prenda(TipoDePrenda tipo, Color primario, Tela tel) {
+	
+
+	public Prenda(TipoDePrenda ti, Color c1, Tela te) {
 		
-		if(RepositorioTipoDePrendaTela.getSinglentonInstance().telaValida(tipo, tel)){	
-		this.tipo = tipo;
-		this.colorPrimario = Objects.requireNonNull(primario, "El color primario es obligatorio");
-		this.tela = tel;
+		if(RepositorioTipoDePrendaTela.getSinglentonInstance().telaValida(ti, te)){	
+		this.tipo = ti;
+		this.colorP = Objects.requireNonNull(c1, "El color primario es obligatorio");
+		this.tela = te;
+		this.habilitado=true;
 		}else{
 			throw new TelaInvalidaException("Tela no valida para el tipo de prenda");
 		}
 	}
 
-	public Prenda(TipoDePrenda tipo, Color primario, Color secundario, Tela tel) {
+	public Prenda(TipoDePrenda ti, Color c1, Color c2, Tela te) {
 		
-		if(RepositorioTipoDePrendaTela.getSinglentonInstance().telaValida(tipo, tel)){
-			if(!primario.equals(secundario)){
-			this.tipo = tipo;
-			this.colorPrimario = Objects.requireNonNull(primario, "El color primario es obligatorio");
-			this.colorSecundario = secundario;
-			this.tela = tel;
+		if(RepositorioTipoDePrendaTela.getSinglentonInstance().telaValida(ti, te)){
+			if(!c1.equals(c2)){
+			this.tipo = ti;
+			this.colorP = Objects.requireNonNull(c1, "El color primario es obligatorio");
+			this.colorS = c2;
+			this.tela = te;
 			}else{
 				throw new RuntimeException("El color Secundario es igual al Color Primario ");
 			}
 		}else{
 			throw new TelaInvalidaException("Tela no valida para el tipo de prenda");
 		}
-	
 	}
-	
-	/*
-	public Prenda(TipoDePrenda tipo, Tela tel, Color primario) {
-		this.tipo = Objects.requireNonNull(tipo,"Debe especificar el tipo de prenda");
-		this.colorPrimario = Objects.requireNonNull(primario, "El color primario es obligatorio");
-		tipo.validarTela(tel,this);
-	}
-	*/
 	
 	public void setColorSecundario(Color colour) {
-		if(!this.colorPrimario.equals(colour)){
-		this.colorSecundario = colour;
+		if(!this.colorP.equals(colour)){
+		this.colorS = colour;
 		}else{
 			throw new RuntimeException("El color Secundario es igual al Color Primario ");
 		}
@@ -114,9 +109,65 @@ public class Prenda {
 	}
 
 	
+
+	public String getImagen() {
+		return imagen;
+	}
+
+	public boolean isHabilitado() {
+		return habilitado;
+	}
+
+	public void setHabilitado(boolean habilitado) {
+		this.habilitado = habilitado;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		Prenda prenda=(Prenda)obj;
+		if(prenda.getColorS()!=null && this.getColorS()!=null){
+		return prenda.getTipo().equals(this.getTipo()) 
+				&& prenda.getTela().equals(this.getTela())
+				&& prenda.getColorP().equals(this.getColorP())
+				&& prenda.getColorS().equals(this.getColorS());
+		}else if(prenda.getColorS()==null && this.getColorS()==null){
+			return prenda.getTipo().equals(this.getTipo()) 
+					&& prenda.getTela().equals(this.getTela())
+					&& prenda.getColorP().equals(this.getColorP());
+				
+		}else{
+			return false;
+		}
+	}
+
+	@Override
+	public int hashCode() {
+		// TODO Auto-generated method stub
+		return super.hashCode();
+	}
+	
+	@Override
+	public String toString() {
+		return "("+tipo + "," + colorP + "," + colorS + "," + tela + ")";
+	}
 	
 	
-	
+	public TipoDePrenda getTipo() {
+		return tipo;
+	}
+
+	public Color getColorP() {
+		return colorP;
+	}
+
+	public Color getColorS() {
+		return colorS;
+	}
+
+	public Tela getTela() {
+		return tela;
+	}
+
 		
 	
 }
