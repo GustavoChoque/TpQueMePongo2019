@@ -41,9 +41,13 @@ public class RepositorioTiposDePrenda {
 				StringTokenizer subcadena=new StringTokenizer(linea, ",");
 				String categoria=subcadena.nextToken();
 				String nombreTipoPrenda=subcadena.nextToken();
+				int capa=Integer.parseInt(subcadena.nextToken());
+				int nivelDeAbrigo=Integer.parseInt(subcadena.nextToken());
 				TipoDePrenda tipoPrenda=new TipoDePrenda();
 				tipoPrenda.setNombre(nombreTipoPrenda);
 				tipoPrenda.setCategoria(categoria);
+				tipoPrenda.setCapa(capa);
+				tipoPrenda.setNivelDeAbrigo(nivelDeAbrigo);
 				tiposPrenda.add(tipoPrenda);
 			
 			}
@@ -62,11 +66,10 @@ public class RepositorioTiposDePrenda {
 	public Set<TipoDePrenda> getTiposPrenda() {
 		return tiposPrenda;
 	}
-	public boolean tipoDePrendaValido(Categoria cat, String nom, int capa){
+	public boolean tipoDePrendaValido(Categoria cat, String nom){
 		TipoDePrenda tipoaux=new TipoDePrenda();
 		tipoaux.setCategoria(cat);
 		tipoaux.setNombre(nom);
-		tipoaux.setCapa(capa);
 		
 		return this.tiposPrenda.contains(tipoaux);
 	}

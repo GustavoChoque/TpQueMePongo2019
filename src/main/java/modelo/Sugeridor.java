@@ -14,20 +14,18 @@ import exceptions.FaltanteDePrendasException;
 import servicios.ProveedorClima;
 
 public class Sugeridor {
-	List<Prenda> prendasSuperioresCapa1; //remeras
-	List<Prenda> prendasSuperioresCapa2; //camisas
-	List<Prenda> prendasSuperioresCapa3; //buzo, sweater
-	List<Prenda> prendasSuperioresCapa4; //campera de invierno
+	List<Prenda> prendasSuperiores;
+	List<Prenda> prendasSuperiores2;
+	List<Prenda> prendasSuperiores3;
 	List<Prenda> prendasInferiores;
 	List<Prenda> calzados;
 	List<Prenda> accesorios;
 	ProveedorClima proveedorClima;
 	
 	public Sugeridor(ProveedorClima proveedor){
-		prendasSuperioresCapa1=new ArrayList<Prenda>();
-		prendasSuperioresCapa2=new ArrayList<Prenda>();
-		prendasSuperioresCapa3=new ArrayList<Prenda>();
-		prendasSuperioresCapa4=new ArrayList<Prenda>();
+		prendasSuperiores=new ArrayList<Prenda>();
+		prendasSuperiores2=new ArrayList<Prenda>();
+		prendasSuperiores3=new ArrayList<Prenda>();
 		prendasInferiores=new ArrayList<Prenda>();
 		calzados=new ArrayList<Prenda>();
 		accesorios=new ArrayList<Prenda>();
@@ -37,14 +35,24 @@ public class Sugeridor {
 	}
 	
 	private void separarPrendas(List<Prenda> prendas){
-		prendasSuperioresCapa1=prendas.stream().filter(p->p.getCategoria().equals(Categoria.PARTE_SUPERIOR)&p.getCapa()==1).collect(Collectors.toList());
-		prendasSuperioresCapa2=prendas.stream().filter(p->p.getCategoria().equals(Categoria.PARTE_SUPERIOR)&p.getCapa()==2).collect(Collectors.toList());
-		prendasSuperioresCapa3=prendas.stream().filter(p->p.getCategoria().equals(Categoria.PARTE_SUPERIOR)&p.getCapa()==3).collect(Collectors.toList());
-		prendasSuperioresCapa4=prendas.stream().filter(p->p.getCategoria().equals(Categoria.PARTE_SUPERIOR)&p.getCapa()==4).collect(Collectors.toList());
+		prendasSuperiores=prendas.stream()
+				.filter(p->p.getCategoria().equals(Categoria.PARTE_SUPERIOR)&& p.getCapa()==1)
+				.collect(Collectors.toList());
+		prendasSuperiores2=prendas.stream()
+				.filter(p->p.getCategoria().equals(Categoria.PARTE_SUPERIOR)&& p.getCapa()==2)
+				.collect(Collectors.toList());
+		prendasSuperiores2.add(new Prenda(new TipoDePrenda(Categoria.PARTE_SUPERIOR,"SinSuperior",2,0),Color.NINGUNO,Tela.NINGUNO));
+		
+		prendasSuperiores3=prendas.stream()
+				.filter(p->p.getCategoria().equals(Categoria.PARTE_SUPERIOR) && p.getCapa()==3)
+				//.filter(p->p.getCapa()==3)
+				.collect(Collectors.toList());
+		prendasSuperiores3.add(new Prenda(new TipoDePrenda(Categoria.PARTE_SUPERIOR,"SinSuperior",2,0),Color.NINGUNO,Tela.NINGUNO));
+		
 		prendasInferiores=prendas.stream().filter(p->p.getCategoria().equals(Categoria.PARTE_INFERIOR)).collect(Collectors.toList());
 		calzados=prendas.stream().filter(p->p.getCategoria().equals(Categoria.CALZADO)).collect(Collectors.toList());
 		accesorios=prendas.stream().filter(p->p.getCategoria().equals(Categoria.ACCESORIO)).collect(Collectors.toList());
-		accesorios.add(new Prenda(new TipoDePrenda(Categoria.ACCESORIO, "SinAccesorio",0,0),Color.NINGUNO,Tela.NINGUNO));
+		accesorios.add(new Prenda(new TipoDePrenda(Categoria.ACCESORIO, "SinAccesorio",1,0),Color.NINGUNO,Tela.NINGUNO));
 
 	}
 	
@@ -52,37 +60,55 @@ public class Sugeridor {
 	//Esto es para sugerir en el dia 
 	public List<Atuendo> sugerir(List<Prenda> prendas){
 		
-		List<Atuendo> aux;
-		separarPrendas(prendas);
-		if(puedeGenerarSugerencia()) {
-			aux = this.generarSugerencias(prendas);	
-		}else{
-			throw new FaltanteDePrendasException("Debe tener al menos una prenda inferior, superior y calzado para generar sugerencia");
-		}
-		
-		return filtrarPorUnaTemperatura(aux,proveedorClima.getTemperatura());
-	}
+				separarPrendas(prendas);
+				
+				List<Atuendo> aux;
+				if(puedeGenerarSugerencia()) {
+					aux= Lists
+							.cartesianProduct(prendasSuperiores,prendasSuperiores2,prendasSuperiores3,prendasInferiores,calzados,accesorios)
+							.stream()
+							.map((list)->new Atuendo(list.get(0),list.get(1), list.get(2), list.get(3), list.get(4), list.get(5)))
+							.collect(Collectors.toList());	
+					}else{
+						throw new FaltanteDePrendasException("Debe tener al menos una prenda inferior, superior y calzado para generar sugerencia");
+					}
+				
+				return filtrarPorUnaTemperatura(filtrarRedundancias(aux),proveedorClima.getTemperatura());
+			}
 	
 	
 	// esto es para sugerir en una fecha
 	public List<Atuendo> sugerir(LocalDate fecha,List<Prenda> prendas){
-		
-		double temperatura=this.proveedorClima.getTemperaturaDeUnaFecha(fecha);
-		
 		List<Atuendo> aux;
+		Double temperatura=this.proveedorClima.getTemperaturaDeUnaFecha(fecha);
+		//filtrarPrendas(temperatura);
 		separarPrendas(prendas);
 		if(puedeGenerarSugerencia()) {
-			aux=this.generarSugerencias(prendas);	
+			aux= Lists
+				.cartesianProduct(prendasSuperiores,prendasSuperiores2,prendasSuperiores3,prendasInferiores,calzados,accesorios)
+				.stream()
+				.map((list)->new Atuendo(list.get(0),list.get(1), list.get(2), list.get(3), list.get(4), list.get(5)))
+				.collect(Collectors.toList());	
 		}else{
 			throw new FaltanteDePrendasException("Debe tener al menos una prenda inferior, superior y calzado para generar sugerencia");
 		}
 		
-		return filtrarPorUnaTemperatura(aux,temperatura);
+		return filtrarPorUnaTemperatura(filtrarRedundancias(aux),temperatura);
 	}
 	
 	public boolean puedeGenerarSugerencia() {
-		return !((prendasSuperioresCapa1.isEmpty()&& prendasSuperioresCapa2.isEmpty()) || prendasInferiores.isEmpty() || calzados.isEmpty());
+		return !(prendasSuperiores.isEmpty() || prendasInferiores.isEmpty() || calzados.isEmpty());
 	}
+	
+	public List<Atuendo> filtrarRedundancias(List<Atuendo> atuendos){
+		//filtra que no se repitan prendas en las superposiciones,
+		//como camisa y arriba otra camisa(pedido de enunciado)
+		return atuendos.stream()
+				.filter(a->!a.getPrendaSuperior().getTipoDePrenda().equals(a.getPrendaSuperior2().getTipoDePrenda()))
+				.filter(a->!a.getPrendaSuperior().getTipoDePrenda().equals(a.getPrendaSuperior3().getTipoDePrenda()))
+				.collect(Collectors.toList());
+	}
+	
 	public List<Atuendo> filtrarPorUnaTemperatura(List<Atuendo> atuendos,double temp){
 		return atuendos.stream()
 				.filter(a->criterio(a,temp))
@@ -93,12 +119,12 @@ public class Sugeridor {
 	//por ahora 50 es el nivel maximo de abrigo con los valores que le di
 	//a los tipoDeprenda en el Main
 	public boolean criterio(Atuendo atuendo,double temp){
-		return ((50-atuendo.getNivelDeAbrigo())-10)<=temp && ((50-atuendo.getNivelDeAbrigo())+10)>=temp;
+		return (50-atuendo.getNivelDeAbrigo()-10)<=temp && (50-atuendo.getNivelDeAbrigo()+10)>=temp;
 	}	
 	
 	
 	
-	
+	/*
 	public List<Atuendo> generarSugerencias(List<Prenda> prendas){
 		List<Atuendo> atuendosCapa1 = generarAtuendosConCapasSup(prendasSuperioresCapa1);
 		List<Atuendo> atuendosCapa2 = generarAtuendosConCapasSup(prendasSuperioresCapa2);
@@ -157,6 +183,6 @@ public class Sugeridor {
 				.stream()
 				.map((list)->new Atuendo(Arrays.asList(list.get(0),list.get(1),list.get(2),list.get(3)),list.get(4), list.get(5), list.get(6)))
 				.collect(Collectors.toList());
-	}
+	}*/
 	
 }

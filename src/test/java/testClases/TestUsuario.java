@@ -54,8 +54,8 @@ public class TestUsuario {
 		g3=new Guardaropa();
 		
 		u2 = new Usuario(new Premium());
-		a1 = new Atuendo (Arrays.asList(p1),p3,p4,p5);
-		a2 = new Atuendo (Arrays.asList(p2),p3,p4,p5);
+		//a1 = new Atuendo (Arrays.asList(p1),p3,p4,p5);
+		//a2 = new Atuendo (Arrays.asList(p2),p3,p4,p5);
 		
 		/*g1.agregarPrendaSuperior(p1);
 		g1.agregarCalzado(p4);

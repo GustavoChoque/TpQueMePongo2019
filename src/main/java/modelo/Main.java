@@ -6,6 +6,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import modelo.observadores.AlertaNuevasSugerenciasObserver;
+import modelo.observadores.SugerenciasObserver;
 import quartz.QuartzSchedulerJobs;
 import repositorios.RepositorioTipoDePrendaTela;
 import repositorios.RepositorioTiposDePrenda;
@@ -32,7 +34,7 @@ public class Main {
 		
 		
 		t1=new TipoDePrenda(Categoria.PARTE_SUPERIOR, "remera",1,5);
-		t2=new TipoDePrenda(Categoria.PARTE_SUPERIOR, "campera",4,20);
+		t2=new TipoDePrenda(Categoria.PARTE_SUPERIOR, "campera",3,20);
 		t3=new TipoDePrenda(Categoria.PARTE_INFERIOR, "short",1,5);
 		t4=new TipoDePrenda(Categoria.PARTE_INFERIOR, "pantalon",1,10);
 		t5=new TipoDePrenda(Categoria.CALZADO, "zapato",1,5);
@@ -66,8 +68,7 @@ public class Main {
 		
 		Sugeridor su=new Sugeridor(new ProveedorOpenWeather());
 		atuendos=su.sugerir(prendas);
-		atuendos.forEach(a->System.out.println(a.getNivelDeAbrigo()+"::"+a.getSuperiores().stream().map(prenda->prenda.getTipoDePrenda()).collect(Collectors.toList())+" "+a.getInferior().getTipoDePrenda()+"--"+a.getCalzado().getTipoDePrenda()+"--"+a.getAccesorio().getTipoDePrenda()));
-		
+		atuendos.forEach(a->System.out.println(a.getNivelDeAbrigo()+"::"+a.getPrendaSuperior().getTipoDePrenda()+" "+a.getPrendaSuperior2().getTipoDePrenda()+" "+a.getPrendaSuperior3().getTipoDePrenda()+" "+a.getPrendaInferior().getTipoDePrenda()+"--"+a.getCalzado().getTipoDePrenda()+"--"+a.getAccesorio().getTipoDePrenda()));
 		
 		
 		//-------probando evento y alerta de sugerencia

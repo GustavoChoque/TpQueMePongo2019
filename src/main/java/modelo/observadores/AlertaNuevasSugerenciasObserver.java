@@ -1,4 +1,7 @@
-package modelo;
+package modelo.observadores;
+
+import modelo.Evento;
+import modelo.Usuario;
 
 public class AlertaNuevasSugerenciasObserver implements SugerenciasObserver{
 
