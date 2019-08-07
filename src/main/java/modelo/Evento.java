@@ -35,7 +35,7 @@ public class Evento {
 	
 	
 	public void sugerir(Sugeridor sugeridor){
-		this.sugerencias=sugeridor.sugerir(this.guardaropa.getPrendas());
+		this.sugerencias=sugeridor.sugerir(this.guardaropa.getPrendasDisponibles());
 		//usuario.haySugerenciasNuevas(this.sugerencias);
 		
 		//esto cambiarlo para que se guarde con el usuario, talvez un id
@@ -71,6 +71,7 @@ public class Evento {
 	public void aceptarSugerencia(int posicion){
 		Atuendo atuendoAceptado=this.sugerencias.get(posicion);
 		atuendoAceptado.setEstadoComoSugerencia(EstadoComoSugerencia.ACEPTADA);
+		atuendoAceptado.deshabilitarPrendas();
 		//esto talvez pensalo mejor
 		this.sugerenciaElegida=atuendoAceptado;
 		
@@ -119,5 +120,11 @@ public class Evento {
 
 	public void setOperaciones(List<Operacion> operaciones) {
 		this.operaciones = operaciones;
+	}
+	
+	//La uso para un test nomas
+	public void agregarSugerencia(Atuendo atuendo) {
+		sugerencias = new ArrayList<Atuendo>();
+		this.sugerencias.add(atuendo);
 	}
 }

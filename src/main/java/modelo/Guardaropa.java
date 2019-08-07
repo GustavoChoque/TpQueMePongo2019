@@ -39,5 +39,15 @@ public class Guardaropa {
 		this.usuario = usuario;
 	}
 	
+	public Usuario getUsuario() {
+		return this.usuario;
+	}
+	
+	public List<Prenda> getPrendasDisponibles(){
+		return this.prendas.stream().filter(p->p.isHabilitado()).collect(Collectors.toList());
+	}
+	public void agregarPrendaDirecto(Prenda prenda) {
+		prendas.add(prenda);
+	}
 	
 }	

@@ -1,9 +1,24 @@
 package modelo;
 
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.List;
 import java.util.stream.Collectors;
 
 public class GuardaropaCompartido extends Guardaropa {
+	
+	private Set<Usuario> usuarios;
+	
+	
+	public GuardaropaCompartido() {
+		super();
+		usuarios = new HashSet<Usuario>();
+		usuarios.add(this.getUsuario());
+		
+	}
+	
+	
 
 	@Override
 	public List<Prenda> getPrendas() {

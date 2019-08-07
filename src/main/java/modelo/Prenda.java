@@ -119,7 +119,10 @@ public class Prenda {
 	}
 
 	public void setHabilitado(boolean habilitado) {
-		this.habilitado = habilitado;
+		if(tipo.getNombre().equals("SinAccesorio"))
+			this.habilitado = true;
+		else
+			this.habilitado = habilitado;
 	}
 
 	@Override

@@ -98,4 +98,15 @@ public class Atuendo {
 				+ ", accesorio=" + accesorio + ", estado=" + estadoComoSugerencia + "]";
 	}
 	
-}
+
+
+	public void deshabilitarPrendas() {
+		prendaSuperior.setHabilitado(false);
+		prendaSuperior2.setHabilitado(false);
+		prendaSuperior3.setHabilitado(false);
+		prendaInferior.setHabilitado(false);
+		calzado.setHabilitado(false);
+		accesorio.setHabilitado(false);
+	}
+		
+	}
