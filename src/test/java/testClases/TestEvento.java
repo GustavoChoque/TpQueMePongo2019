@@ -18,6 +18,7 @@ import modelo.Color;
 import modelo.Atuendo;
 import modelo.Evento;
 import modelo.Guardaropa;
+import modelo.GuardaropaCompartido;
 import modelo.Premium;
 import modelo.Prenda;
 import modelo.Tela;
@@ -32,8 +33,8 @@ public class TestEvento {
 	Atuendo atuendo;
 	Evento evento1,evento2,evento3;
 	Usuario usuario1, usuario2;
-	Guardaropa guardaropas1,guardaropas2;
-	
+	Guardaropa guardaropas1;
+	GuardaropaCompartido guardaropas2;
 	
 	@Before
 	
@@ -43,7 +44,7 @@ public class TestEvento {
 		usuario2 = new Usuario(new Premium());
 		evento1 = new Evento(LocalDate.of(2019, 05, 31),"evento 1", usuario1,null ,Frecuencia.MENSUAL);
 		guardaropas1 = new Guardaropa();
-		guardaropas2 = new Guardaropa();
+		guardaropas2 = new GuardaropaCompartido();
 		
 		t1=new TipoDePrenda(Categoria.PARTE_SUPERIOR, "remera",1,5);
 		t2=new TipoDePrenda(Categoria.PARTE_SUPERIOR, "camisa",2,10);
@@ -67,15 +68,15 @@ public class TestEvento {
 		anillo = new Prenda(t8,Color.AMARILLO,Tela.NINGUNO);
 		sinAccesorio = new Prenda(t9,Color.NINGUNO,Tela.NINGUNO);
 		
-		guardaropas2.agregarPrendaDirecto(rem_roj);
-		guardaropas2.agregarPrendaDirecto(cam_az);
-		guardaropas2.agregarPrendaDirecto(sho_ama);
-		guardaropas2.agregarPrendaDirecto(zap_neg);
-		guardaropas2.agregarPrendaDirecto(jean);
-		guardaropas2.agregarPrendaDirecto(p2);
-		guardaropas2.agregarPrendaDirecto(p1);
-		guardaropas2.agregarPrendaDirecto(anillo);
-		guardaropas2.agregarPrendaDirecto(sinAccesorio);
+		guardaropas2.agregarPrenda(rem_roj);
+		guardaropas2.agregarPrenda(cam_az);
+		guardaropas2.agregarPrenda(sho_ama);
+		guardaropas2.agregarPrenda(zap_neg);
+		guardaropas2.agregarPrenda(jean);
+		guardaropas2.agregarPrenda(p2);
+		guardaropas2.agregarPrenda(p1);
+		guardaropas2.agregarPrenda(anillo);
+		guardaropas2.agregarPrenda(sinAccesorio);
 		
 		atuendo = new Atuendo(rem_roj,p1,p2,sho_ama,zap_neg,sinAccesorio);
 	}

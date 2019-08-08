@@ -40,5 +40,18 @@ public class GuardaropaCompartido extends Guardaropa {
 	public void notificarSugerenciaAceptada(Atuendo atuendo){
 		atuendo.obtenerPrendas().forEach(p->this.bloquearPrenda(p));
 	}
+	@Override
+	public List<Prenda> getPrendasDisponibles(){
+		return this.getPrendas().stream().filter(p->p.isHabilitado()).collect(Collectors.toList());
+	}
+	@Override
+	public void agregarPrenda(Prenda prenda) {
+		prendas.add(prenda);
+	}
+	
+	@Override
+	public void deshabilitarPrendas(List<Prenda> unasPrendas) {
+		unasPrendas.forEach(p->p.setHabilitado(false));
+	}
 	
 }

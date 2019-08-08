@@ -71,7 +71,7 @@ public class Evento {
 	public void aceptarSugerencia(int posicion){
 		Atuendo atuendoAceptado=this.sugerencias.get(posicion);
 		atuendoAceptado.setEstadoComoSugerencia(EstadoComoSugerencia.ACEPTADA);
-		atuendoAceptado.deshabilitarPrendas();
+		guardaropa.deshabilitarPrendas(atuendoAceptado.obtenerPrendas());
 		//esto talvez pensalo mejor
 		this.sugerenciaElegida=atuendoAceptado;
 		

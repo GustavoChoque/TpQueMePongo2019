@@ -11,8 +11,8 @@ import exceptions.GuardarropaIncompletoException;
 
 public class Guardaropa {
 	
-	private List<Prenda> prendas;
-	private Usuario usuario;
+	protected List<Prenda> prendas;
+	protected Usuario usuario;
 	
 	public Guardaropa() {
 		prendas=new ArrayList<Prenda>();
@@ -44,10 +44,11 @@ public class Guardaropa {
 	}
 	
 	public List<Prenda> getPrendasDisponibles(){
-		return this.prendas.stream().filter(p->p.isHabilitado()).collect(Collectors.toList());
+		return this.prendas;
 	}
-	public void agregarPrendaDirecto(Prenda prenda) {
-		prendas.add(prenda);
+	
+	public void deshabilitarPrendas(List<Prenda> unasPrendas) {
+		
 	}
 	
 }	
