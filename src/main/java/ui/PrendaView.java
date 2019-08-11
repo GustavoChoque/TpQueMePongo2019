@@ -34,14 +34,11 @@ public class PrendaView extends Dialog<PrendaViewModel>{
 	@Override
 	protected void createFormPanel(Panel mainPanel) {
 		this.setTitle("Prenda");
-		//this.setMinHeight(400);
-		//this.setMinWidth(400);
+		
 		
 		mainPanel.setLayout(new ColumnLayout(2));
 		
-		/*GroupPanel subPanel1=new GroupPanel(mainPanel);
-		subPanel1.setTitle("Mi Panel");
-		subPanel1.setLayout(new VerticalLayout());*/
+		
 		new Label(mainPanel).setText("");
 		new Label(mainPanel).setText("Tipo de Prenda:");
 		Selector<Color> listaTiposDePrenda=new Selector<Color>(mainPanel).allowNull(false);

@@ -63,35 +63,6 @@ public class QueMePongoView extends MainWindow<QueMePongoViewModel>{
 		new Label(subPanel1).bindValueToProperty("cantPrendasTotales");
 		
 		
-		//----------------esto hay que mejorarlo para que funcines como notificaciones
-		/*for (int x=0;x<10;x++){
-			GroupPanel subPanel3=new GroupPanel(subPanel2);
-			subPanel3.setTitle("-----"+x);
-			subPanel3.setLayout(new VerticalLayout());
-			new Label(subPanel3).setText("Evento"+getModelObject().cantidaDeGuardaropas());
-			*/
-							/*Table tabla=new Table<Evento>(subPanel2,Evento.class);
-							tabla.bindItems(new ObservableProperty<>(getModelObject().getUsuario(),"notificaciones"));
-						
-							new Column<Evento>(tabla)
-							.setTitle("Prenda")
-							.setFixedSize(400)
-							.bindContentsToProperty("sugerencias");
-							
-							
-							new RadioSelector<>(subPanel2).onSelection(this::eventoNuevo)
-							.bindItems(new ObservableProperty<>(getModelObject().getUsuario(),"notificaciones"));
-							*/
-			/*new Column<QueMePongoViewModel>(tabla)
-			.setTitle("ACEPTADA");
-			new Column<QueMePongoViewModel>(tabla)
-			.setTitle("RECHAZADA");*/
-		//}
-		
-		
-		
-		//new List<Color>(subPanel1).bindItems(new ObservableProperty<>("colores"));
-		
 		new Button(subPanel2).setCaption("Gestionar").onClick(()->this.gestionarSugerencias());
 		new Label(subPanel2).bindValueToProperty("notificacionElegida");
 		
@@ -100,9 +71,7 @@ public class QueMePongoView extends MainWindow<QueMePongoViewModel>{
 		unaLista.setWidth(500);
 		unaLista.bindItems(new ObservableProperty<>(getModelObject().getUsuario(),"notificaciones"));
 		unaLista.bindValueToProperty("notificacionElegida");
-		//unaLista.onSelection(()->this.gestionarSugerencias(getModelObject().getNotificacionElegida()));
-		//unaLista.onSelection(this::gestionarSugerencias);
-		//-------------
+		
 		
 	}
 	

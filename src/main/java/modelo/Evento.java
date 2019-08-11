@@ -6,6 +6,7 @@ import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.commons.collections.CollectionUtils;
 import org.uqbar.commons.model.annotations.Observable;
 
 import auxiliar.Frecuencia;
@@ -35,15 +36,38 @@ public class Evento {
 	
 	
 	public void sugerir(Sugeridor sugeridor){
-		this.sugerencias=sugeridor.sugerir(this.guardaropa.getPrendasDisponibles());
-		//usuario.haySugerenciasNuevas(this.sugerencias);
 		
-		//esto cambiarlo para que se guarde con el usuario, talvez un id
-		//RepositorioSugerenciasPasadas.instance().agregarConjuntoSugerencias(this.sugerencias);
+		List<Atuendo> nuevasSugerencias=sugeridor.sugerir(this.guardaropa.getPrendasDisponibles());
 		
-		usuario.notificarNuevasSugerencias(this);
+		if(this.sugerencias==null){
+			this.sugerencias=nuevasSugerencias;
+			usuario.notificarNuevasSugerencias(this);
+		}
+		else {
+			
+			if(!sonIguales(this.sugerencias,nuevasSugerencias))
+			{	
+				
+				//esto cambiarlo para que se guarde con el usuario, talvez un id
+				//RepositorioSugerenciasPasadas.instance().agregarConjuntoSugerencias(this.sugerencias);
+				
+				this.sugerencias=nuevasSugerencias;
+				
+				//este ver si es necesario
+				//usuario.haySugerenciasNuevas(this.sugerencias);
+				
+				usuario.notificarNuevasSugerencias(this);
+			}
+			
+		}
+		
+		
+		
+		
+		if(this.estaTerminado()){
 		//actualiza la fecha, para un evento repetitivo
 		this.fecha=this.fecha.plusDays(frecuencia.valor());
+		}
 	}
 	
 	public boolean esProximo(LocalDate fecha){
@@ -52,7 +76,20 @@ public class Evento {
 		return (this.fecha.compareTo(fecha)>=0 && ChronoUnit.DAYS.between(fecha, this.fecha)<=proximidad);
 				
 	}
-
+	
+	public boolean estaTerminado(){
+		//? ver bien, si usar <=0 o <0
+		return this.fecha.compareTo(LocalDate.now())<=0;
+	}
+	
+	public boolean sonIguales(List<Atuendo> lista1,List<Atuendo> lista2){
+		//CollectionUtils.retainAll(lista1, lista2) me devuelve
+		//una lista de los elementos de la lista que estan contenidos en la lista2
+		return lista1.size()==lista2.size() && lista1.size()==CollectionUtils.retainAll(lista1, lista2).size();
+	}
+	
+	
+	
 	public String getNombre() {
 		return nombre;
 	}
