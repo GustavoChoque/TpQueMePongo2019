@@ -4,16 +4,25 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 
+import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+
 import exceptions.TelaInvalidaException;
 import exceptions.TipoDePrendaInvalidoException;
 import repositorios.RepositorioTiposDePrenda;
-
+@Entity
 public class TipoDePrenda{
 	
-	Categoria categoria;
-	String nombre;
-	int capa;
-	int nivelDeAbrigo;
+	@Id@GeneratedValue
+	private int id;
+	@Enumerated(EnumType.STRING)
+	private Categoria categoria;
+	private String nombre;
+	private int capa;
+	private int nivelDeAbrigo;
 	
 	public TipoDePrenda(){}
 	

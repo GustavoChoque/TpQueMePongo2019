@@ -9,15 +9,27 @@ import java.util.List;
 import java.util.Objects;
 
 import javax.imageio.ImageIO;
+import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 
 import exceptions.TelaInvalidaException;
 import repositorios.RepositorioTipoDePrendaTela;
-
+@Entity
 public class Prenda {
-
+	@Id@GeneratedValue
+	private int id;
+	@ManyToOne
 	private TipoDePrenda tipo;
+	@Enumerated(EnumType.STRING)
 	private Color colorP;
+	@Enumerated(EnumType.STRING)
 	private Color colorS;
+	@Enumerated(EnumType.STRING)
 	private Tela tela;
 	private String imagen; 
 	private boolean habilitado;
