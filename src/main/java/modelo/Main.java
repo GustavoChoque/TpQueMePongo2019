@@ -69,7 +69,7 @@ public class Main {
 		
 		
 		Sugeridor su=new Sugeridor(new ProveedorOpenWeather());
-		atuendos=su.sugerir(prendas);
+		atuendos=su.sugerir(prendas,new Usuario(new Premium()));
 		atuendos.forEach(a->System.out.println(a.getNivelDeAbrigo()+"::"+a.getPrendaSuperior().getTipoDePrenda()+" "+a.getPrendaSuperior2().getTipoDePrenda()+" "+a.getPrendaSuperior3().getTipoDePrenda()+" "+a.getPrendaInferior().getTipoDePrenda()+"--"+a.getCalzado().getTipoDePrenda()+"--"+a.getAccesorio().getTipoDePrenda()));
 		
 		

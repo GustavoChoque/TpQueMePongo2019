@@ -22,12 +22,15 @@ public class Usuario {
 	private List<Notificacion> notificaciones;
 	private List<SugerenciasObserver> interesados;
 	
+	private float nivelFriolencia; //0.1 muy friolento, 1.9 muy caluroso
+	
 	
 	public Usuario(TipoDeUsuario tipo){
 		this.guardaropas=new ArrayList<Guardaropa>();
 		
 		this.notificaciones=new ArrayList<Notificacion>();
 		this.interesados=new ArrayList<SugerenciasObserver>();
+		this.nivelFriolencia=1;
 		
 		this.tipoDeUsuario=tipo;
 	}
@@ -56,6 +59,14 @@ public class Usuario {
 		RepositorioEventos.instance().agendar(nuevoEvento);
 	}
 	
+	public float getNivelFriolencia() {
+		return nivelFriolencia;
+	}
+
+	public void setNivelFriolencia(float nivelFriolencia) {//elegir valor entre 0 y 2
+		this.nivelFriolencia = nivelFriolencia;
+	}
+
 	public void agregarGuardaropa(Guardaropa guardaropa){
 		guardaropa.setUsuario(this);
 		this.guardaropas.add(guardaropa);
@@ -99,6 +110,23 @@ public class Usuario {
 		this.notificaciones.removeIf(n->!n.isHabilitada());
 	}
 
+	public void darFeedback(FeedbackUsuario respuesta) 
+	{
+		switch(respuesta)
+		{
+		case FRIO:
+			this.nivelFriolencia = Math.max(0,nivelFriolencia-0.1f);
+			break;
+		case CALOR:
+			this.nivelFriolencia = Math.min(2,nivelFriolencia+0.1f);
+		case MUCHOFRIO:
+			this.nivelFriolencia = Math.max(0,nivelFriolencia-0.3f);
+		case MUCHOCALOR:
+			this.nivelFriolencia = Math.min(2,nivelFriolencia+0.3f);
+		}
+		
+	}
+	
 	
 	/*
 	public void deshacerUltimaOperacion() {

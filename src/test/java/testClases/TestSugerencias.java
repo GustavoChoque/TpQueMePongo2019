@@ -16,10 +16,12 @@ import modelo.Atuendo;
 import modelo.Categoria;
 import modelo.Color;
 import modelo.Guardaropa;
+import modelo.Premium;
 import modelo.Prenda;
 import modelo.Sugeridor;
 import modelo.Tela;
 import modelo.TipoDePrenda;
+import modelo.Usuario;
 import servicios.MockClima;
 import servicios.ProveedorClima;
 import servicios.ProveedorOpenWeather;
@@ -27,6 +29,7 @@ import servicios.ProveedorOpenWeather;
 public class TestSugerencias {
 	TipoDePrenda t1,t2,t3,t4,t5;
 	Guardaropa g1;
+	Usuario u1,u2;
 	Prenda rem_roj, cam_az, sho_ama, zap_neg;
 	List<Prenda> prendas,prendas2,prendas3;
 	
@@ -41,7 +44,9 @@ public class TestSugerencias {
 		t1=new TipoDePrenda(Categoria.PARTE_SUPERIOR, "remera",1,5);
 		t2=new TipoDePrenda(Categoria.PARTE_SUPERIOR, "camisa",2,10);
 		t3=new TipoDePrenda(Categoria.PARTE_INFERIOR, "short",1,5);
-		t4=new TipoDePrenda(Categoria.CALZADO, "zapato",1,5);	
+		t4=new TipoDePrenda(Categoria.CALZADO, "zapato",1,5);
+		u1= new Usuario(new Premium());
+		u2= new Usuario(new Premium());
 		
 	rem_roj=new Prenda(t1, Color.ROJO,Tela.ALGODON);
 	cam_az=new Prenda(t2, Color.AZUL,Tela.ALGODON);
@@ -74,7 +79,7 @@ public class TestSugerencias {
 	public void testPrendasFaltantes() {
 		Sugeridor su=new Sugeridor(new MockClima(00.00, 20.00, 00.00));
 		
-		List<Atuendo> sug = su.sugerir(prendas2);
+		List<Atuendo> sug = su.sugerir(prendas2,u1);
 	}
 	
 	@Test
@@ -83,7 +88,7 @@ public class TestSugerencias {
 		Prenda pant_azul = new Prenda(t5,Color.AZUL,Tela.ALGODON);
 		prendas.add(pant_azul);
 		Sugeridor su2=new Sugeridor(new MockClima(00.00, 30.00, 00.00));		
-		assertEquals("2 superiores(uno capa1 y otro capa2), 2 inferiores y 1 calzado deberian generar 6 atuendos, todas cumplen el criterio",6,su2.sugerir(prendas).size());
+		assertEquals("2 superiores(uno capa1 y otro capa2), 2 inferiores y 1 calzado deberian generar 6 atuendos, todas cumplen el criterio",6,su2.sugerir(prendas,u1).size());
 	}
 	
 	@Test
@@ -92,7 +97,18 @@ public class TestSugerencias {
 		Prenda pant_azul = new Prenda(t5,Color.AZUL,Tela.ALGODON);
 		prendas.add(pant_azul);
 		Sugeridor su2=new Sugeridor(new MockClima(00.00, 10.00, 00.00));		
-		assertEquals("Igual que el anterior pero solo una cumple el criterio de la temperatura",1,su2.sugerir(prendas).size());
+		assertEquals("Igual que el anterior pero solo una cumple el criterio de la temperatura",1,su2.sugerir(prendas,u1).size());
+	}
+	@Test
+	public void generaCombinacionesParaUsuarioCalurosoEnClimaFrio() {
+		u2.setNivelFriolencia(1.5f);
+		Sugeridor su2=new Sugeridor(new MockClima(00.00, 10.00, 00.00));		
+		assertEquals("pruebo sugerencias con usuario caluroso",1,su2.sugerir(prendas,u2).size());
+	}
+	@Test
+	public void generaCombinacionesParaUsuarioNormalEnClimaFrio() {
+		Sugeridor su2=new Sugeridor(new MockClima(00.00, 10.00, 00.00));		
+		assertEquals("pruebo sugerencias con usuario caluroso",0,su2.sugerir(prendas,u1).size());
 	}
 	
 	@Test
@@ -100,7 +116,7 @@ public class TestSugerencias {
 		LocalDate f=LocalDate.of(2019,06,10);
 		Sugeridor sugeridor=new Sugeridor(provMockitoClima);
 		
-		assertEquals("Genera atuendos",sugeridor.sugerir(f,prendas3).size() ,1);
+		assertEquals("Genera atuendos",sugeridor.sugerir(f,prendas3,u1).size() ,1);
 		
 	}
 	

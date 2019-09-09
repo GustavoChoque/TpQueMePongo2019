@@ -18,6 +18,10 @@ public class Guardaropa {
 		prendas=new ArrayList<Prenda>();
 		
 	}
+	public Guardaropa(List<Prenda> prendas, Usuario usuario) {
+		this.prendas= prendas;
+		this.usuario = usuario;
+	}
 	public List<Prenda> getPrendas() {
 		return this.prendas;
 	}
@@ -35,6 +39,10 @@ public class Guardaropa {
 			
 		
 	}
+	public void agregarPrendas(List<Prenda> prendas) {
+		prendas.forEach(p->this.agregarPrenda(p));
+	}
+	
 	public void setUsuario(Usuario usuario) {
 		this.usuario = usuario;
 	}

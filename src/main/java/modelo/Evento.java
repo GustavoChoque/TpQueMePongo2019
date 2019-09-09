@@ -37,7 +37,7 @@ public class Evento {
 	
 	public void sugerir(Sugeridor sugeridor){
 		
-		List<Atuendo> nuevasSugerencias=sugeridor.sugerir(this.guardaropa.getPrendasDisponibles());
+		List<Atuendo> nuevasSugerencias=sugeridor.sugerir(this.guardaropa.getPrendasDisponibles(),this.usuario);
 		
 		if(this.sugerencias==null){
 			this.sugerencias=nuevasSugerencias;

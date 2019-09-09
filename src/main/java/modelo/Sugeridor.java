@@ -58,7 +58,7 @@ public class Sugeridor {
 	
 	
 	//Esto es para sugerir en el dia 
-	public List<Atuendo> sugerir(List<Prenda> prendas){
+	public List<Atuendo> sugerir(List<Prenda> prendas,Usuario usuario){
 		
 				separarPrendas(prendas);
 				
@@ -73,12 +73,12 @@ public class Sugeridor {
 						throw new FaltanteDePrendasException("Debe tener al menos una prenda inferior, superior y calzado para generar sugerencia");
 					}
 				
-				return filtrarPorUnaTemperatura(filtrarRedundancias(aux),proveedorClima.getTemperatura());
+				return filtrarPorUnaTemperatura(filtrarRedundancias(aux),proveedorClima.getTemperatura(),usuario);
 			}
 	
 	
 	// esto es para sugerir en una fecha
-	public List<Atuendo> sugerir(LocalDate fecha,List<Prenda> prendas){
+	public List<Atuendo> sugerir(LocalDate fecha,List<Prenda> prendas,Usuario usuario){
 		List<Atuendo> aux;
 		Double temperatura=this.proveedorClima.getTemperaturaDeUnaFecha(fecha);
 		//filtrarPrendas(temperatura);
@@ -93,7 +93,7 @@ public class Sugeridor {
 			throw new FaltanteDePrendasException("Debe tener al menos una prenda inferior, superior y calzado para generar sugerencia");
 		}
 		
-		return filtrarPorUnaTemperatura(filtrarRedundancias(aux),temperatura);
+		return filtrarPorUnaTemperatura(filtrarRedundancias(aux),temperatura,usuario);
 	}
 	
 	public boolean puedeGenerarSugerencia() {
@@ -109,80 +109,18 @@ public class Sugeridor {
 				.collect(Collectors.toList());
 	}
 	
-	public List<Atuendo> filtrarPorUnaTemperatura(List<Atuendo> atuendos,double temp){
+	public List<Atuendo> filtrarPorUnaTemperatura(List<Atuendo> atuendos,double temp,Usuario usuario){
 		return atuendos.stream()
-				.filter(a->criterio(a,temp))
+				.filter(a->criterio(a,temp,usuario))
 				.collect(Collectors.toList());
 	}
 	//mi rango de temperaturas -10 a 50
 	//(50-nivelabrigoAtuendo)+-10, la temperatura esta en ese rango => ok
 	//por ahora 50 es el nivel maximo de abrigo con los valores que le di
 	//a los tipoDeprenda en el Main
-	public boolean criterio(Atuendo atuendo,double temp){
-		return (50-atuendo.getNivelDeAbrigo()-10)<=temp && (50-atuendo.getNivelDeAbrigo()+10)>=temp;
+	public boolean criterio(Atuendo atuendo,double temp,Usuario usuario){
+		return (50-atuendo.getNivelDeAbrigo()*usuario.getNivelFriolencia()-10)<=temp && (50-atuendo.getNivelDeAbrigo()*usuario.getNivelFriolencia()+10)>=temp;
 	}	
 	
-	
-	
-	/*
-	public List<Atuendo> generarSugerencias(List<Prenda> prendas){
-		List<Atuendo> atuendosCapa1 = generarAtuendosConCapasSup(prendasSuperioresCapa1);
-		List<Atuendo> atuendosCapa2 = generarAtuendosConCapasSup(prendasSuperioresCapa2);
-		List<Atuendo> atuendosCapas12 = generarAtuendosConCapasSup(prendasSuperioresCapa1,prendasSuperioresCapa2);
-		List<Atuendo> atuendosCapas13 =  generarAtuendosConCapasSup(prendasSuperioresCapa1,prendasSuperioresCapa3);
-		List<Atuendo> atuendosCapas14 =  generarAtuendosConCapasSup(prendasSuperioresCapa1,prendasSuperioresCapa4);
-		List<Atuendo> atuendosCapas24 =  generarAtuendosConCapasSup(prendasSuperioresCapa2,prendasSuperioresCapa4);
-		List<Atuendo> atuendosCapas23 =  generarAtuendosConCapasSup(prendasSuperioresCapa2,prendasSuperioresCapa3);
-		List<Atuendo> atuendosCapas123 =  generarAtuendosConCapasSup(prendasSuperioresCapa1,prendasSuperioresCapa2,prendasSuperioresCapa3);
-		List<Atuendo> atuendosCapas134 =  generarAtuendosConCapasSup(prendasSuperioresCapa1,prendasSuperioresCapa3,prendasSuperioresCapa4);
-		List<Atuendo> atuendosCapas124 = generarAtuendosConCapasSup(prendasSuperioresCapa1,prendasSuperioresCapa2,prendasSuperioresCapa4);
-		List<Atuendo> atuendosCapas234 = generarAtuendosConCapasSup(prendasSuperioresCapa2,prendasSuperioresCapa3,prendasSuperioresCapa4);
-		List<Atuendo> atuendosCapas1234 = generarAtuendosConCapasSup(prendasSuperioresCapa1,prendasSuperioresCapa2,prendasSuperioresCapa3,prendasSuperioresCapa4);
-		
-		
-		List<Atuendo> atuendosTotales = new ArrayList<Atuendo>();
-		atuendosTotales.addAll(atuendosCapa1);
-		atuendosTotales.addAll(atuendosCapa2);
-		atuendosTotales.addAll(atuendosCapas12);
-		atuendosTotales.addAll(atuendosCapas13);
-		atuendosTotales.addAll(atuendosCapas14);
-		atuendosTotales.addAll(atuendosCapas24);
-		atuendosTotales.addAll(atuendosCapas23);
-		atuendosTotales.addAll(atuendosCapas123);
-		atuendosTotales.addAll(atuendosCapas124);
-		atuendosTotales.addAll(atuendosCapas134);
-		atuendosTotales.addAll(atuendosCapas234);
-		atuendosTotales.addAll(atuendosCapas1234);
-		return atuendosTotales;
-	}
-	
-	public List<Atuendo> generarAtuendosConCapasSup(List<Prenda> conjuntoCapas1){
-		return 	Lists
-				.cartesianProduct(conjuntoCapas1,prendasInferiores,calzados,accesorios)
-				.stream()
-				.map((list)->new Atuendo(Arrays.asList(list.get(0)),list.get(1), list.get(2), list.get(3)))
-				.collect(Collectors.toList());
-	}
-	public List<Atuendo> generarAtuendosConCapasSup(List<Prenda> conjuntoCapas1,List<Prenda> conjuntoCapas2){
-		return 	Lists
-				.cartesianProduct(conjuntoCapas1,conjuntoCapas2,prendasInferiores,calzados,accesorios)
-				.stream()
-				.map((list)->new Atuendo(Arrays.asList(list.get(0),list.get(1)),list.get(2), list.get(3), list.get(4)))
-				.collect(Collectors.toList());
-	}
-	public List<Atuendo> generarAtuendosConCapasSup(List<Prenda> conjuntoCapas1,List<Prenda> conjuntoCapas2,List<Prenda> conjuntoCapas3){
-		return 	Lists
-				.cartesianProduct(conjuntoCapas1,conjuntoCapas2,conjuntoCapas3,prendasInferiores,calzados,accesorios)
-				.stream()
-				.map((list)->new Atuendo(Arrays.asList(list.get(0),list.get(1),list.get(2)),list.get(3), list.get(4), list.get(5)))
-				.collect(Collectors.toList());
-	}
-	public List<Atuendo> generarAtuendosConCapasSup(List<Prenda> conjuntoCapas1,List<Prenda> conjuntoCapas2,List<Prenda> conjuntoCapas3,List<Prenda> conjuntoCapas4){
-		return 	Lists
-				.cartesianProduct(conjuntoCapas1,conjuntoCapas2,conjuntoCapas3,conjuntoCapas4,prendasInferiores,calzados,accesorios)
-				.stream()
-				.map((list)->new Atuendo(Arrays.asList(list.get(0),list.get(1),list.get(2),list.get(3)),list.get(4), list.get(5), list.get(6)))
-				.collect(Collectors.toList());
-	}*/
 	
 }
