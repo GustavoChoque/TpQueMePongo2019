@@ -17,19 +17,18 @@ import servicios.ProveedorOpenWeather;
 public class Usuario {
 	
 	private List<Guardaropa> guardaropas;
-	//private List<Atuendo> sugerencias;
+	
 	private TipoDeUsuario tipoDeUsuario;
-	private Set<Evento> notificaciones;
+	private List<Notificacion> notificaciones;
 	private List<SugerenciasObserver> interesados;
-	//private List<AtuendoSugerido> historialSugerencias;
-	//public List<Atuendo> listaSugerenciasViejas;
+	
 	
 	public Usuario(TipoDeUsuario tipo){
 		this.guardaropas=new ArrayList<Guardaropa>();
-		//this.sugerencias=new ArrayList<Atuendo>();
-		this.notificaciones=new HashSet<Evento>();
+		
+		this.notificaciones=new ArrayList<Notificacion>();
 		this.interesados=new ArrayList<SugerenciasObserver>();
-		//this.historialSugerencias=new ArrayList<AtuendoSugerido>();
+		
 		this.tipoDeUsuario=tipo;
 	}
 	
@@ -44,8 +43,11 @@ public class Usuario {
 	
 	public void notificarNuevasSugerencias(Evento unEvento){
 		//ver para q se pueda actualizar la lista al recibir una nueva
-				this.notificaciones.add(unEvento);
-				interesados.forEach(in->in.notificarSugerenciasNuevas(this, unEvento));
+		deshabilitarNotificacionesViejasDeEvento(unEvento);
+		//por ahora borrara las notificaciones viejas, ver luego como talvez bloquearlas o cambiar al gun color de fondo
+		borrarNotificacionesDeshabilitadas();
+		this.notificaciones.add(new Notificacion(unEvento));
+		interesados.forEach(in->in.notificarSugerenciasNuevas(this, unEvento));
 		
 	}
 	
@@ -72,11 +74,11 @@ public class Usuario {
 	}
 	*/
 
-	public Set<Evento> getNotificaciones() {
+	public List<Notificacion> getNotificaciones() {
 		return notificaciones;
 	}
 
-	public void setNotificaciones(Set<Evento> notificaciones) {
+	public void setNotificaciones(List<Notificacion> notificaciones) {
 		this.notificaciones = notificaciones;
 	}
 
@@ -84,6 +86,19 @@ public class Usuario {
 		this.guardaropas = guardaropas;
 	}
 	
+	public void deshabilitarNotificacionesViejasDeEvento(Evento evento){
+		this.notificaciones
+		.forEach(n->{
+			if(n.getEvento().getNombre()==evento.getNombre()){
+				n.setHabilitada(false);
+			}
+		});
+	}
+	private void borrarNotificacionesDeshabilitadas(){
+
+		this.notificaciones.removeIf(n->!n.isHabilitada());
+	}
+
 	
 	/*
 	public void deshacerUltimaOperacion() {

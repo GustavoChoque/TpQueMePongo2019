@@ -20,6 +20,7 @@ import modelo.Color;
 import modelo.Evento;
 import modelo.Gratuito;
 import modelo.Guardaropa;
+import modelo.Notificacion;
 import modelo.Usuario;
 import quartz.QuartzSchedulerJobs;
 
@@ -67,7 +68,7 @@ public class QueMePongoView extends MainWindow<QueMePongoViewModel>{
 		new Label(subPanel2).bindValueToProperty("notificacionElegida");
 		
 		new Label(subPanel2).setText("Eventos con Sugerencias Listas");
-		List<Evento>unaLista=new List<Evento>(subPanel2);
+		List<Notificacion>unaLista=new List<Notificacion>(subPanel2);
 		unaLista.setWidth(500);
 		unaLista.bindItems(new ObservableProperty<>(getModelObject().getUsuario(),"notificaciones"));
 		unaLista.bindValueToProperty("notificacionElegida");
@@ -99,7 +100,7 @@ public class QueMePongoView extends MainWindow<QueMePongoViewModel>{
 		
 	}
 	public void gestionarSugerencias(){
-		Dialog<?> dialog = new SugerenciasView(this,getModelObject().getNotificacionElegida());
+		Dialog<?> dialog = new SugerenciasView(this,getModelObject().getNotificacionElegida().getEvento());
 		dialog.open();
 		
 	}

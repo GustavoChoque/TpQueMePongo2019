@@ -67,6 +67,7 @@ public class Evento {
 		if(this.estaTerminado()){
 		//actualiza la fecha, para un evento repetitivo
 		this.fecha=this.fecha.plusDays(frecuencia.valor());
+		this.usuario.deshabilitarNotificacionesViejasDeEvento(this);
 		}
 	}
 	
@@ -110,7 +111,13 @@ public class Evento {
 		atuendoAceptado.setEstadoComoSugerencia(EstadoComoSugerencia.ACEPTADA);
 		guardaropa.deshabilitarPrendas(atuendoAceptado.obtenerPrendas());
 		//esto talvez pensalo mejor
-		this.sugerenciaElegida=atuendoAceptado;
+		if(this.sugerenciaElegida==null){
+			this.sugerenciaElegida=atuendoAceptado;
+			}else{
+				this.sugerenciaElegida.setEstadoComoSugerencia(EstadoComoSugerencia.RECHAZADA);
+				this.sugerenciaElegida=atuendoAceptado;
+				
+			}
 		
 	}
 	

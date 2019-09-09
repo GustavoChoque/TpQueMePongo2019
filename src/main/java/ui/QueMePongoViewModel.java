@@ -9,6 +9,7 @@ import modelo.Color;
 import modelo.Evento;
 import modelo.Gratuito;
 import modelo.Guardaropa;
+import modelo.Notificacion;
 import modelo.Usuario;
 
 
@@ -21,7 +22,7 @@ public class QueMePongoViewModel {
 	private int cantGuardaropas;
 	private int cantPrendasTotales;
 	private List<Color> colores;
-	private Evento notificacionElegida;
+	private Notificacion notificacionElegida;
 	
 	
 	public QueMePongoViewModel(Usuario usuario){
@@ -95,13 +96,13 @@ public class QueMePongoViewModel {
 
 
 
-	public Evento getNotificacionElegida() {
+	public Notificacion getNotificacionElegida() {
 		return notificacionElegida;
 	}
 
 
 
-	public void setNotificacionElegida(Evento notificacionElegida) {
+	public void setNotificacionElegida(Notificacion notificacionElegida) {
 		this.notificacionElegida = notificacionElegida;
 	}
 
