@@ -9,7 +9,16 @@
     	<provider>org.hibernate.ejb.HibernatePersistence</provider>
     	 <class>modelo.Prenda</class>
     	 <class>modelo.TipoDePrenda</class>
-    	 
+    	 <class>modelo.Usuario</class>
+    	 <class>modelo.Notificacion</class>
+    	 <class>modelo.Guardaropa</class>
+    	 <class>modelo.TipoDeUsuario</class>
+    	 <class>modelo.Premium</class>
+    	 <class>modelo.Gratuito</class>
+    	 <class>modelo.Evento</class>
+    	 <class>modelo.Atuendo</class>
+    	 <class>modelo.observadores.SugerenciasObserver</class>
+    	 <class>modelo.observadores.AlertaNuevasSugerenciasObserver</class>
         <properties> 
 	    <property name="hibernate.archive.autodetection" value="class"/>        
         

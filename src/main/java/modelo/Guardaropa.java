@@ -4,14 +4,24 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+
 import com.google.common.collect.Lists;
 
 import exceptions.GuardarropaIncompletoException;
 
-
+@Entity
 public class Guardaropa {
-	
+	@Id@GeneratedValue
+	private int id;
+	@OneToMany@JoinColumn(name="id_guardaropa")
 	protected List<Prenda> prendas;
+	@ManyToOne
 	protected Usuario usuario;
 	
 	public Guardaropa() {

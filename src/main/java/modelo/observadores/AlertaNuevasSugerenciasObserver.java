@@ -1,10 +1,12 @@
 package modelo.observadores;
 
+import javax.persistence.Entity;
+
 import modelo.Evento;
 import modelo.Usuario;
-
-public class AlertaNuevasSugerenciasObserver implements SugerenciasObserver{
-
+@Entity
+public class AlertaNuevasSugerenciasObserver extends SugerenciasObserver{
+	public AlertaNuevasSugerenciasObserver(){}
 	@Override
 	public void notificarSugerenciasNuevas(Usuario usuario, Evento evento) {
 		// TODO Auto-generated method stub

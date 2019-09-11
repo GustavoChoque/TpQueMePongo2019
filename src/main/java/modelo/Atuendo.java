@@ -4,15 +4,28 @@ import java.util.List;
 import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
+import javax.persistence.Embeddable;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.ManyToOne;
+@Embeddable
 public class Atuendo {
-
+	@ManyToOne
 	Prenda prendaSuperior;
+	@ManyToOne
 	Prenda prendaSuperior2;
+	@ManyToOne
 	Prenda prendaSuperior3;
+	@ManyToOne
 	Prenda prendaInferior;
+	@ManyToOne
 	Prenda calzado;
+	@ManyToOne
 	Prenda accesorio;
+	@Enumerated(EnumType.STRING)
 	EstadoComoSugerencia estadoComoSugerencia;
+	
+	public Atuendo(){}
 	
 	public Atuendo(Prenda sup, Prenda sup2,Prenda sup3,Prenda inf, Prenda cal, Prenda acc) {
 		this.prendaSuperior = sup;

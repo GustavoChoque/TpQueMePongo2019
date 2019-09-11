@@ -6,6 +6,16 @@ import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.ElementCollection;
+import javax.persistence.Embedded;
+import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.persistence.Transient;
+
 import org.apache.commons.collections.CollectionUtils;
 import org.uqbar.commons.model.annotations.Observable;
 
@@ -13,17 +23,27 @@ import auxiliar.Frecuencia;
 import modelo.operaciones.Operacion;
 import repositorios.RepositorioSugerenciasPasadas;
 import servicios.ProveedorOpenWeather;
+@Entity
 @Observable
 public class Evento {
-	
+	@Id@GeneratedValue
+	private int id;
 	private LocalDate fecha;
 	private String nombre;
+	@ManyToOne
 	private Usuario usuario;
+	@ManyToOne
 	private Guardaropa guardaropa;
+	@ElementCollection//@ManyToMany
 	private List<Atuendo> sugerencias;
+	@Enumerated(EnumType.STRING)
 	private Frecuencia frecuencia;
+	@Transient
 	private List<Operacion> operaciones;
+	@Embedded//@OneToOne
 	private Atuendo sugerenciaElegida;
+	
+	public Evento(){}
 	
 	public Evento(LocalDate fecha,String nom,Usuario usu,Guardaropa guardaropa,Frecuencia frec){
 		this.fecha=fecha;

@@ -2,8 +2,10 @@ package modelo;
 
 import java.util.List;
 
-public class Premium implements TipoDeUsuario{
-
+import javax.persistence.Entity;
+@Entity
+public class Premium extends TipoDeUsuario{
+	public Premium() {}
 	@Override
 	public List<Prenda> agregarPrenda(List<Prenda> guardarropas, Prenda prenda) {
 		guardarropas.add(prenda);

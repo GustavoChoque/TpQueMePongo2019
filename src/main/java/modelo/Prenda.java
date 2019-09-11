@@ -34,7 +34,7 @@ public class Prenda {
 	private String imagen; 
 	private boolean habilitado;
 	
-	
+	public Prenda(){}
 
 	public Prenda(TipoDePrenda ti, Color c1, Tela te) {
 		

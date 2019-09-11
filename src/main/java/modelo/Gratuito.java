@@ -2,12 +2,15 @@ package modelo;
 
 import java.util.List;
 
-import exceptions.LimiteListaException;
+import javax.persistence.Column;
+import javax.persistence.Entity;
 
-public class Gratuito implements TipoDeUsuario {
-	
+import exceptions.LimiteListaException;
+@Entity
+public class Gratuito extends TipoDeUsuario {
+	@Column(name="limite")
 	private int limite=10;
-	
+	public Gratuito() {}
 	@Override
 	public List<Prenda> agregarPrenda(List<Prenda> listaPrendas, Prenda prenda) {
 		if(listaPrendas.size()<limite){

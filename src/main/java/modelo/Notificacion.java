@@ -2,13 +2,19 @@ package modelo;
 
 import java.time.LocalDate;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 
+@Entity
 public class Notificacion {
 	
-	
+	@Id@GeneratedValue
+	private int id;
 	
 	private LocalDate fecha;
-	
+	@ManyToOne
 	private Evento evento;
 	private boolean habilitada;
 	
