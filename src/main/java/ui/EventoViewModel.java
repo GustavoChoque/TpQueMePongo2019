@@ -33,7 +33,6 @@ public class EventoViewModel {
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern(pattern);
 		LocalDate fechaformateada=LocalDate.parse(fecha, formatter);
 		this.usuario.crearEvento(fechaformateada, nombre, guardaropa, frecuencia);
-		System.out.println("Se creo Evento");
 	}
 	
 	

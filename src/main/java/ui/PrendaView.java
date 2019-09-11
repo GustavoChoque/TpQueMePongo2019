@@ -71,8 +71,15 @@ public class PrendaView extends Dialog<PrendaViewModel>{
 	
 	@Override
 	protected void addActions(Panel actions) {
-		new Button(actions).setCaption("Crear").onClick(()->this.getModelObject().crearPrenda());
+		new Button(actions).setCaption("Crear").onClick(()->this.crearPrenda());
 		new Button(actions).setCaption("Cancelar").onClick(this::cancel);
 	}
+	
+	protected void crearPrenda() {
+		this.getModelObject().crearPrenda();
+		this.showInfo("Mensaje creado satisfactoriamente");
+		this.close();
+	}
+
 	
 }

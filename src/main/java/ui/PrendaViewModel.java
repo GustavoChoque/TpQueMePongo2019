@@ -59,7 +59,6 @@ public class PrendaViewModel {
 	public void crearPrenda() {
 		this.guardaropa.agregarPrenda(new Prenda(tipoDePrenda, colorPrimario,colorSecundario, tela));
 		this.ventanaPrincipal.getModelObject().setCantPrendasTotales(this.ventanaPrincipal.getModelObject().cantidadDePrendasTotales());
-		System.out.println("Se creo la prenda");
 
 	}
 	

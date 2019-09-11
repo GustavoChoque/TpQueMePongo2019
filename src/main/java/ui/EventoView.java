@@ -48,8 +48,14 @@ public class EventoView extends Dialog<EventoViewModel>  {
 	
 	@Override
 	protected void addActions(Panel actions) {
-		new Button(actions).setCaption("Crear").onClick(()->this.getModelObject().crearEvento());
+		new Button(actions).setCaption("Crear").onClick(()->this.crearEvento());
 		new Button(actions).setCaption("Cancelar").onClick(this::cancel);
+	}
+	
+	protected void crearEvento() {
+		this.getModelObject().crearEvento();
+		this.showInfo("Evento creado correctamente");
+		this.close();
 	}
 	
 	
