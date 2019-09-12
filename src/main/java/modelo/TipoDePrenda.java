@@ -8,6 +8,7 @@ import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 import exceptions.TelaInvalidaException;
@@ -16,7 +17,7 @@ import repositorios.RepositorioTiposDePrenda;
 @Entity
 public class TipoDePrenda{
 	
-	@Id@GeneratedValue
+	@Id@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 	@Enumerated(EnumType.STRING)
 	private Categoria categoria;
