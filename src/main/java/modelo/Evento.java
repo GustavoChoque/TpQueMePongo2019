@@ -6,6 +6,7 @@ import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.Convert;
 import javax.persistence.ElementCollection;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
@@ -20,14 +21,17 @@ import org.apache.commons.collections.CollectionUtils;
 import org.uqbar.commons.model.annotations.Observable;
 
 import auxiliar.Frecuencia;
+import auxiliar.LocalDateConverter;
 import modelo.operaciones.Operacion;
 import repositorios.RepositorioSugerenciasPasadas;
 import servicios.ProveedorOpenWeather;
 @Entity
 @Observable
 public class Evento {
-	@Id@GeneratedValue
+	@Id
+	@GeneratedValue
 	private int id;
+	@Convert(converter=LocalDateConverter.class)
 	private LocalDate fecha;
 	private String nombre;
 	@ManyToOne

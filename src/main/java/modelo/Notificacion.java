@@ -2,17 +2,20 @@ package modelo;
 
 import java.time.LocalDate;
 
+import javax.persistence.Convert;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+
+import auxiliar.LocalDateConverter;
 
 @Entity
 public class Notificacion {
 	
 	@Id@GeneratedValue
 	private int id;
-	
+	@Convert(converter=LocalDateConverter.class)
 	private LocalDate fecha;
 	@ManyToOne
 	private Evento evento;

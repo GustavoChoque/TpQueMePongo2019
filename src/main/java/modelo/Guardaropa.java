@@ -19,7 +19,8 @@ import exceptions.GuardarropaIncompletoException;
 public class Guardaropa {
 	@Id@GeneratedValue
 	private int id;
-	@OneToMany@JoinColumn(name="id_guardaropa")
+	@OneToMany
+	@JoinColumn(name="id_guardaropa")
 	protected List<Prenda> prendas;
 	@ManyToOne
 	protected Usuario usuario;

@@ -7,6 +7,7 @@ import java.util.Scanner;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -26,11 +27,15 @@ import servicios.ProveedorOpenWeather;
 public class Usuario {
 	@Id@GeneratedValue
 	private int id;
-	@OneToMany@JoinColumn(name="id_usuario")
+	@OneToMany(cascade=CascadeType.PERSIST)
+	@JoinColumn(name="id_usuario")
 	private List<Guardaropa> guardaropas;
-	@ManyToOne
+	
+	@ManyToOne(cascade=CascadeType.PERSIST)
 	private TipoDeUsuario tipoDeUsuario;
-	@OneToMany@JoinColumn(name="id_usuario")
+	
+	@OneToMany
+	@JoinColumn(name="id_usuario")
 	private List<Notificacion> notificaciones;
 	@ManyToMany
 	private List<SugerenciasObserver> interesados;

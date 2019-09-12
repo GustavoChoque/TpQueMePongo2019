@@ -13,7 +13,6 @@ import org.junit.Test;
 
 import exceptions.LimiteListaException;
 import modelo.Atuendo;
-import modelo.AtuendoSugerido;
 import modelo.Categoria;
 import modelo.Color;
 import modelo.Gratuito;

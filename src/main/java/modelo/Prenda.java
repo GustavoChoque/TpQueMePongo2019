@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.Objects;
 
 import javax.imageio.ImageIO;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -23,7 +24,7 @@ import repositorios.RepositorioTipoDePrendaTela;
 public class Prenda {
 	@Id@GeneratedValue
 	private int id;
-	@ManyToOne
+	@ManyToOne(cascade=CascadeType.PERSIST)
 	private TipoDePrenda tipo;
 	@Enumerated(EnumType.STRING)
 	private Color colorP;
