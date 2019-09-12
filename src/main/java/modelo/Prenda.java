@@ -182,6 +182,10 @@ public class Prenda {
 	public Tela getTela() {
 		return tela;
 	}
+	
+	public int getid() {
+		return this.id;
+	}
 
 		
 	
