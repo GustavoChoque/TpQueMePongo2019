@@ -10,6 +10,7 @@ import org.uqbar.arena.windows.Dialog;
 import org.uqbar.arena.windows.Window;
 import org.uqbar.commons.model.annotations.Observable;
 
+import db.EntityManagerHelper;
 import modelo.Color;
 import modelo.Guardaropa;
 import modelo.Prenda;
@@ -57,7 +58,9 @@ public class PrendaViewModel {
 
 	
 	public void crearPrenda() {
+		EntityManagerHelper.beginTransaction();
 		this.guardaropa.agregarPrenda(new Prenda(tipoDePrenda, colorPrimario,colorSecundario, tela));
+		EntityManagerHelper.commit();
 		this.ventanaPrincipal.getModelObject().setCantPrendasTotales(this.ventanaPrincipal.getModelObject().cantidadDePrendasTotales());
 
 	}

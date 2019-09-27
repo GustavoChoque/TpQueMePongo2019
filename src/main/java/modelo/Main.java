@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import auxiliar.Frecuencia;
+import db.EntityManagerHelper;
 import modelo.observadores.AlertaNuevasSugerenciasObserver;
 import modelo.observadores.SugerenciasObserver;
 import quartz.QuartzSchedulerJobs;
@@ -67,13 +68,14 @@ public class Main {
 		
 	
 		
-		
+		/*
 		Sugeridor su=new Sugeridor(new ProveedorOpenWeather());
 		atuendos=su.sugerir(prendas,new Usuario(new Premium()));
 		atuendos.forEach(a->System.out.println(a.getNivelDeAbrigo()+"::"+a.getPrendaSuperior().getTipoDePrenda()+" "+a.getPrendaSuperior2().getTipoDePrenda()+" "+a.getPrendaSuperior3().getTipoDePrenda()+" "+a.getPrendaInferior().getTipoDePrenda()+"--"+a.getCalzado().getTipoDePrenda()+"--"+a.getAccesorio().getTipoDePrenda()));
-		
+		*/
 		
 		//-------probando evento y alerta de sugerencia
+		  		EntityManagerHelper.beginTransaction();
 				Usuario u2= new Usuario(new Gratuito());
 				SugerenciasObserver o1= new AlertaNuevasSugerenciasObserver();
 				u2.agregarInterezado(o1);
@@ -88,6 +90,8 @@ public class Main {
 				u2.getGuardaropas().get(0).agregarPrenda(p5);
 				u2.getGuardaropas().get(0).agregarPrenda(p6);
 			
+				EntityManagerHelper.getEntityManager().persist(u2);
+				EntityManagerHelper.commit();
 				
 				LocalDate f=LocalDate.now().plus(3, ChronoUnit.DAYS);
 				//LocalDate f=LocalDate.of(2020,03,22);

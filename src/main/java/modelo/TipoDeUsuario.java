@@ -10,7 +10,8 @@ import javax.persistence.InheritanceType;
 @Inheritance(strategy=InheritanceType.SINGLE_TABLE)
 @Entity
 public abstract class TipoDeUsuario {
-	@Id@GeneratedValue
+	@Id
+	@GeneratedValue
 	private int id;
 	public abstract List<Prenda> agregarPrenda(List<Prenda> listaPrendas,Prenda prenda);
 }

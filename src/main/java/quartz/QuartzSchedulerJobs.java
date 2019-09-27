@@ -18,7 +18,7 @@ public class QuartzSchedulerJobs {
 				
 				//es un trigger cada 2 segundos
 				Trigger tri=TriggerBuilder.newTrigger().withIdentity("triggerEventos")
-						.withSchedule(SimpleScheduleBuilder.simpleSchedule().withIntervalInSeconds(02)
+						.withSchedule(SimpleScheduleBuilder.simpleSchedule().withIntervalInSeconds(120)
 								.repeatForever()).build();
 				//este es un trigger con una expresion Cron, puedo tenermas control sobre tiempo de ejecucion
 				//en este caso la la expresion dice que se ejecutara cada 12Horas

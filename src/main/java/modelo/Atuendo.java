@@ -4,23 +4,31 @@ import java.util.List;
 import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Embeddable;
+import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 import javax.persistence.ManyToOne;
-@Embeddable
+@Entity
 public class Atuendo {
-	@ManyToOne
+	@Id
+	@GeneratedValue
+	private int id;
+	
+	@ManyToOne(cascade=CascadeType.PERSIST)
 	Prenda prendaSuperior;
-	@ManyToOne
+	@ManyToOne(cascade=CascadeType.PERSIST)
 	Prenda prendaSuperior2;
-	@ManyToOne
+	@ManyToOne(cascade=CascadeType.PERSIST)
 	Prenda prendaSuperior3;
-	@ManyToOne
+	@ManyToOne(cascade=CascadeType.PERSIST)
 	Prenda prendaInferior;
-	@ManyToOne
+	@ManyToOne(cascade=CascadeType.PERSIST)
 	Prenda calzado;
-	@ManyToOne
+	@ManyToOne(cascade=CascadeType.PERSIST)
 	Prenda accesorio;
 	@Enumerated(EnumType.STRING)
 	EstadoComoSugerencia estadoComoSugerencia;

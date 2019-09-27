@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
+import db.EntityManagerHelper;
 import modelo.Evento;
 
 public class RepositorioEventos {
@@ -27,11 +28,24 @@ public class RepositorioEventos {
 	
 	
 	public void agendar(Evento evento){
-		listaDeEventos.add(evento);
+		//listaDeEventos.add(evento);
+		EntityManagerHelper.beginTransaction();
+		EntityManagerHelper.getEntityManager().persist(evento);
+		EntityManagerHelper.commit();
 	}
 	public List<Evento> proximos(LocalDate fecha){
 		
-		return this.listaDeEventos.stream().filter(e->e.esProximo(fecha)).collect(Collectors.toList());
+		//return this.listaDeEventos.stream().filter(e->e.esProximo(fecha)).collect(Collectors.toList());
+	
+		List<Evento> eventos=EntityManagerHelper.getEntityManager()
+		.createQuery("from Evento",Evento.class)
+		.getResultList();
+		
+	
+		return eventos.stream().filter(e->e.esProximo(fecha)).collect(Collectors.toList());
+		
+	
+	
 	}
 	
 }

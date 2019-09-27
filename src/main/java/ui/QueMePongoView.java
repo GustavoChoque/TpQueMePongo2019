@@ -16,6 +16,7 @@ import org.uqbar.arena.windows.MainWindow;
 
 import com.mchange.v2.cfg.PropertiesConfigSource.Parse;
 
+import db.EntityManagerHelper;
 import modelo.Color;
 import modelo.Evento;
 import modelo.Gratuito;
@@ -79,6 +80,11 @@ public class QueMePongoView extends MainWindow<QueMePongoViewModel>{
 	public static void main(String[] args) {
 		Usuario usuario=new Usuario(new Gratuito());
 		usuario.agregarGuardaropa(new Guardaropa());
+		
+		EntityManagerHelper.beginTransaction();
+		EntityManagerHelper.getEntityManager().persist(usuario);
+		EntityManagerHelper.commit();
+		
 		
 		QuartzSchedulerJobs sche=new QuartzSchedulerJobs();
 		

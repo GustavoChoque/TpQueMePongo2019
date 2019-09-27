@@ -7,6 +7,7 @@ import org.quartz.Job;
 import org.quartz.JobExecutionContext;
 import org.quartz.JobExecutionException;
 
+import db.EntityManagerHelper;
 import modelo.Sugeridor;
 import repositorios.RepositorioEventos;
 import servicios.ProveedorOpenWeather;
@@ -25,10 +26,11 @@ public class JobEventos implements Job{
 	}
 	
 	public void ejecutar(){
+		EntityManagerHelper.beginTransaction();
 		RepositorioEventos.instance()
 		.proximos(LocalDate.now())
 		.forEach(evento->evento.sugerir(this.sugeridor));
-		
+		EntityManagerHelper.commit();
 		
 	}
 	

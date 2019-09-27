@@ -22,7 +22,8 @@ import exceptions.TelaInvalidaException;
 import repositorios.RepositorioTipoDePrendaTela;
 @Entity
 public class Prenda {
-	@Id@GeneratedValue
+	@Id
+	@GeneratedValue
 	private int id;
 	@ManyToOne(cascade=CascadeType.PERSIST)
 	private TipoDePrenda tipo;
@@ -57,6 +58,7 @@ public class Prenda {
 			this.colorP = Objects.requireNonNull(c1, "El color primario es obligatorio");
 			this.colorS = c2;
 			this.tela = te;
+			this.habilitado=true;
 			}else{
 				throw new RuntimeException("El color Secundario es igual al Color Primario ");
 			}

@@ -34,10 +34,10 @@ public class Usuario {
 	@ManyToOne(cascade=CascadeType.PERSIST)
 	private TipoDeUsuario tipoDeUsuario;
 	
-	@OneToMany
+	@OneToMany(cascade=CascadeType.PERSIST)
 	@JoinColumn(name="id_usuario")
 	private List<Notificacion> notificaciones;
-	@ManyToMany
+	@ManyToMany(cascade=CascadeType.PERSIST)
 	private List<SugerenciasObserver> interesados;
 	
 	private float nivelFriolencia; //0.1 muy friolento, 1.9 muy caluroso
