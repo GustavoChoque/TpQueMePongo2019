@@ -93,5 +93,8 @@ public class TipoDePrenda{
 	public String toString() {
 		return this.getNombre();
 	}
-
+	
+	public int getId() {
+		return id;
+	}
 }

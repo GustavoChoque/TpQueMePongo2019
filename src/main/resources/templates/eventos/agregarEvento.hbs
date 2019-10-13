@@ -1,0 +1,40 @@
+{{#partial "body"}}
+<div class="container">
+<h4>Crear Evento</h4>
+<from action="/evento" method="post">
+ <div class="form-group col-md-4">
+      <label for="nombre">Nombre:</label>
+      <input type="text" class="form-control" id="nombre">
+ </div>
+  <div class="form-group col-md-4">
+      <label for="fecha">Fecha:</label>
+      <input type="date" class="form-control" id="fecha">
+ </div>
+ <div class="form-group col-md-4">
+      <label for="guardaropa">Guardar en:</label>
+      <select id="guardaropa" class="form-control">
+        <option selected>Choose...</option>
+        <option>...</option>
+      </select>
+ </div>
+ 
+ <div class="form-group col-md-4">
+      <label for="frecuencia">Frecuencia:</label>
+      <select id="frecuencia" class="form-control">
+        <option selected>Choose...</option>
+        {{#each frecuencias}}  
+        <option value="this">{{this}}</option>
+        {{/each}}
+      </select>
+ </div>
+  
+ <div class="form-group row">
+    <div class="col-sm-10">
+      <button type="submit" class="btn btn-primary">Crear</button>
+    </div>
+ </div>
+  
+</form>
+</div>
+{{/partial}}
+{{>layout.hbs}}

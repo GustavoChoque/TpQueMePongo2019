@@ -5,9 +5,11 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 import java.util.StringTokenizer;
 
+import db.EntityManagerHelper;
 import modelo.Categoria;
 import modelo.TipoDePrenda;
 
@@ -49,6 +51,9 @@ public class RepositorioTiposDePrenda {
 				tipoPrenda.setCapa(capa);
 				tipoPrenda.setNivelDeAbrigo(nivelDeAbrigo);
 				tiposPrenda.add(tipoPrenda);
+				EntityManagerHelper.beginTransaction();
+				EntityManagerHelper.getEntityManager().persist(tipoPrenda);
+				EntityManagerHelper.commit();
 			
 			}
 			
@@ -63,14 +68,22 @@ public class RepositorioTiposDePrenda {
 		}
 	}
 
-	public Set<TipoDePrenda> getTiposPrenda() {
+	/*public Set<TipoDePrenda> getTiposPrenda() {
 		return tiposPrenda;
-	}
+	}*/
 	public boolean tipoDePrendaValido(Categoria cat, String nom){
 		TipoDePrenda tipoaux=new TipoDePrenda();
 		tipoaux.setCategoria(cat);
 		tipoaux.setNombre(nom);
 		
 		return this.tiposPrenda.contains(tipoaux);
+	}
+	public List<TipoDePrenda> getTiposPrenda(){
+
+		List<TipoDePrenda> tiposDePrendas=EntityManagerHelper.getEntityManager()
+				.createQuery("from TipoDePrenda",TipoDePrenda.class)
+				.getResultList();
+		return tiposDePrendas;
+
 	}
 }
