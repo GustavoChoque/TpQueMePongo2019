@@ -18,6 +18,7 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 
+import exceptions.ColoresDePrendaIgualesException;
 import exceptions.TelaInvalidaException;
 import repositorios.RepositorioTipoDePrendaTela;
 @Entity
@@ -60,7 +61,7 @@ public class Prenda {
 			this.tela = te;
 			this.habilitado=true;
 			}else{
-				throw new RuntimeException("El color Secundario es igual al Color Primario ");
+				throw new ColoresDePrendaIgualesException("El color Secundario es igual al Color Primario ");
 			}
 		}else{
 			throw new TelaInvalidaException("Tela no valida para el tipo de prenda");
@@ -71,7 +72,7 @@ public class Prenda {
 		if(!this.colorP.equals(colour)){
 		this.colorS = colour;
 		}else{
-			throw new RuntimeException("El color Secundario es igual al Color Primario ");
+			throw new ColoresDePrendaIgualesException("El color Secundario es igual al Color Primario ");
 		}
 	}
 	

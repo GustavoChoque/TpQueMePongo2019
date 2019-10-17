@@ -30,7 +30,7 @@ public class TestUsuario {
 	Guardaropa g1,g2,g3;
 	Prenda p1,p2,p3,p4,p5;
 	TipoDePrenda t1,t2,t3,t4,t5;
-	Atuendo a1,a2; 
+	
 	
 	@Before
 	public void setUp(){
@@ -48,22 +48,11 @@ public class TestUsuario {
 		p3.setColorSecundario(Color.VERDE);
 		p4=new Prenda(t4, Color.NEGRO,Tela.CUERO);
 		p5=new Prenda(t5,Color.NEGRO,Tela.NINGUNO);
+		
 		g1=new Guardaropa();
 		g2=new Guardaropa();
 		g3=new Guardaropa();
 		
-		u2 = new Usuario(new Premium());
-		//a1 = new Atuendo (Arrays.asList(p1),p3,p4,p5);
-		//a2 = new Atuendo (Arrays.asList(p2),p3,p4,p5);
-		
-		/*g1.agregarPrendaSuperior(p1);
-		g1.agregarCalzado(p4);
-		g1.agregarPrendaInferior(p3);
-		g1.agregarAccesorio(p5);
-		g2.agregarPrendaSuperior(p2);
-		g2.agregarPrendaInferior(p3);
-		g2.agregarCalzado(p4);
-		g3.agregarPrendaInferior(p3);*/
 		
 		
 		g1.getPrendas().add(p1);
@@ -87,15 +76,6 @@ public class TestUsuario {
 		
 	}
 	
-	/*@Test
-	public void testUsuarioMultiplesAtuendos() {
-		u1=new Usuario(new Gratuito());
-		u1.agregarGuardaropa(g1);
-		u1.agregarGuardaropa(g2);
-		u1.agregarGuardaropa(g3);
-		//el usuario va a terner 2 atuendos de g1, 1 de g2 y 0 de g3. Si tiene un guardaropas que no puede generar atuendos no debería cortar.
-		assertEquals("Usuario con atuendos generados por diferentes guardarropas",2,u1.cuantosAtuendosTengo());
-	}*/
 	
 	@Test(expected=LimiteListaException.class)
 	public void testGuardaropaDeUsuarioGratuito(){
@@ -116,39 +96,5 @@ public class TestUsuario {
 		u1.getGuardaropas().get(0).agregarPrenda(p1);
 		
 	}
-	/*
-	@Test
-	public void testLlegaSugerencia() {
-		
-		u2.haySugerenciasNuevas(Arrays.asList(a1));
-		assertEquals("se agrega a las sugerencias del usuario el atuendo a1",a1,u2.getSugerencias().get(0));
-	}
 	
-	@Test
-	public void testAceptarSugerencia() {
-		List<Atuendo> auxiliar = new ArrayList<Atuendo>();
-		auxiliar.add(a2);
-		u2.haySugerenciasNuevas(auxiliar);
-		u2.sugerenciaAceptada(a2);
-		assertEquals("La sugerencia pasa al historial de sugerencias",1,u2.getHistorialSugerencias().size());
-	}
-	
-	@Test
-	public void testDeshacerOperacionAnterior() {
-		List<Atuendo> auxiliar = new ArrayList<Atuendo>();
-		auxiliar.add(a2);
-		u2.haySugerenciasNuevas(auxiliar);
-		u2.sugerenciaAceptada(a2);
-		u2.deshacerUltimaOperacion();
-		assertEquals("El atuendo debe haber vuelto a la lista de sugerencias",1,u2.getSugerencias().size());
-		assertEquals("El historial de sugerencias debe estar vacio de vuelta",0,u2.getHistorialSugerencias().size());
-	}*/
-	
-	/*@Test
-	public void testUsuarioGratuitoGuardaropasLleno() {
-		u3 = new UsuarioGratuito(2);
-		u3.agregarGuardaropa(g1);
-		u3.agregarGuardaropa(g2);
-		assertFalse(u3.puedeAgregarGuardaropa());
-	}*/
 }
