@@ -1,5 +1,6 @@
 package web;
 
+import db.DatabaseHelper;
 import quartz.QuartzSchedulerJobs;
 import repositorios.RepositorioTiposDePrenda;
 import spark.Spark;
@@ -7,8 +8,8 @@ import spark.debug.DebugScreen;
 
 public class Server {
 	public static void main(String[] args) {
-		//inicio los tipodePrenda 
-		RepositorioTiposDePrenda.instance();
+		//inicio base
+		DatabaseHelper.inicializarBase();
 
 		//inicio la tarea progrmada
 		//QuartzSchedulerJobs sche=new QuartzSchedulerJobs();

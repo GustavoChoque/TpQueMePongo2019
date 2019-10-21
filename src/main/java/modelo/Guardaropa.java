@@ -73,5 +73,8 @@ public class Guardaropa {
 	public void deshabilitarPrendas(List<Prenda> unasPrendas) {
 		
 	}
+	public int getId() {
+		return id;
+	}
 	
 }	

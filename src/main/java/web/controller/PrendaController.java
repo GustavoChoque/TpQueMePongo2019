@@ -6,12 +6,14 @@ import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-
-
+import db.EntityManagerHelper;
 import modelo.Categoria;
 import modelo.Color;
+import modelo.Guardaropa;
+import modelo.Prenda;
 import modelo.Tela;
 import modelo.TipoDePrenda;
+import modelo.Usuario;
 import repositorios.RepositorioTiposDePrenda;
 import spark.ModelAndView;
 import spark.Request;
@@ -25,7 +27,7 @@ public String agregar(Request req,Response res){
 		HashMap<String,Object> viewModel=new HashMap();
 		
 		Set<TipoDePrenda>tipos = RepositorioTiposDePrenda.instance()
-				.getTiposPrenda()
+				.traerListaDeTiposDePrendaDesdeBD()
 				.stream()
 				.filter(p->!p.getNombre().equals("SinSuperior") && !p.getNombre().equals("SinAccesorio"))
 				.collect(Collectors.toSet());
@@ -40,38 +42,63 @@ public String agregar(Request req,Response res){
 		viewModel.put("tiposDeTela", Tela.values());
 		viewModel.put("coloresPrimarios", colores2);
 		viewModel.put("coloresSecundarios", colores);
-		//viewModel.put("guardaropas", usuario.getGuardaropas());
+		viewModel.put("guardaropas", listaDeGuardaropas(req.cookie("uid")));
+		
 		
 		ModelAndView modelAndView=new ModelAndView(viewModel, "/prendas/agregarPrenda.hbs");
 		return new HandlebarsTemplateEngine().render(modelAndView);
-			
-	}
-//ejemplo en clase	
-/*
-public String crear(Request req,Response res){
+		
+		
+		
+		
+	}	
+
+	public String crear(Request req,Response res){
 	
 	HashMap<String,Object> viewModel=new HashMap();
+	String idTipoDePrenda=req.queryParams("tipoDePrenda");
+	String tela=req.queryParams("tela");
+	String colorP=req.queryParams("colorP");
+	String colorS= req.queryParams("colorS");
+	String idGuardaropa=req.queryParams("guardaropa");
 	
-	Categoria cat=Categoria.valueOf(req.queryParams("Categoria"));
+	TipoDePrenda tipo=EntityManagerHelper
+			.entityManager()
+			.createQuery("FROM TipoDePrenda WHERE id=:idTipoPrenda",TipoDePrenda.class)
+			.setParameter("idTipoPrenda", Integer.parseInt(idTipoDePrenda))
+			.getResultList()
+			.get(0);
 	
-	//req.queryParams("id");//asi obtengo el valo del :id en los endpoints
-	//hasta que no se ejecuto toda la lambda, hace un rollback
-	*/
+	Prenda prendaNueva=new Prenda(tipo,Color.valueOf(colorP),Color.valueOf(colorS),Tela.valueOf(tela));
 	
-	/*withTransaction(()->{
-		
-		Prenda p= new Prenda();
-		//no conviene usarlo que es mejor delegar a un repo  y que el se encargue
-		//em.persist(p);
-		repoPrenda.agregar(p);
-		
-	});*/
-	/*
-	ModelAndView modelAndView=new ModelAndView(viewModel, "/prendas/agregarPrenda.hbs");
+	EntityManagerHelper.entityManager().getTransaction().begin();
+	getGuardaropaPorId(Integer.parseInt(idGuardaropa)).agregarPrenda(prendaNueva);
+	EntityManagerHelper.entityManager().getTransaction().commit();
+	
+	
+	ModelAndView modelAndView=new ModelAndView(viewModel, "/prendas/agregarPrendaResultado.hbs");
 	return new HandlebarsTemplateEngine().render(modelAndView);
+	}
+
+	private List<Integer> listaDeGuardaropas(String idUser){
+		List<Guardaropa> idsGuardaropas=EntityManagerHelper.getEntityManager()
+				.createQuery("FROM Guardaropa WHERE id_usuario=:idUser",Guardaropa.class)
+				.setParameter("idUser", Integer.parseInt(idUser))
+				.getResultList();
+				
+		return idsGuardaropas.stream()
+				.map(g->g.getId())
+				.collect(Collectors.toList());
+	}
 	
-		
-}*/
-
-
+	public Guardaropa getGuardaropaPorId(int id){
+		Guardaropa guardaropa=EntityManagerHelper
+				.entityManager()
+				.createQuery("FROM Guardaropa WHERE id=:idGua",Guardaropa.class)
+				.setParameter("idGua", id)
+				.getResultList()
+				.get(0);
+		return guardaropa;
+	}
+	
 }

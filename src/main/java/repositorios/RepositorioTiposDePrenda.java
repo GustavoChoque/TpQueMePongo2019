@@ -51,9 +51,9 @@ public class RepositorioTiposDePrenda {
 				tipoPrenda.setCapa(capa);
 				tipoPrenda.setNivelDeAbrigo(nivelDeAbrigo);
 				tiposPrenda.add(tipoPrenda);
-				EntityManagerHelper.beginTransaction();
+				/*EntityManagerHelper.beginTransaction();
 				EntityManagerHelper.getEntityManager().persist(tipoPrenda);
-				EntityManagerHelper.commit();
+				EntityManagerHelper.commit();*/
 			
 			}
 			
@@ -68,9 +68,9 @@ public class RepositorioTiposDePrenda {
 		}
 	}
 
-	/*public Set<TipoDePrenda> getTiposPrenda() {
+	public Set<TipoDePrenda> getTiposPrenda() {
 		return tiposPrenda;
-	}*/
+	}
 	public boolean tipoDePrendaValido(Categoria cat, String nom){
 		TipoDePrenda tipoaux=new TipoDePrenda();
 		tipoaux.setCategoria(cat);
@@ -78,7 +78,7 @@ public class RepositorioTiposDePrenda {
 		
 		return this.tiposPrenda.contains(tipoaux);
 	}
-	public List<TipoDePrenda> getTiposPrenda(){
+	public List<TipoDePrenda> traerListaDeTiposDePrendaDesdeBD(){
 
 		List<TipoDePrenda> tiposDePrendas=EntityManagerHelper.getEntityManager()
 				.createQuery("from TipoDePrenda",TipoDePrenda.class)

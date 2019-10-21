@@ -1,20 +1,22 @@
 {{#partial "body"}}
 <div class="container">
 <h4>Crear Evento</h4>
-<from action="/evento" method="post">
+<form action="/evento" method="post">
  <div class="form-group col-md-4">
       <label for="nombre">Nombre:</label>
-      <input type="text" class="form-control" id="nombre">
+      <input type="text" class="form-control" id="nombre" name="nombre">
  </div>
   <div class="form-group col-md-4">
       <label for="fecha">Fecha:</label>
-      <input type="date" class="form-control" id="fecha">
+      <input type="date" class="form-control" id="fecha" name="fecha">
  </div>
  <div class="form-group col-md-4">
       <label for="guardaropa">Guardar en:</label>
       <select id="guardaropa" class="form-control">
         <option selected>Choose...</option>
-        <option>...</option>
+         {{#each guardaropas}}  
+        <option value="{{this}}">{{this}}</option>
+        {{/each}}
       </select>
  </div>
  
@@ -23,7 +25,7 @@
       <select id="frecuencia" class="form-control">
         <option selected>Choose...</option>
         {{#each frecuencias}}  
-        <option value="this">{{this}}</option>
+        <option value="{{this}}">{{this}}</option>
         {{/each}}
       </select>
  </div>

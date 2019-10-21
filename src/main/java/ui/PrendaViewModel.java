@@ -44,7 +44,7 @@ public class PrendaViewModel {
 		this.usuario=usuario;
 		this.ventanaPrincipal=ventanaPrincipal;
 		this.tipos = RepositorioTiposDePrenda.instance()
-				.getTiposPrenda()
+				.traerListaDeTiposDePrendaDesdeBD()
 				.stream()
 				.filter(p->!p.getNombre().equals("SinSuperior") && !p.getNombre().equals("SinAccesorio"))
 				.collect(Collectors.toSet());

@@ -25,8 +25,10 @@ import servicios.ProveedorOpenWeather;
 @Entity
 @Observable
 public class Usuario {
-	@Id@GeneratedValue
+	@Id
+	@GeneratedValue
 	private int id;
+	
 	@OneToMany(cascade=CascadeType.PERSIST)
 	@JoinColumn(name="id_usuario")
 	private List<Guardaropa> guardaropas;
@@ -37,10 +39,15 @@ public class Usuario {
 	@OneToMany(cascade=CascadeType.PERSIST)
 	@JoinColumn(name="id_usuario")
 	private List<Notificacion> notificaciones;
+	
 	@ManyToMany(cascade=CascadeType.PERSIST)
 	private List<SugerenciasObserver> interesados;
 	
 	private float nivelFriolencia; //0.1 muy friolento, 1.9 muy caluroso
+	
+	private String username;
+
+	private String password;
 	
 	public Usuario(){}
 	
@@ -145,7 +152,26 @@ public class Usuario {
 		}
 		
 	}
+
+	public String getUsername() {
+		return username;
+	}
+
+	public void setUsername(String username) {
+		this.username = username;
+	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
 	
+	public int getId() {
+		return id;
+	}
 	
 	/*
 	public void deshacerUltimaOperacion() {

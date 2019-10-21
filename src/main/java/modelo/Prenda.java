@@ -44,6 +44,7 @@ public class Prenda {
 		if(RepositorioTipoDePrendaTela.getSinglentonInstance().telaValida(ti, te)){	
 		this.tipo = ti;
 		this.colorP = Objects.requireNonNull(c1, "El color primario es obligatorio");
+		this.colorS = Color.NINGUNO;
 		this.tela = te;
 		this.habilitado=true;
 		}else{

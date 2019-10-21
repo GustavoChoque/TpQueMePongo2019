@@ -198,6 +198,30 @@ public class TestHibernate extends AbstractPersistenceTest implements WithGlobal
 		
 	}
 	
-	
+	@Test
+	public void AgregarUsuario(){
+		Usuario usu=new Usuario(new Gratuito());
+		Guardaropa g1=new Guardaropa();
+		usu.agregarGuardaropa(g1);
+		EntityManager em=entityManager();
+		withTransaction(()->{
+				em.persist(usu);
+		}
+				);
+		List<Usuario>usuarios=em.createQuery("from Usuario").getResultList();
+		assertEquals("Cantidad usuarios", 1, usuarios.size());
+	}
+	@Test
+	public void AgregarPrenda(){
+		TipoDePrenda tipoDePrenda=new TipoDePrenda(Categoria.PARTE_SUPERIOR,"remera",1,5);
+		Prenda prenda=new Prenda(tipoDePrenda,Color.AZUL,Tela.ALGODON);
+		EntityManager em=entityManager();
+		withTransaction(()->{
+				em.persist(prenda);
+		}
+				);
+		List<Prenda>prendas=em.createQuery("from Prenda").getResultList();
+		assertEquals("Cantidad prendas", 1, prendas.size());
+	}
 
 }
