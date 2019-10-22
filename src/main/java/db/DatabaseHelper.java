@@ -1,5 +1,8 @@
 package db;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 import modelo.Gratuito;
 import modelo.Guardaropa;
 import modelo.Premium;
@@ -75,6 +78,45 @@ public class DatabaseHelper {
 		}
 	}
 	
+	public static Guardaropa getGuardaropaPorId(int id){
+		Guardaropa guardaropa=EntityManagerHelper
+				.entityManager()
+				.createQuery("FROM Guardaropa WHERE id=:idGua",Guardaropa.class)
+				.setParameter("idGua", id)
+				.getResultList()
+				.get(0);
+		return guardaropa;
+	}
 	
+	public static List<Integer> listaDeGuardaropas(String idUser){
+		List<Guardaropa> idsGuardaropas=EntityManagerHelper.getEntityManager()
+				.createQuery("FROM Guardaropa WHERE id_usuario=:idUser",Guardaropa.class)
+				.setParameter("idUser", Integer.parseInt(idUser))
+				.getResultList();
+				
+		return idsGuardaropas.stream()
+				.map(g->g.getId())
+				.collect(Collectors.toList());
+	}
+	
+	public static Usuario obtenerUsuarioPorId(int id){
+		
+		Usuario usu=null;
+		try{
+		List<Usuario>usuarios=EntityManagerHelper.entityManager()
+		.createQuery("FROM Usuario WHERE id=:idUsuario",Usuario.class)
+		.setParameter("idUsuario", id)
+		.getResultList();
+		if(!usuarios.isEmpty()){
+			usu=usuarios.get(0);
+		}
+		}
+		finally{
+			
+			EntityManagerHelper.entityManager().close();
+			
+		}
+		return usu;
+	}
 	
 }

@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+import db.DatabaseHelper;
 import db.EntityManagerHelper;
 import modelo.Categoria;
 import modelo.Color;
@@ -42,8 +43,8 @@ public String agregar(Request req,Response res){
 		viewModel.put("tiposDeTela", Tela.values());
 		viewModel.put("coloresPrimarios", colores2);
 		viewModel.put("coloresSecundarios", colores);
-		viewModel.put("guardaropas", listaDeGuardaropas(req.cookie("uid")));
-		
+		viewModel.put("guardaropas", DatabaseHelper.listaDeGuardaropas(req.cookie("uid")));
+		//viewModel.put("guardaropas", usuario.getGuardaropas());
 		
 		ModelAndView modelAndView=new ModelAndView(viewModel, "/prendas/agregarPrenda.hbs");
 		return new HandlebarsTemplateEngine().render(modelAndView);
@@ -51,7 +52,8 @@ public String agregar(Request req,Response res){
 		
 		
 		
-	}	
+	}
+
 
 	public String crear(Request req,Response res){
 	
@@ -72,33 +74,15 @@ public String agregar(Request req,Response res){
 	Prenda prendaNueva=new Prenda(tipo,Color.valueOf(colorP),Color.valueOf(colorS),Tela.valueOf(tela));
 	
 	EntityManagerHelper.entityManager().getTransaction().begin();
-	getGuardaropaPorId(Integer.parseInt(idGuardaropa)).agregarPrenda(prendaNueva);
+	DatabaseHelper.getGuardaropaPorId(Integer.parseInt(idGuardaropa)).agregarPrenda(prendaNueva);
 	EntityManagerHelper.entityManager().getTransaction().commit();
-	
 	
 	ModelAndView modelAndView=new ModelAndView(viewModel, "/prendas/agregarPrendaResultado.hbs");
 	return new HandlebarsTemplateEngine().render(modelAndView);
 	}
 
-	private List<Integer> listaDeGuardaropas(String idUser){
-		List<Guardaropa> idsGuardaropas=EntityManagerHelper.getEntityManager()
-				.createQuery("FROM Guardaropa WHERE id_usuario=:idUser",Guardaropa.class)
-				.setParameter("idUser", Integer.parseInt(idUser))
-				.getResultList();
-				
-		return idsGuardaropas.stream()
-				.map(g->g.getId())
-				.collect(Collectors.toList());
-	}
 	
-	public Guardaropa getGuardaropaPorId(int id){
-		Guardaropa guardaropa=EntityManagerHelper
-				.entityManager()
-				.createQuery("FROM Guardaropa WHERE id=:idGua",Guardaropa.class)
-				.setParameter("idGua", id)
-				.getResultList()
-				.get(0);
-		return guardaropa;
-	}
+	
+	
 	
 }

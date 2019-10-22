@@ -1,7 +1,7 @@
 {{#partial "body"}}
 <div class="container">
 <h4>Crear Evento</h4>
-<form action="/evento" method="post">
+<form action="/eventos" method="post">
  <div class="form-group col-md-4">
       <label for="nombre">Nombre:</label>
       <input type="text" class="form-control" id="nombre" name="nombre">
@@ -12,7 +12,7 @@
  </div>
  <div class="form-group col-md-4">
       <label for="guardaropa">Guardar en:</label>
-      <select id="guardaropa" class="form-control">
+      <select id="guardaropa" name="guardaropa" class="form-control">
         <option selected>Choose...</option>
          {{#each guardaropas}}  
         <option value="{{this}}">{{this}}</option>
@@ -22,7 +22,7 @@
  
  <div class="form-group col-md-4">
       <label for="frecuencia">Frecuencia:</label>
-      <select id="frecuencia" class="form-control">
+      <select id="frecuencia" name="frecuencia" class="form-control">
         <option selected>Choose...</option>
         {{#each frecuencias}}  
         <option value="{{this}}">{{this}}</option>

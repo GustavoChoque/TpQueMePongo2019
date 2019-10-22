@@ -33,6 +33,6 @@ public class Router {
 		
 		//Evento
 		Spark.get("/eventos/nuevo", (req, res) -> new EventoController().agregar(req, res));
-		
+		Spark.post("/eventos", (req, res) -> new EventoController().crear(req, res));
 	}
 }
