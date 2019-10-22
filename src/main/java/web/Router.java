@@ -3,6 +3,7 @@ package web;
 
 import spark.Spark;
 import web.controller.EventoController;
+import web.controller.GuardaropaController;
 import web.controller.InicioController;
 import web.controller.LoginController;
 import web.controller.PrendaController;
@@ -34,5 +35,9 @@ public class Router {
 		//Evento
 		Spark.get("/eventos/nuevo", (req, res) -> new EventoController().agregar(req, res));
 		Spark.post("/eventos", (req, res) -> new EventoController().crear(req, res));
+		
+		//Guardaropas
+		Spark.get("/guardaropas", (req, res) -> new GuardaropaController().mostrarPrendas(req,res));
+		
 	}
 }

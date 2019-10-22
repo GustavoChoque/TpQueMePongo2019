@@ -3,9 +3,12 @@ package db;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import com.mchange.v2.cfg.PropertiesConfigSource.Parse;
+
 import modelo.Gratuito;
 import modelo.Guardaropa;
 import modelo.Premium;
+import modelo.Prenda;
 import modelo.Usuario;
 import repositorios.RepositorioTiposDePrenda;
 
@@ -118,5 +121,18 @@ public class DatabaseHelper {
 		}
 		return usu;
 	}
-	
+		
+	public static List<String> listaDePrendas(Integer idGuardaropa){
+		
+		
+		List<Prenda> prendas=EntityManagerHelper.getEntityManager()
+				.createQuery("FROM Prenda WHERE id_guardaropa=:idGuardaropa",Prenda.class)
+				.setParameter("idGuardaropa", idGuardaropa)
+				.getResultList();
+		
+				
+		return prendas.stream()
+				.map(p-> p.getTipoDePrenda() +", "+ p.getColorP()+ ", " + p.getColorS())
+				.collect(Collectors.toList());
+	}
 }
