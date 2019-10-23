@@ -44,6 +44,103 @@ import servicios.ProveedorOpenWeather;
 public class TestHibernate extends AbstractPersistenceTest implements WithGlobalEntityManager {
 	
 	
+	
+	@Test
+	public void crearEvento(){
+		
+		EntityManager em = entityManager();
+		
+		TipoDeUsuario gr = new Gratuito();
+		
+		Usuario u1 = new Usuario(gr);
+		
+		u1.setNivelFriolencia(1234);
+		
+		Guardaropa g = new Guardaropa();
+		
+		Evento evento = new Evento(LocalDate.now(), "EventoPrueba" ,u1 , g, Frecuencia.DIARIA);
+		
+		withTransaction(()->{
+			em.persist(g);
+			em.persist(u1);
+			em.persist(evento);
+	}
+			);
+		
+		
+		List<Evento> eventos = em.createQuery("from Evento").getResultList();
+		assertEquals("Cantidad de eventos", 1 ,eventos.size());
+		
+	}
+	
+	@Test
+	public void eliminarEvento() {
+		
+		EntityManager em = entityManager();
+		
+		TipoDeUsuario gr = new Gratuito();
+		
+		Usuario u1 = new Usuario(gr);
+		
+		u1.setNivelFriolencia(1234);
+		
+		Guardaropa g = new Guardaropa();
+		
+		Evento evento = new Evento(LocalDate.now(), "EventoPrueba" ,u1 , g, Frecuencia.DIARIA);
+		
+		withTransaction(()->{
+			em.persist(g);
+			em.persist(u1);
+			em.persist(evento);
+	}
+			);
+		
+		
+		Evento persistido = em.createQuery("from Evento where usuario_id = :userId", Evento.class).setParameter("userId", u1.getId()).getResultList().get(0);
+		
+		
+		withTransaction(() ->{
+		em.remove(persistido);
+			
+		}
+				);
+		
+		List<Evento> eventos = em.createQuery("from Evento where usuario_id = :userId", Evento.class).setParameter("userId", u1.getId()).getResultList();
+		
+		
+		assertEquals("Agregar y borrar un evento", 0, eventos.size() );
+		
+	}
+
+	
+	
+	@Test 
+	public void modificarGuardaropa(){
+		
+		EntityManager em = entityManager();
+		
+		Guardaropa g = em.createQuery("from Guardaropa", Guardaropa.class).getResultList().get(0);
+		
+		TipoDeUsuario gratis = new Gratuito();
+		
+		Usuario userNuevo = new Usuario(gratis);
+		
+		withTransaction(()->{
+			em.persist(gratis);
+			em.persist(userNuevo);
+			g.setUsuario(userNuevo);
+			em.persist(g);
+	}
+			);
+		
+		List<Guardaropa> persistidos = em.createQuery("from Guardaropa where usuario_id = :userId", Guardaropa.class).setParameter("userId",userNuevo.getId()).getResultList();
+		assertEquals("Cantidad de guardaropa de nuevo usuario",1,persistidos.size());
+		
+		
+
+
+	}
+	
 
 
 	@Test 
@@ -102,60 +199,8 @@ public class TestHibernate extends AbstractPersistenceTest implements WithGlobal
 	
 	
 	
-	@Test 
-	public void modificarGuardaropa(){
-		
-		EntityManager em = entityManager();
-		
-		Guardaropa g = em.createQuery("from Guardaropa where usuario_id = 1", Guardaropa.class).getResultList().get(0);
-		
-		TipoDeUsuario gratis = new Gratuito();
-		
-		Usuario userNuevo = new Usuario(gratis);
-		
-		withTransaction(()->{
-			em.persist(gratis);
-			em.persist(userNuevo);
-			g.setUsuario(userNuevo);
-			em.persist(g);
-	}
-			);
-		
-		List<Guardaropa> persistidos = em.createQuery("from Guardaropa where usuario_id = :userId", Guardaropa.class).setParameter("userId",userNuevo.getId()).getResultList();
-		assertEquals("Cantidad de guardaropa de nuevo usuario",1,persistidos.size());
-		
-		
 
 
-	}
-	
-	@Test
-	public void crearEvento(){
-		
-		EntityManager em = entityManager();
-		
-		TipoDeUsuario gr = new Gratuito();
-		
-		Usuario u1 = new Usuario(gr);
-		
-		u1.setNivelFriolencia(1234);
-		
-		Guardaropa g = new Guardaropa();
-		
-		Evento evento = new Evento(LocalDate.now(), "EventoPrueba" ,u1 , g, Frecuencia.DIARIA);
-		
-		withTransaction(()->{
-			em.persist(g);
-			em.persist(u1);
-			em.persist(evento);
-	}
-			);
-		
-		
-		List<Evento> eventos = em.createQuery("from Evento").getResultList();
-		assertEquals("Cantidad de eventos", 1 ,eventos.size());
-		
-	}
 	
 	@Test
 	public void guardarSugerencias(){
