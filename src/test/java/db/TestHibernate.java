@@ -2,13 +2,17 @@ package db;
 
 import static org.junit.Assert.assertEquals;
 
+
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
 import javax.persistence.EntityManager;
+import javax.persistence.EntityTransaction;
+import javax.persistence.TypedQuery;
 
 import org.junit.Before;
 import org.junit.FixMethodOrder;
@@ -41,22 +45,26 @@ public class TestHibernate extends AbstractPersistenceTest implements WithGlobal
 	
 	
 
-/*
+
 	@Test 
-	public void crearPrenda() {
-		EntityManager em = entityManager();
+	public void crearYGuardarPrenda() {
+		EntityManager em = EntityManagerHelper.entityManager();
+		
 		
 		TipoDePrenda ti = new TipoDePrenda(Categoria.PARTE_SUPERIOR, "remera", 1, 5);
-		
-		em.persist(ti);
-		
 		Prenda pr = new Prenda(ti, Color.AZUL, Tela.ALGODON);
 		
+		EntityTransaction tx = em.getTransaction();
+		tx.begin();
+		
+		em.persist(ti);
+	
 		em.persist(pr);
 		
-		em.getTransaction().commit();
+		tx.commit();
 		
-		
+		em.close();
+			
 		
 	}
 	
@@ -67,26 +75,32 @@ public class TestHibernate extends AbstractPersistenceTest implements WithGlobal
 		
 		TipoDeUsuario gr = new Gratuito();
 		
-		em.persist(gr);
-		
 		Usuario u1 = new Usuario(gr);
 		
-		u1.setNivelFriolencia(1234);
-		
-		em.persist(u1);
+		u1.setNivelFriolencia(9999);
 		
 		Guardaropa gua = new Guardaropa();
 		
 		gua.setUsuario(u1);
 		
-		em.persist(gua);
 		
-		em.getTransaction().commit();
+		withTransaction(()->{
+			em.persist(gr);
+			em.persist(u1);
+			em.persist(gua);
+	}
+			);
 		
-	
+
+		float nivel = 9999;
+		List<Usuario> usuarios = em.createQuery("from Usuario u where u.nivelFriolencia = :nivel", Usuario.class).setParameter("nivel", nivel).getResultList();
+		assertEquals("Usuarios con nivel de friolencia 9999",1,usuarios.size());
 		
 		
 	}
+		
+	
+	
 	
 	@Test 
 	public void modificarGuardaropa(){
@@ -95,13 +109,24 @@ public class TestHibernate extends AbstractPersistenceTest implements WithGlobal
 		
 		Guardaropa g = em.createQuery("from Guardaropa where usuario_id = 1", Guardaropa.class).getResultList().get(0);
 		
-		Prenda p = em.createQuery("from Prenda where id = 1", Prenda.class).getResultList().get(0);
+		TipoDeUsuario gratis = new Gratuito();
 		
-		g.agregarPrenda(p);
+		Usuario userNuevo = new Usuario(gratis);
 		
-		em.persist(g);
+		withTransaction(()->{
+			em.persist(gratis);
+			em.persist(userNuevo);
+			g.setUsuario(userNuevo);
+			em.persist(g);
+	}
+			);
 		
-		em.getTransaction().commit();
+		List<Guardaropa> persistidos = em.createQuery("from Guardaropa where usuario_id = :userId", Guardaropa.class).setParameter("userId",userNuevo.getId()).getResultList();
+		assertEquals("Cantidad de guardaropa de nuevo usuario",1,persistidos.size());
+		
+		
+
+
 	}
 	
 	@Test
@@ -115,23 +140,23 @@ public class TestHibernate extends AbstractPersistenceTest implements WithGlobal
 		
 		u1.setNivelFriolencia(1234);
 		
-		em.persist(u1);
+		Guardaropa g = new Guardaropa();
 		
-		Guardaropa gua = new Guardaropa();
-		u1.agregarGuardaropa(gua);
+		Evento evento = new Evento(LocalDate.now(), "EventoPrueba" ,u1 , g, Frecuencia.DIARIA);
 		
-		//uso denuevo persist para que guarde el guardaropa nuevo que tiene el usuario,
-		//hay que ver bien los cascade , talvez MERGE o REFRESH pueda ser una mejor opcion
-		em.persist(u1);
-		
-		
-		LocalDate fecha=LocalDate.of(2019,9,14);
-		Evento evento=new Evento(fecha, "Fiesta", u1, u1.getGuardaropas().get(0), Frecuencia.DIARIA);
-		em.persist(evento);
-		
-		em.getTransaction().commit();
+		withTransaction(()->{
+			em.persist(g);
+			em.persist(u1);
+			em.persist(evento);
 	}
-	*/
+			);
+		
+		
+		List<Evento> eventos = em.createQuery("from Evento").getResultList();
+		assertEquals("Cantidad de eventos", 1 ,eventos.size());
+		
+	}
+	
 	@Test
 	public void guardarSugerencias(){
 		
@@ -211,6 +236,7 @@ public class TestHibernate extends AbstractPersistenceTest implements WithGlobal
 		List<Usuario>usuarios=em.createQuery("from Usuario").getResultList();
 		assertEquals("Cantidad usuarios", 1, usuarios.size());
 	}
+	
 	@Test
 	public void AgregarPrenda(){
 		TipoDePrenda tipoDePrenda=new TipoDePrenda(Categoria.PARTE_SUPERIOR,"remera",1,5);
@@ -223,5 +249,8 @@ public class TestHibernate extends AbstractPersistenceTest implements WithGlobal
 		List<Prenda>prendas=em.createQuery("from Prenda").getResultList();
 		assertEquals("Cantidad prendas", 1, prendas.size());
 	}
+	
+	
+
 
 }
