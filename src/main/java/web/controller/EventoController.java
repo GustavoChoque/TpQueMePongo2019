@@ -2,18 +2,42 @@ package web.controller;
 
 import java.time.LocalDate;
 import java.util.HashMap;
+import java.util.List;
 
 import auxiliar.Frecuencia;
 import db.DatabaseHelper;
 import db.EntityManagerHelper;
 import modelo.Guardaropa;
 import modelo.Usuario;
+import modelo.Evento;
 import spark.ModelAndView;
 import spark.Request;
 import spark.Response;
 import spark.template.handlebars.HandlebarsTemplateEngine;
 
 public class EventoController {
+	
+public String mostrarEventos(Request req, Response res)
+{
+		HashMap<String,Object> viewModel=new HashMap();
+		
+		List<Evento> eventos = DatabaseHelper.listaEventos(req.cookie("uid"));
+		viewModel.put("eventosUsuario", DatabaseHelper.parsearEventos(eventos));
+		
+		
+		
+		
+		ModelAndView modelAndView=new ModelAndView(viewModel, "/eventos/listaEventos.hbs");
+		return new HandlebarsTemplateEngine().render(modelAndView);
+		
+		
+
+}
+	
+	
+	
+	
+	
 public String agregar(Request req,Response res){
 		
 		HashMap<String,Object> viewModel=new HashMap();

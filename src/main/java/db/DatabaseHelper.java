@@ -10,6 +10,7 @@ import modelo.Guardaropa;
 import modelo.Premium;
 import modelo.Prenda;
 import modelo.Usuario;
+import modelo.Evento;
 import repositorios.RepositorioTiposDePrenda;
 
 public class DatabaseHelper {
@@ -135,4 +136,23 @@ public class DatabaseHelper {
 				.map(p-> p.getTipoDePrenda() +", "+ p.getColorP()+ ", " + p.getColorS())
 				.collect(Collectors.toList());
 	}
+	
+	public static List<Evento> listaEventos (String idUsuario)
+	{
+		List<Evento> eventos=EntityManagerHelper.getEntityManager()
+				.createQuery("FROM Evento WHERE usuario_id=:idUsuario",Evento.class)
+				.setParameter("idUsuario", idUsuario)
+				.getResultList();
+		
+		return eventos;
+	}
+	
+	public static List<String> parsearEventos (List<Evento> eventos)
+	{
+		return eventos.stream()
+				.map(e-> e.getNombre() +": "+ e.getFecha().toString())
+				.collect(Collectors.toList());
+	}
+	
+	
 }

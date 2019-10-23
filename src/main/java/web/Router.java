@@ -35,6 +35,7 @@ public class Router {
 		//Evento
 		Spark.get("/eventos/nuevo", (req, res) -> new EventoController().agregar(req, res));
 		Spark.post("/eventos", (req, res) -> new EventoController().crear(req, res));
+		Spark.get("/eventos",(req, res) -> new EventoController().mostrarEventos(req, res));
 		
 		//Guardaropas
 		Spark.get("/guardaropas", (req, res) -> new GuardaropaController().mostrarPrendas(req,res));
