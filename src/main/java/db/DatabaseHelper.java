@@ -150,9 +150,10 @@ public class DatabaseHelper {
 	public static List<String> parsearEventos (List<Evento> eventos)
 	{
 		return eventos.stream()
-				.map(e-> e.getNombre() +": "+ e.getFecha().toString())
+				.map(e-> e.getNombre() + ": "+ e.getFecha().toString())
 				.collect(Collectors.toList());
 	}
+	
 	
 	
 }

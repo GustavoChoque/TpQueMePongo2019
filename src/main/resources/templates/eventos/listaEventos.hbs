@@ -1,19 +1,48 @@
 {{#partial "body"}}
 <div class="container">
-<h4>Eventos</h4>
-<form>
-<div class="form-group col-md-4">
-      <label for="eventos">Sus eventos:</label>
-      <select id="Eventos" name="Eventos" class="form-control">
-        <option selected>Eventos...</option>
-         {{#each eventosUsuario}}  
-        <option value="{{this}}">{{this}}</option>
-        {{/each}}
-      </select>
-</div>
+<head>
+<style>
+table {
+  font-family: arial, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+}
 
+td, th {
+  border: 1px solid #dddddd;
+  text-align: left;
+  padding: 8px;
+}
 
-</form>
-</div>
+tr:nth-child(even) {
+  background-color: #dddddd;
+}
+</style>
+</head>
+<body>
+
+<h2>Eventos</h2>
+
+<table>
+  <tr>
+  	
+    <th>Nombre: Fecha</th>
+
+    
+  </tr>
+{{#each eventosUsuario}}  
+  
+  	<tr>
+    <td>{{this}}</td>
+   
+  </tr>	
+{{/each}}
+  
+
+    
+  </tr>
+</table>
 {{/partial}}
 {{>layout.hbs}}
+
+
