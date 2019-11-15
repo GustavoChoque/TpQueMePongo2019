@@ -1,4 +1,22 @@
 {{#partial "body"}}
 hola {{algo}}
+
+{{#each listaNotificaciones}}  
+<div> una notificacion{{evento.nombre}}</div>
+{{/each}}
+
+<div class="list-group">
+  {{#each listaNotificaciones}}  
+  <a href="/eventos/{{evento.id}}" class="list-group-item list-group-item-action flex-column align-items-start">
+    <div class="d-flex w-100 justify-content-between">
+      <h5 class="mb-1">{{evento.nombre}}</h5>
+      <small class="text-muted">{{fecha}}</small>
+    </div>
+    <p class="mb-1">Sugerencias nuevas</p>
+    <small class="text-muted">Donec id elit non mi porta.</small>
+  </a>
+{{/each}}
+</div>
+
 {{/partial}}
 {{> layout.hbs}}

@@ -1,6 +1,8 @@
 package web;
 
 
+import org.uqbarproject.jpa.java8.extras.PerThreadEntityManagers;
+
 import spark.Spark;
 import web.controller.EventoController;
 import web.controller.GuardaropaController;
@@ -35,10 +37,18 @@ public class Router {
 		//Evento
 		Spark.get("/eventos/nuevo", (req, res) -> new EventoController().agregar(req, res));
 		Spark.post("/eventos", (req, res) -> new EventoController().crear(req, res));
+		Spark.get("/eventos/:id", (req, res) -> new EventoController().getById(req, res));
 		Spark.get("/eventos",(req, res) -> new EventoController().mostrarEventos(req, res));
+		
 		
 		//Guardaropas
 		Spark.get("/guardaropas", (req, res) -> new GuardaropaController().mostrarPrendas(req,res));
 		
+		
+		Spark.after((req,res) -> { 
+			   PerThreadEntityManagers.getEntityManager(); 
+			   PerThreadEntityManagers.closeEntityManager();
+			 });
+
 	}
 }

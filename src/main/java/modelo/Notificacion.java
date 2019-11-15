@@ -48,6 +48,12 @@ public class Notificacion {
 	public void setHabilitada(boolean habilitada) {
 		this.habilitada = habilitada;
 	}
+	public int getId() {
+		return id;
+	}
+	public LocalDate getFecha() {
+		return fecha;
+	}
 	
 	
 	

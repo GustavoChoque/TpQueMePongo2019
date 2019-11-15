@@ -43,8 +43,7 @@ public class PrendaViewModel {
 	public PrendaViewModel(Usuario usuario,Window<QueMePongoViewModel> ventanaPrincipal) {
 		this.usuario=usuario;
 		this.ventanaPrincipal=ventanaPrincipal;
-		this.tipos = RepositorioTiposDePrenda.instance()
-				.traerListaDeTiposDePrendaDesdeBD()
+		this.tipos = traerListaDeTiposDePrendaDesdeBD()
 				.stream()
 				.filter(p->!p.getNombre().equals("SinSuperior") && !p.getNombre().equals("SinAccesorio"))
 				.collect(Collectors.toSet());
@@ -164,7 +163,14 @@ public class PrendaViewModel {
 		this.colores2 = colores2;
 	}
 
-	
+	public List<TipoDePrenda> traerListaDeTiposDePrendaDesdeBD(){
+
+		List<TipoDePrenda> tiposDePrendas=EntityManagerHelper.getEntityManager()
+				.createQuery("from TipoDePrenda",TipoDePrenda.class)
+				.getResultList();
+		return tiposDePrendas;
+
+	}
 	
 	
 }

@@ -200,4 +200,8 @@ public class Evento {
 		sugerencias = new ArrayList<Atuendo>();
 		this.sugerencias.add(atuendo);
 	}
+
+	public int getId() {
+		return id;
+	}
 }

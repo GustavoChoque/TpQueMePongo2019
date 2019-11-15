@@ -78,12 +78,12 @@ public class RepositorioTiposDePrenda {
 		
 		return this.tiposPrenda.contains(tipoaux);
 	}
-	public List<TipoDePrenda> traerListaDeTiposDePrendaDesdeBD(){
+	/*public List<TipoDePrenda> traerListaDeTiposDePrendaDesdeBD(){
 
 		List<TipoDePrenda> tiposDePrendas=EntityManagerHelper.getEntityManager()
 				.createQuery("from TipoDePrenda",TipoDePrenda.class)
 				.getResultList();
 		return tiposDePrendas;
 
-	}
+	}*/
 }

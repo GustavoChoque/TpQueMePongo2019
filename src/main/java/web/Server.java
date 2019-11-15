@@ -9,7 +9,7 @@ import spark.debug.DebugScreen;
 public class Server {
 	public static void main(String[] args) {
 		//inicio base
-		DatabaseHelper.inicializarBase();
+		new DatabaseHelper().inicializarBase();
 
 		//inicio la tarea progrmada
 		QuartzSchedulerJobs sche=new QuartzSchedulerJobs();

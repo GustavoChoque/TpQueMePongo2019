@@ -6,6 +6,11 @@ import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+import javax.persistence.EntityManager;
+
+import org.uqbarproject.jpa.java8.extras.WithGlobalEntityManager;
+import org.uqbarproject.jpa.java8.extras.transaction.TransactionalOps;
+
 import db.DatabaseHelper;
 import db.EntityManagerHelper;
 import modelo.Categoria;
@@ -21,14 +26,13 @@ import spark.Request;
 import spark.Response;
 import spark.template.handlebars.HandlebarsTemplateEngine;
 
-public class PrendaController {
+public class PrendaController implements WithGlobalEntityManager, TransactionalOps{
 	
 public String agregar(Request req,Response res){
 		
 		HashMap<String,Object> viewModel=new HashMap();
 		
-		Set<TipoDePrenda>tipos = RepositorioTiposDePrenda.instance()
-				.traerListaDeTiposDePrendaDesdeBD()
+		Set<TipoDePrenda>tipos = traerListaDeTiposDePrendaDesdeBD()
 				.stream()
 				.filter(p->!p.getNombre().equals("SinSuperior") && !p.getNombre().equals("SinAccesorio"))
 				.collect(Collectors.toSet());
@@ -43,7 +47,7 @@ public String agregar(Request req,Response res){
 		viewModel.put("tiposDeTela", Tela.values());
 		viewModel.put("coloresPrimarios", colores2);
 		viewModel.put("coloresSecundarios", colores);
-		viewModel.put("guardaropas", DatabaseHelper.listaDeGuardaropas(req.cookie("uid")));
+		viewModel.put("guardaropas", listaDeGuardaropas(req.cookie("uid")));
 		//viewModel.put("guardaropas", usuario.getGuardaropas());
 		
 		ModelAndView modelAndView=new ModelAndView(viewModel, "/prendas/agregarPrenda.hbs");
@@ -64,8 +68,9 @@ public String agregar(Request req,Response res){
 	String colorS= req.queryParams("colorS");
 	String idGuardaropa=req.queryParams("guardaropa");
 	
-	TipoDePrenda tipo=EntityManagerHelper
-			.entityManager()
+	EntityManager em=entityManager();
+	
+	TipoDePrenda tipo=em
 			.createQuery("FROM TipoDePrenda WHERE id=:idTipoPrenda",TipoDePrenda.class)
 			.setParameter("idTipoPrenda", Integer.parseInt(idTipoDePrenda))
 			.getResultList()
@@ -73,16 +78,53 @@ public String agregar(Request req,Response res){
 	
 	Prenda prendaNueva=new Prenda(tipo,Color.valueOf(colorP),Color.valueOf(colorS),Tela.valueOf(tela));
 	
+	/*
 	EntityManagerHelper.entityManager().getTransaction().begin();
 	DatabaseHelper.getGuardaropaPorId(Integer.parseInt(idGuardaropa)).agregarPrenda(prendaNueva);
 	EntityManagerHelper.entityManager().getTransaction().commit();
+	*/
+	
+	withTransaction(()->{
+
+		getGuardaropaPorId(Integer.parseInt(idGuardaropa)).agregarPrenda(prendaNueva);
+
+	});
 	
 	ModelAndView modelAndView=new ModelAndView(viewModel, "/prendas/agregarPrendaResultado.hbs");
 	return new HandlebarsTemplateEngine().render(modelAndView);
 	}
 
 	
-	
+	public List<TipoDePrenda> traerListaDeTiposDePrendaDesdeBD(){
+		EntityManager em=entityManager();
+		List<TipoDePrenda> tiposDePrendas=em
+				.createQuery("FROM TipoDePrenda",TipoDePrenda.class)
+				.getResultList();
+		return tiposDePrendas;
+
+	}
+
+	public List<Integer> listaDeGuardaropas(String idUser){
+		EntityManager em=entityManager();
+		List<Guardaropa> idsGuardaropas=em
+				.createQuery("FROM Guardaropa WHERE id_usuario=:idUser",Guardaropa.class)
+				.setParameter("idUser", Integer.parseInt(idUser))
+				.getResultList();
+
+		return idsGuardaropas.stream()
+				.map(g->g.getId())
+				.collect(Collectors.toList());
+	}
+
+	public  Guardaropa getGuardaropaPorId(int id){
+		EntityManager em=entityManager();
+		Guardaropa guardaropa=em
+				.createQuery("FROM Guardaropa WHERE id=:idGua",Guardaropa.class)
+				.setParameter("idGua", id)
+				.getResultList()
+				.get(0);
+		return guardaropa;
+	}
 	
 	
 }

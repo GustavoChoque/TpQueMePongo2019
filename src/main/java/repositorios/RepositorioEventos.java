@@ -7,10 +7,16 @@ import java.util.List;
 import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
+import javax.persistence.EntityManager;
+
+import org.uqbarproject.jpa.java8.extras.PerThreadEntityManagers;
+import org.uqbarproject.jpa.java8.extras.WithGlobalEntityManager;
+import org.uqbarproject.jpa.java8.extras.transaction.TransactionalOps;
+
 import db.EntityManagerHelper;
 import modelo.Evento;
 
-public class RepositorioEventos {
+public class RepositorioEventos implements WithGlobalEntityManager, TransactionalOps{
 	private static RepositorioEventos repo;
 	public List<Evento> listaDeEventos;
 	
@@ -29,15 +35,28 @@ public class RepositorioEventos {
 	
 	public void agendar(Evento evento){
 		//listaDeEventos.add(evento);
-		EntityManagerHelper.beginTransaction();
+		/*EntityManagerHelper.beginTransaction();
 		EntityManagerHelper.getEntityManager().persist(evento);
-		EntityManagerHelper.commit();
+		EntityManagerHelper.commit();*/
+		
+		EntityManager em=entityManager();
+		withTransaction(()->{
+			em.persist(evento);
+			
+		});
+		
+		PerThreadEntityManagers.getEntityManager(); 
+		PerThreadEntityManagers.closeEntityManager();
+		
+		
 	}
 	public List<Evento> proximos(LocalDate fecha){
 		
 		//return this.listaDeEventos.stream().filter(e->e.esProximo(fecha)).collect(Collectors.toList());
 	
-		List<Evento> eventos=EntityManagerHelper.getEntityManager()
+		EntityManager em=entityManager();
+		
+		List<Evento> eventos=em
 		.createQuery("from Evento",Evento.class)
 		.getResultList();
 		

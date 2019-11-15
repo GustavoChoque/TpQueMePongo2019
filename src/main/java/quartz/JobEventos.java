@@ -6,13 +6,15 @@ import java.time.LocalDateTime;
 import org.quartz.Job;
 import org.quartz.JobExecutionContext;
 import org.quartz.JobExecutionException;
+import org.uqbarproject.jpa.java8.extras.WithGlobalEntityManager;
+import org.uqbarproject.jpa.java8.extras.transaction.TransactionalOps;
 
 import db.EntityManagerHelper;
 import modelo.Sugeridor;
 import repositorios.RepositorioEventos;
 import servicios.ProveedorOpenWeather;
 
-public class JobEventos implements Job{
+public class JobEventos implements Job,WithGlobalEntityManager, TransactionalOps{
 	
 	private Sugeridor sugeridor;
 
@@ -26,11 +28,11 @@ public class JobEventos implements Job{
 	}
 	
 	public void ejecutar(){
-		EntityManagerHelper.beginTransaction();
+		withTransaction(()->{
 		RepositorioEventos.instance()
 		.proximos(LocalDate.now())
 		.forEach(evento->evento.sugerir(this.sugeridor));
-		EntityManagerHelper.commit();
+		});
 		
 	}
 	

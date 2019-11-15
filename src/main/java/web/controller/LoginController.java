@@ -3,6 +3,11 @@ package web.controller;
 import java.util.HashMap;
 import java.util.List;
 
+import javax.persistence.EntityManager;
+
+import org.uqbarproject.jpa.java8.extras.WithGlobalEntityManager;
+import org.uqbarproject.jpa.java8.extras.transaction.TransactionalOps;
+
 import db.EntityManagerHelper;
 import modelo.Usuario;
 import spark.ModelAndView;
@@ -10,7 +15,7 @@ import spark.Request;
 import spark.Response;
 import spark.template.handlebars.HandlebarsTemplateEngine;
 
-public class LoginController {
+public class LoginController implements WithGlobalEntityManager, TransactionalOps{
 	
 	public String mostrarLogin(Request req,Response res,String mensaje){
 		
@@ -61,20 +66,16 @@ public class LoginController {
 	private Usuario obtenerUsuarioPorUsername(String username){
 		
 		Usuario usu=null;
-		try{
-		List<Usuario>usuarios=EntityManagerHelper.entityManager()
+		
+		EntityManager em=entityManager();
+		List<Usuario>usuarios=em
 		.createQuery("FROM Usuario WHERE username=:nombreUsuario",Usuario.class)
 		.setParameter("nombreUsuario", username)
 		.getResultList();
 		if(!usuarios.isEmpty()){
 			usu=usuarios.get(0);
 		}
-		}
-		finally{
-			
-			EntityManagerHelper.entityManager().close();
-			
-		}
+		
 		return usu;
 	}
 	

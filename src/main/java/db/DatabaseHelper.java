@@ -3,6 +3,12 @@ package db;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import javax.persistence.EntityManager;
+
+import org.uqbarproject.jpa.java8.extras.PerThreadEntityManagers;
+import org.uqbarproject.jpa.java8.extras.WithGlobalEntityManager;
+import org.uqbarproject.jpa.java8.extras.transaction.TransactionalOps;
+
 import com.mchange.v2.cfg.PropertiesConfigSource.Parse;
 
 import modelo.Gratuito;
@@ -13,34 +19,31 @@ import modelo.Usuario;
 import modelo.Evento;
 import repositorios.RepositorioTiposDePrenda;
 
-public class DatabaseHelper {
+public class DatabaseHelper implements WithGlobalEntityManager, TransactionalOps{
 	
-	public static void inicializarBase(){
+	public void inicializarBase(){
 		cargarTiposDePrenda();
 		cargarUsuarios();
 		
 	}
 	
-	private static void cargarTiposDePrenda(){
+ private void cargarTiposDePrenda(){
+	
 		
-		try{
-		EntityManagerHelper.entityManager().getTransaction().begin();
+		EntityManager em=entityManager();
+		withTransaction(()->{
+			
+			RepositorioTiposDePrenda.instance()
+			.getTiposPrenda()
+			.forEach(tp->em
+					.persist(tp));
+		});
 		
-		RepositorioTiposDePrenda.instance()
-		.getTiposPrenda()
-		.forEach(tp->EntityManagerHelper
-				.entityManager()
-				.persist(tp));
-		
-		EntityManagerHelper.entityManager().getTransaction().commit();
-		
-		}catch (Exception e) {
-			EntityManagerHelper.entityManager().getTransaction().rollback();
-		}
-		
-		EntityManagerHelper.entityManager().close();
+		PerThreadEntityManagers.getEntityManager(); 
+		PerThreadEntityManagers.closeEntityManager();
 	}
-	private static void cargarUsuarios(){
+
+ private void cargarUsuarios(){
 		Usuario usuario1,usuario2;
 		usuario1=new Usuario(new Gratuito());
 		usuario2=new Usuario(new Premium());
@@ -64,24 +67,22 @@ public class DatabaseHelper {
 		usuario2.agregarGuardaropa(guardaropa2U2);
 		
 		
+		EntityManager em=entityManager();
 		
-		try{
-			EntityManagerHelper.entityManager().getTransaction().begin();
-		
-			EntityManagerHelper.entityManager().persist(usuario1);
-			EntityManagerHelper.entityManager().persist(usuario2);
+		withTransaction(()->{
 			
+			em.persist(usuario1);
+			em.persist(usuario2);
+			
+			
+		});
 		
-			EntityManagerHelper.entityManager().getTransaction().commit();
-		}
-		catch (Exception e) {
-			EntityManagerHelper.entityManager().getTransaction().rollback();
-		}
-		finally{
-			EntityManagerHelper.entityManager().close();
-		}
+		PerThreadEntityManagers.getEntityManager(); 
+		PerThreadEntityManagers.closeEntityManager();	
+			
 	}
-	
+	///----------------------------------------
+ /*
 	public static Guardaropa getGuardaropaPorId(int id){
 		Guardaropa guardaropa=EntityManagerHelper
 				.entityManager()
@@ -122,8 +123,8 @@ public class DatabaseHelper {
 		}
 		return usu;
 	}
-		
-	public static List<String> listaDePrendas(Integer idGuardaropa){
+		*/
+	/*public static List<String> listaDePrendas(Integer idGuardaropa){
 		
 		
 		List<Prenda> prendas=EntityManagerHelper.getEntityManager()
@@ -135,8 +136,8 @@ public class DatabaseHelper {
 		return prendas.stream()
 				.map(p-> p.getTipoDePrenda() +", "+ p.getColorP()+ ", " + p.getColorS())
 				.collect(Collectors.toList());
-	}
-	
+	}*/
+	/*
 	public static List<Evento> listaEventos (String idUsuario)
 	{
 		List<Evento> eventos=EntityManagerHelper.getEntityManager()
@@ -154,6 +155,6 @@ public class DatabaseHelper {
 				.collect(Collectors.toList());
 	}
 	
-	
+	*/
 	
 }
