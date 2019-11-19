@@ -5,6 +5,7 @@ import java.time.Period;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Convert;
@@ -42,14 +43,14 @@ public class Evento {
 	@ManyToOne
 	private Guardaropa guardaropa;
 	/*@ElementCollection*/
-	@ManyToMany(cascade=CascadeType.ALL)
+	@ManyToMany(cascade=CascadeType.PERSIST)
 	private List<Atuendo> sugerencias;
 	@Enumerated(EnumType.STRING)
 	private Frecuencia frecuencia;
 	@Transient
 	private List<Operacion> operaciones;
 	/*@Embedded*/
-	@OneToOne(cascade=CascadeType.ALL)
+	@OneToOne(cascade=CascadeType.PERSIST)
 	private Atuendo sugerenciaElegida;
 	
 	public Evento(){}
@@ -103,8 +104,8 @@ public class Evento {
 	public boolean esProximo(LocalDate fecha){
 		//La api de pronostico solo da pronostico de 5 dias
 		int proximidad=5;
-		return (this.fecha.compareTo(fecha)>=0 && ChronoUnit.DAYS.between(fecha, this.fecha)<=proximidad);
-				
+		//return (this.fecha.compareTo(fecha)>=0 && ChronoUnit.DAYS.between(fecha, this.fecha)<=proximidad);
+		return this.fecha.toEpochDay()>= fecha.toEpochDay() && this.fecha.toEpochDay()<=(fecha.toEpochDay()+proximidad);		
 	}
 	
 	public boolean estaTerminado(){
@@ -134,9 +135,15 @@ public class Evento {
 		this.operaciones.add(operacion);
 		
 	}
-	//aqui estoy repitiendo, ver como solucionar despues;
-	public void aceptarSugerencia(int posicion){
-		Atuendo atuendoAceptado=this.sugerencias.get(posicion);
+	
+	public void aceptarSugerencia(int id){
+		//Atuendo atuendoAceptado=this.sugerencias.get(id);
+		Atuendo atuendoAceptado=this.sugerencias
+				.stream()
+				.filter(a->a.getId()==id)
+				.collect(Collectors.toList())
+				.get(0);
+		
 		atuendoAceptado.setEstadoComoSugerencia(EstadoComoSugerencia.ACEPTADA);
 		guardaropa.deshabilitarPrendas(atuendoAceptado.obtenerPrendas());
 		//esto talvez pensalo mejor
@@ -147,11 +154,22 @@ public class Evento {
 				this.sugerenciaElegida=atuendoAceptado;
 				
 			}
+		this.sugerencias
+		.stream()
+		.filter(s->s.getId()!=id)
+		.forEach(sf->sf.setEstadoComoSugerencia(EstadoComoSugerencia.RECHAZADA));
 		
 	}
 	
-	public void rechazarSugerencia(int posicion){
-		this.sugerencias.get(posicion).setEstadoComoSugerencia(EstadoComoSugerencia.RECHAZADA);
+	public void rechazarSugerencia(int id){
+		//this.sugerencias.get(id).setEstadoComoSugerencia(EstadoComoSugerencia.RECHAZADA);
+		this.sugerencias
+		.stream()
+		.filter(a->a.getId()==id)
+		.collect(Collectors.toList())
+		.get(0)
+		.setEstadoComoSugerencia(EstadoComoSugerencia.RECHAZADA);
+	
 	}
 	
 	public void deshacerUltimaAccion(){

@@ -104,17 +104,50 @@ public String getById(Request req,Response res){
 	
 	
 	
-	/*viewModel.put("nombre", evento.getNombre());
-	viewModel.put("fecha", evento.getFecha());*/
+	viewModel.put("idEvento", evento.getId());
+	viewModel.put("nombre", evento.getNombre());
+	viewModel.put("fecha", evento.getFecha());
+	viewModel.put("sugerenciaElegida", evento.getSugerenciaElegida());
+	viewModel.put("listaDeSugerencias", evento.getSugerencias());
 	
 	
-	ModelAndView modelAndView=new ModelAndView(evento, "/eventos/evento.hbs");
+	ModelAndView modelAndView=new ModelAndView(viewModel, "/eventos/evento.hbs");
 	return new HandlebarsTemplateEngine().render(modelAndView);
 	
 	
 	
 	
 }
+
+
+public String aceptarSugerencia(Request req, Response res) {
+
+	String idEvento=req.params("idEvento");
+	String idAtuendo=req.params("idAtuendo");
+
+
+	EntityManager em=entityManager();
+
+	withTransaction(()->{
+		Evento evento=em
+				.createQuery("FROM Evento WHERE id=:idEvento",Evento.class)
+				.setParameter("idEvento",Integer.parseInt(idEvento))
+				.getResultList()
+				.get(0);
+
+		evento.aceptarSugerencia(Integer.parseInt(idAtuendo));
+
+	});
+
+
+	res.redirect("/eventos/"+idEvento);
+
+	return null;
+}
+
+
+
+
 
 public List<Integer> listaDeGuardaropas(String idUser){
 	EntityManager em=entityManager();

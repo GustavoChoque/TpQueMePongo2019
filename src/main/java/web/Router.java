@@ -40,6 +40,7 @@ public class Router {
 		Spark.get("/eventos/:id", (req, res) -> new EventoController().getById(req, res));
 		Spark.get("/eventos",(req, res) -> new EventoController().mostrarEventos(req, res));
 		
+		Spark.get("/eventos/:idEvento/sugerencias/:idAtuendo", (req, res) -> new EventoController().aceptarSugerencia(req, res));
 		
 		//Guardaropas
 		Spark.get("/guardaropas", (req, res) -> new GuardaropaController().mostrarPrendas(req,res));

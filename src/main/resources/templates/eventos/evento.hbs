@@ -1,6 +1,42 @@
 {{#partial "body"}}
 <div class="container">
-{{nombre}} y {{fecha}}
+<h4>Evento:{{nombre}}</h4> 
+<h4>Fecha:{{fecha}}</h4>
+<h4>Sugerencia elegida:{{sugerenciaElegida}}</h4>
+<a class="btn btn-primary" href="#" role="button">Ver detalles</a>
 </div>
+<h4>Sugerencias:</h4>
+<table class="table">
+  <thead class="thead-dark">
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Superior1</th>
+      <th scope="col">Superior2</th>
+      <th scope="col">Superior3</th>
+      <th scope="col">Inferior</th>
+      <th scope="col">Calzado</th>
+      <th scope="col">Accesorio</th>
+      <th scope="col">Estado</th>
+      <th scope="col">Eleccion</th>
+    </tr>
+  </thead>
+  <tbody>
+  
+  {{#each listaDeSugerencias}}  
+    <tr>
+      <th scope="row">1</th>
+      <td>{{prendaSuperior.tipo}}</td>
+      <td>{{prendaSuperior2.tipo}}</td>
+      <td>{{prendaSuperior3.tipo}}</td>
+      <td>{{prendaInferior.tipo}}</td>
+      <td>{{calzado.tipo}}</td>
+      <td>{{accesorio.tipo}}</td>
+      <td>{{estadoComoSugerencia}}</td>
+      <td><a class="btn btn-primary" href="/eventos/{{idEvento}}/sugerencias/{{id}}" role="button">Aceptar</a></td>
+    </tr>
+   {{/each}} 
+  </tbody>
+</table>
+
 {{/partial}}
 {{>layout.hbs}}

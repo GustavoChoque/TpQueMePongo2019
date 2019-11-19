@@ -129,5 +129,9 @@ public class Atuendo {
 		calzado.setHabilitado(false);
 		accesorio.setHabilitado(false);
 	}
+
+	public int getId() {
+		return id;
+	}
 		
 	}
