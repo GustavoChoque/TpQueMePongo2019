@@ -1,0 +1,27 @@
+{{#partial "body"}}
+<div class="container">
+<h4>Calendario de Eventos</h4>
+
+<a class="btn btn-primary" href="/calendario?month{{mes}}&year={{anio}}" role="button">anterior</a>
+{{mes}}-{{anio}}
+<a class="btn btn-primary" href="/calendario?month=8&year=2010" role="button">siguiente</a>
+
+<div>
+{{#each listaEventosPorDia}} 
+<div>
+
+
+<div>
+{{this}}
+</div>
+
+
+</div>
+ 
+{{/each}} 
+
+</div>
+
+</div>
+{{/partial}}
+{{>layout.hbs}}

@@ -4,6 +4,7 @@ package web;
 import org.uqbarproject.jpa.java8.extras.PerThreadEntityManagers;
 
 import spark.Spark;
+import web.controller.CalendarioController;
 import web.controller.EventoController;
 import web.controller.GuardaropaController;
 import web.controller.InicioController;
@@ -45,6 +46,9 @@ public class Router {
 		//Guardaropas
 		Spark.get("/guardaropas", (req, res) -> new GuardaropaController().mostrarPrendas(req,res));
 		
+		
+		//Calendario
+		Spark.get("/calendario",(req, res) -> new CalendarioController().mostrar(req, res));
 		
 		Spark.after((req,res) -> { 
 			   PerThreadEntityManagers.getEntityManager(); 
