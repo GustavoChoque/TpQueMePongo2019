@@ -222,4 +222,8 @@ public class Evento {
 	public int getId() {
 		return id;
 	}
+
+	public Usuario getUsuario() {
+		return usuario;
+	}
 }

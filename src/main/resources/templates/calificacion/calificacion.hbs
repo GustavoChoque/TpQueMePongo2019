@@ -1,0 +1,31 @@
+{{#partial "body"}}
+<div class="container">
+
+</div>
+<h4>Eventos Finalizados</h4>
+<table class="table">
+  <thead class="thead-dark">
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Fecha</th>
+      <th scope="col">Nombre</th>
+      <th scope="col">Calificado</th>
+      <th scope="col">Accion</th>
+    </tr>
+  </thead>
+  <tbody>
+  
+  {{#each listaDeEventosFinalizados}}  
+    <tr>
+      <th scope="row">1</th>
+      <td>{{fecha}}</td>
+      <td>{{nombre}}</td>
+      <td>{{calificado}}</td>
+      <td><a class="btn btn-primary" href="/calificacion/eventosTerminados/{{id}}" role="button">Calificar</a></td>
+    </tr>
+   {{/each}} 
+  </tbody>
+</table>
+
+{{/partial}}
+{{>layout.hbs}}

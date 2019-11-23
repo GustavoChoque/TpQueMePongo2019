@@ -36,7 +36,7 @@ public class Usuario {
 	@ManyToOne(cascade=CascadeType.PERSIST)
 	private TipoDeUsuario tipoDeUsuario;
 	
-	@OneToMany(cascade=CascadeType.PERSIST)
+	@OneToMany(cascade=CascadeType.ALL)
 	@JoinColumn(name="id_usuario")
 	private List<Notificacion> notificaciones;
 	
@@ -145,10 +145,15 @@ public class Usuario {
 			break;
 		case CALOR:
 			this.nivelFriolencia = Math.min(2,nivelFriolencia+0.1f);
+			break;
 		case MUCHOFRIO:
 			this.nivelFriolencia = Math.max(0,nivelFriolencia-0.3f);
+			break;
 		case MUCHOCALOR:
 			this.nivelFriolencia = Math.min(2,nivelFriolencia+0.3f);
+			break;
+		case PERFECTO:
+			break;	
 		}
 		
 	}

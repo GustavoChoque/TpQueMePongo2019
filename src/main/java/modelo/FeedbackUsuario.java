@@ -1,5 +1,5 @@
 package modelo;
 
 public enum FeedbackUsuario {
-	FRIO,CALOR,MUCHOFRIO,MUCHOCALOR;
+	FRIO,CALOR,MUCHOFRIO,MUCHOCALOR,PERFECTO;
 }

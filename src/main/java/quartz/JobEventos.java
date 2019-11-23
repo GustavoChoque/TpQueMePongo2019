@@ -33,7 +33,7 @@ public class JobEventos implements Job,WithGlobalEntityManager, TransactionalOps
 		.proximos(LocalDate.now())
 		.forEach(evento->evento.sugerir(this.sugeridor));
 		});
-		
+		System.out.println("hola hola");
 	}
 	
 	@Override

@@ -5,6 +5,7 @@ import org.uqbarproject.jpa.java8.extras.PerThreadEntityManagers;
 
 import spark.Spark;
 import web.controller.CalendarioController;
+import web.controller.CalificacionController;
 import web.controller.EventoController;
 import web.controller.GuardaropaController;
 import web.controller.InicioController;
@@ -49,6 +50,14 @@ public class Router {
 		
 		//Calendario
 		Spark.get("/calendario",(req, res) -> new CalendarioController().mostrar(req, res));
+		
+		//Calificacion
+				Spark.get("/calificacion",(req, res) -> new CalificacionController().mostrar(req, res));
+				Spark.get("/calificacion/eventosTerminados/:id",(req, res) -> new CalificacionController().getById(req, res));
+				Spark.post("/eventosFinalizados/:id/calificacion",(req, res) -> new CalificacionController().calificar(req, res));
+		
+		
+		
 		
 		Spark.after((req,res) -> { 
 			   PerThreadEntityManagers.getEntityManager(); 

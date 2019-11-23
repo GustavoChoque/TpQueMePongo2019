@@ -1,0 +1,23 @@
+{{#partial "body"}}
+<div class="container">
+<h4>Evento:{{nombre}}</h4> 
+<h4>Fecha:{{fecha}}</h4>
+<h4>Sugerencia elegida:{{sugerenciaElegida}}</h4>
+
+</div>
+<form action="/eventosFinalizados/{{idEvento}}/calificacion" method="post">
+{{#each puntajes}}  
+<div class="form-check form-check-inline">
+  <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="{{this}}">
+  <label class="form-check-label" for="inlineRadio1">{{this}}</label>
+</div>
+{{/each}}
+
+<div class="form-group row">
+    <div class="col-sm-10">
+      <button type="submit" class="btn btn-primary">Calificar</button>
+    </div>
+ </div>
+</form>
+{{/partial}}
+{{>layout.hbs}}

@@ -15,6 +15,7 @@ import org.uqbarproject.jpa.java8.extras.transaction.TransactionalOps;
 
 import db.EntityManagerHelper;
 import modelo.Evento;
+import modelo.EventoFinalizado;
 
 public class RepositorioEventos implements WithGlobalEntityManager, TransactionalOps{
 	private static RepositorioEventos repo;
@@ -61,9 +62,21 @@ public class RepositorioEventos implements WithGlobalEntityManager, Transactiona
 		.getResultList();
 		
 	
-		return eventos.stream().filter(e->e.esProximo(fecha)).collect(Collectors.toList());
+		//return eventos.stream().filter(e->e.esProximo(fecha)).collect(Collectors.toList());
 		
-	
+		List<Evento> listaProximosEventos=eventos.stream().filter(e->e.esProximo(fecha)).collect(Collectors.toList());
+
+		List<Evento> eventosFinalizados=listaProximosEventos.stream()
+		.filter(e->e.estaTerminado())
+		.collect(Collectors.toList());
+
+		eventosFinalizados.forEach(e->{
+
+			em.persist(new EventoFinalizado(e.getFecha(), e.getNombre(), e.getUsuario(), e.getSugerenciaElegida()));
+
+		});;
+
+		return listaProximosEventos;
 	
 	}
 	
