@@ -16,6 +16,7 @@ import org.uqbar.arena.windows.WindowOwner;
 import modelo.Color;
 import modelo.Guardaropa;
 import modelo.Tela;
+import modelo.TipoDePrenda;
 import modelo.Usuario;
 
 
@@ -41,7 +42,7 @@ public class PrendaView extends Dialog<PrendaViewModel>{
 		
 		new Label(mainPanel).setText("");
 		new Label(mainPanel).setText("Tipo de Prenda:");
-		Selector<Color> listaTiposDePrenda=new Selector<Color>(mainPanel).allowNull(false);
+		Selector<TipoDePrenda> listaTiposDePrenda=new Selector<TipoDePrenda>(mainPanel).allowNull(false);
 		listaTiposDePrenda.bindItemsToProperty("tipos");
 		listaTiposDePrenda.bindValueToProperty("tipoDePrenda");
 		

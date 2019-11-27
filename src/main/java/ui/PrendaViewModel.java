@@ -6,9 +6,13 @@ import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+import javax.persistence.EntityManager;
+
 import org.uqbar.arena.windows.Dialog;
 import org.uqbar.arena.windows.Window;
 import org.uqbar.commons.model.annotations.Observable;
+import org.uqbarproject.jpa.java8.extras.WithGlobalEntityManager;
+import org.uqbarproject.jpa.java8.extras.transaction.TransactionalOps;
 
 import db.EntityManagerHelper;
 import modelo.Color;
@@ -21,7 +25,7 @@ import repositorios.RepositorioTiposDePrenda;
 
 
 @Observable
-public class PrendaViewModel {
+public class PrendaViewModel implements WithGlobalEntityManager, TransactionalOps {
 	private Usuario usuario;
 	private Window<QueMePongoViewModel> ventanaPrincipal;
 	
@@ -57,9 +61,15 @@ public class PrendaViewModel {
 
 	
 	public void crearPrenda() {
-		EntityManagerHelper.beginTransaction();
-		this.guardaropa.agregarPrenda(new Prenda(tipoDePrenda, colorPrimario,colorSecundario, tela));
-		EntityManagerHelper.commit();
+		
+		Prenda prendaNueva=new Prenda(tipoDePrenda, colorPrimario,colorSecundario, tela);
+
+		withTransaction(()->{
+
+			this.guardaropa.agregarPrenda(prendaNueva);
+
+		});
+		
 		this.ventanaPrincipal.getModelObject().setCantPrendasTotales(this.ventanaPrincipal.getModelObject().cantidadDePrendasTotales());
 
 	}
@@ -164,8 +174,8 @@ public class PrendaViewModel {
 	}
 
 	public List<TipoDePrenda> traerListaDeTiposDePrendaDesdeBD(){
-
-		List<TipoDePrenda> tiposDePrendas=EntityManagerHelper.getEntityManager()
+		EntityManager em=entityManager();
+		List<TipoDePrenda> tiposDePrendas=em
 				.createQuery("from TipoDePrenda",TipoDePrenda.class)
 				.getResultList();
 		return tiposDePrendas;

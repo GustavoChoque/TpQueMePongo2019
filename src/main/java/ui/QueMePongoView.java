@@ -76,7 +76,7 @@ public class QueMePongoView extends MainWindow<QueMePongoViewModel>{
 		
 		
 	}
-	
+	/*
 	public static void main(String[] args) {
 		Usuario usuario=new Usuario(new Gratuito());
 		usuario.agregarGuardaropa(new Guardaropa());
@@ -90,7 +90,7 @@ public class QueMePongoView extends MainWindow<QueMePongoViewModel>{
 		
 	    new QueMePongoView(usuario).startApplication();
 	  }
-	
+	*/
 	
 	public void prendaNueva(){
 		Dialog<?> dialog = new PrendaView(this,this.usuario,this);
