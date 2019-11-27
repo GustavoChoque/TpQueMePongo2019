@@ -9,19 +9,24 @@ import java.util.List;
 import java.util.Set;
 import java.util.StringTokenizer;
 
+import javax.persistence.EntityManager;
+
+import org.uqbarproject.jpa.java8.extras.WithGlobalEntityManager;
+import org.uqbarproject.jpa.java8.extras.transaction.TransactionalOps;
+
 import db.EntityManagerHelper;
 import modelo.Categoria;
+import modelo.Evento;
 import modelo.TipoDePrenda;
 
-
-public class RepositorioTiposDePrenda {
+public class RepositorioTiposDePrenda implements WithGlobalEntityManager, TransactionalOps {
 	
 	public static RepositorioTiposDePrenda repo;
 	public Set<TipoDePrenda> tiposPrenda;
 	
 	private RepositorioTiposDePrenda(){
 		tiposPrenda=new HashSet<TipoDePrenda>();
-		cargarTiposDePrendas("src/main/resources/tipos");
+		//cargarTiposDePrendas("src/main/resources/tipos");
 	}
 	
 	public static RepositorioTiposDePrenda instance(){
@@ -54,7 +59,7 @@ public class RepositorioTiposDePrenda {
 				/*EntityManagerHelper.beginTransaction();
 				EntityManagerHelper.getEntityManager().persist(tipoPrenda);
 				EntityManagerHelper.commit();*/
-			
+				
 			}
 			
 			
@@ -67,23 +72,37 @@ public class RepositorioTiposDePrenda {
 			e.printStackTrace();
 		}
 	}
-
+	
+	
+	
+	
 	public Set<TipoDePrenda> getTiposPrenda() {
 		return tiposPrenda;
 	}
 	public boolean tipoDePrendaValido(Categoria cat, String nom){
+		/*
 		TipoDePrenda tipoaux=new TipoDePrenda();
 		tipoaux.setCategoria(cat);
 		tipoaux.setNombre(nom);
+		*/
+		EntityManager em=entityManager();
+		List<TipoDePrenda> tipos=em
+				.createQuery("FROM TipoDePrenda WHERE categoria=:categoria AND nombre=:nombre",TipoDePrenda.class)
+				.setParameter("categoria", cat)
+				.setParameter("nombre", nom)
+				.getResultList();
+				
 		
-		return this.tiposPrenda.contains(tipoaux);
+		
+		//return this.tiposPrenda.contains(tipoaux);
+		return !tipos.isEmpty();
 	}
 	/*public List<TipoDePrenda> traerListaDeTiposDePrendaDesdeBD(){
-
+		
 		List<TipoDePrenda> tiposDePrendas=EntityManagerHelper.getEntityManager()
 				.createQuery("from TipoDePrenda",TipoDePrenda.class)
 				.getResultList();
 		return tiposDePrendas;
-
+		
 	}*/
 }

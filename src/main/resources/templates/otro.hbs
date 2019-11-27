@@ -1,10 +1,6 @@
 {{#partial "body"}}
 hola {{algo}}
 
-{{#each listaNotificaciones}}  
-<div> una notificacion{{evento.nombre}}</div>
-{{/each}}
-
 <div class="list-group">
   {{#each listaNotificaciones}}  
   <a href="/eventos/{{evento.id}}" class="list-group-item list-group-item-action flex-column align-items-start">

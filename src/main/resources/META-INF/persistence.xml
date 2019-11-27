@@ -20,6 +20,7 @@
     	 <class>modelo.observadores.SugerenciasObserver</class>
     	 <class>modelo.observadores.AlertaNuevasSugerenciasObserver</class>
     	 <class>modelo.EventoFinalizado</class>
+    	 <class>auxiliar.TipoxTela</class>
         <properties> 
 	    <property name="hibernate.archive.autodetection" value="class"/>        
         

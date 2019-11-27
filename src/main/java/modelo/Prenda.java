@@ -41,7 +41,7 @@ public class Prenda {
 
 	public Prenda(TipoDePrenda ti, Color c1, Tela te) {
 		
-		if(RepositorioTipoDePrendaTela.getSinglentonInstance().telaValida(ti, te)){	
+		if(RepositorioTipoDePrendaTela.getSinglentonInstance().telaValida(ti.getNombre(), te)){	
 		this.tipo = ti;
 		this.colorP = Objects.requireNonNull(c1, "El color primario es obligatorio");
 		this.colorS = Color.NINGUNO;
@@ -54,7 +54,7 @@ public class Prenda {
 
 	public Prenda(TipoDePrenda ti, Color c1, Color c2, Tela te) {
 		
-		if(RepositorioTipoDePrendaTela.getSinglentonInstance().telaValida(ti, te)){
+		if(RepositorioTipoDePrendaTela.getSinglentonInstance().telaValida(ti.getNombre(), te)){
 			if(!c1.equals(c2)){
 			this.tipo = ti;
 			this.colorP = Objects.requireNonNull(c1, "El color primario es obligatorio");
