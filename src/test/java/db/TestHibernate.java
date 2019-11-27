@@ -44,7 +44,7 @@ import servicios.ProveedorOpenWeather;
 public class TestHibernate extends AbstractPersistenceTest implements WithGlobalEntityManager {
 	
 	
-	
+	/*
 	@Test
 	public void crearEvento(){
 		
@@ -296,6 +296,6 @@ public class TestHibernate extends AbstractPersistenceTest implements WithGlobal
 	}
 	
 	
-
+*/
 
 }

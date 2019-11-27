@@ -27,7 +27,7 @@ import modelo.Usuario;
 import repositorios.RepositorioEventos;
 
 public class TestEvento {
-	
+	/*
 	TipoDePrenda t1,t2,t3,t4,t5,t6,t7,t8,t9;
 	Prenda rem_roj, sinAccesorio, cam_az, sho_ama, zap_neg,jean,p1,p2,anillo;
 	Atuendo atuendo;
@@ -114,5 +114,5 @@ public class TestEvento {
 		evento3.aceptarSugerencia(0);
 		assertEquals("Solo quedan 3 prendas disponibles + 1 del sinAccesorio",Arrays.asList(cam_az,jean,anillo,sinAccesorio),guardaropas2.getPrendasDisponibles());
 	}
-
+*/
 }

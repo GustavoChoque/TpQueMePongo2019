@@ -31,13 +31,19 @@
 			<property name="hibernate.dialect" value="org.hibernate.dialect.MySQLDialect" />
 			-->
 			
+			<property name="hibernate.connection.driver_class" value="com.mysql.jdbc.Driver" /> 
+            <property name="hibernate.connection.url" value="jdbc:mysql://fsn5bd835zoo5v4l:vd6xeox71gm4l4ml@kf3k4aywsrp0d2is.cbetxkdyhwsb.us-east-1.rds.amazonaws.com:3306/l3erl27dywf8fomn" /> 
+            <property name="hibernate.connection.username" value="fsn5bd835zoo5v4l" /> 
+            <property name="hibernate.connection.password" value="vd6xeox71gm4l4ml" /> 
+			<property name="hibernate.dialect" value="org.hibernate.dialect.MySQLDialect" />
 			
+			<!--
             <property name="hibernate.connection.driver_class" value="org.hsqldb.jdbcDriver" /> 
             <property name="hibernate.connection.url" value="jdbc:hsqldb:mem:app-db" /> 
             <property name="hibernate.connection.username" value="sa" /> 
             <property name="hibernate.connection.password" value="" /> 
             <property name="hibernate.dialect" value="org.hibernate.dialect.HSQLDialect" />
-			
+			-->
                             
             <property name="hibernate.show_sql" value="true" /> 
             <property name="hibernate.format_sql" value="true" /> 

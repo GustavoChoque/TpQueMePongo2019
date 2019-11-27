@@ -25,6 +25,7 @@ import modelo.Usuario;
 
 
 public class TestUsuario {
+	/*
 	Usuario u1,u2;
 	
 	Guardaropa g1,g2,g3;
@@ -96,5 +97,5 @@ public class TestUsuario {
 		u1.getGuardaropas().get(0).agregarPrenda(p1);
 		
 	}
-	
+	*/
 }

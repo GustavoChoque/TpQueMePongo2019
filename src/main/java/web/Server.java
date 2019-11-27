@@ -12,7 +12,7 @@ public class Server {
 		new DatabaseHelper().inicializarBase();
 
 		//inicio la tarea progrmada
-		QuartzSchedulerJobs sche=new QuartzSchedulerJobs();
+		//QuartzSchedulerJobs sche=new QuartzSchedulerJobs();
 		
 		//config web server
 		Spark.port(getHerokuAssignedPort());

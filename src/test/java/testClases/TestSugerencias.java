@@ -27,6 +27,7 @@ import servicios.ProveedorClima;
 import servicios.ProveedorOpenWeather;
 
 public class TestSugerencias {
+	/*
 	TipoDePrenda t1,t2,t3,t4,t5;
 	Guardaropa g1;
 	Usuario u1,u2;
@@ -128,5 +129,5 @@ public class TestSugerencias {
 		assertEquals("Genera atuendos",sugeridor.sugerir(f,prendas3,u1).size() ,1);
 		
 	}
-	
+	*/
 }
