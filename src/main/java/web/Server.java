@@ -15,12 +15,12 @@ public class Server {
 		QuartzSchedulerJobs sche=new QuartzSchedulerJobs();
 		
 		//config web server
-		Spark.port(getHerokuAssignedPort());
+		//Spark.port(getHerokuAssignedPort());
 		
-		/*Spark.port(7000);
+		Spark.port(7000);
 		DebugScreen.enableDebugScreen();
 		Spark.staticFileLocation("/public");
-		*/
+		
 		
 		//ruteo dinamico
 		Router.instance().cofigurar();
